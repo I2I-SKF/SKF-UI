@@ -21,18 +21,27 @@ export class FeatureComponent implements OnInit {
     else{
       this.sidebarVisible = true;
     }
-    
     localStorage.setItem('iSV',JSON.stringify(this.sidebarVisible));
+    
+    
   }
   checkIfMenuPressed(evnt:any){
    
     this.isSidebarOpened = !this.isSidebarOpened;
+    localStorage.setItem('SS',JSON.stringify(this.isSidebarOpened));
     
     
   }
   ngOnInit(): void {
     if(localStorage.getItem('iSV')){
       this.sidebarVisible =localStorage.getItem('iSV') == 'true' ? true :false;
+      
+      
+    }
+    if(localStorage.getItem('SS')){
+      this.isSidebarOpened =localStorage.getItem('SS') == 'true' ? true :false;
+     
+      
     }
   }
 
