@@ -1,0 +1,28 @@
+.wrapper{
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    // background-color: rgb(195, 202, 101);
+}
+
+.page-content{
+   padding: 3% 5%;
+   background-color: rgb(235, 235, 235);
+   color: rgb(89, 89, 89);
+   display: flex;
+   align-items: center;
+   
+
+
+
+}
+
+.icon-xl{
+font-size: 50px;
+color: rgb(235, 165, 0);
+}
+.font-red{
+    color: rgb(235, 165, 0);
+}

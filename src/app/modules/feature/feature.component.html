@@ -1,0 +1,13 @@
+<div class="" >
+            <app-sidebar (clickedOverlay)="checkIfMenuPressed($event)" *ngIf="sidebarVisible" [opened]="this.isSidebarOpened" ></app-sidebar>
+            <app-header (toggleSideBar)="checkIfMenuPressed($event)" [isSidebarOpen]="sidebarVisible" ></app-header>
+            <div class="content-wrapper">
+                <router-outlet></router-outlet>
+                
+            </div>
+            
+    
+    
+    <!-- <app-footer></app-footer> -->
+</div>
+

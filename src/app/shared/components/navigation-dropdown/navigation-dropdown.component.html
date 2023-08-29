@@ -1,0 +1,33 @@
+<div
+  tabindex="0"
+  class="select"
+  (blur)="focusOut()"
+  [ngClass]="{
+    dropdown_expanded: isDropdownExpanded ? isDropdownExpanded : false
+  }"
+>
+  <div
+    [ngClass]="{
+      selected_value:
+        selected_item !== undefined && isDropdownExpanded ? true : false
+    }"
+    (click)="toggleDropdown()"
+    class="text-inside d-flex align-items-center gap-2 w-100"
+  >
+    <span *ngIf="!isDropdownExpanded" class="material-symbols-outlined"
+      >{{ icon }}
+    </span>
+    {{ selected_item?.viewValue || placeholder }}
+    <div class="material-symbols-outlined cursor_selected ms-auto">
+      {{ isDropdownExpanded ? "expand_less" : "expand_more" }}
+    </div>
+  </div>
+
+  <div class="dropdown" *ngIf="isDropdownExpanded">
+    <ul>
+      <li (click)="selected(option.value)" *ngFor="let option of options">
+        {{ option.viewValue }}
+      </li>
+    </ul>
+  </div>
+</div>

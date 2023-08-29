@@ -1,0 +1,30 @@
+.nav_background{
+    background-color: var(--primary-color);   
+    height: 50px;
+}
+
+
+.link-color{
+    color:var(--nav-font-color)
+}
+
+.icon-size{
+    font-size: var(--icon-size-md);
+}
+
+
+.active_route{
+   color:#fdd158;
+}
+
+.nav_background_below{
+    border-bottom: 1px solid #959595;
+    height: 50px;
+    padding: 0;
+    padding-left: 20px;
+    padding-right: 20px;
+
+}
+
+
+

@@ -1,0 +1,107 @@
+<div class="row" >
+    <div class="col-sm-8  ">
+        <app-common-card [card_title]="'Dispenses Log'" [card_icon]="'download_for_offline'" > 
+            <div class="row" >
+                <div class="col-sm-3" >
+                    <mat-form-field appearance="outline">
+                        <mat-select placeholder="All Customers" >
+                          <mat-option value="option1">Option 1</mat-option>
+                          <mat-option value="option2" disabled>Option 2 (disabled)</mat-option>
+                          <mat-option value="option3">Option 3</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="col-sm-3" >
+                    <mat-form-field appearance="outline">
+                        <mat-select placeholder="All Stations" >
+                          <mat-option value="option1">Option 1</mat-option>
+                          <mat-option value="option2" disabled>Option 2 (disabled)</mat-option>
+                          <mat-option value="option3">Option 3</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="col-sm-3" >
+                    <mat-form-field appearance="outline">
+                        <mat-select placeholder="All Fluids" >
+                          <mat-option value="option1">Option 1</mat-option>
+                          <mat-option value="option2" disabled>Option 2 (disabled)</mat-option>
+                          <mat-option value="option3">Option 3</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="col-sm-3" >
+                    <mat-form-field appearance="outline">
+                        <mat-select placeholder="Completed" >
+                          <mat-option value="option1">Option 1</mat-option>
+                          <mat-option value="option2" disabled>Option 2 (disabled)</mat-option>
+                          <mat-option value="option3">Option 3</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="row" >
+
+                <div class="col-sm-8 mb-2">
+                    <app-chart [chartOptions]="chartOptions" ></app-chart>
+                </div>
+                <div class="col-sm-4 mb-2">
+                    <app-chart [chartOptions]="chartOptionsPie" ></app-chart>
+                </div>
+
+                <div class="col-sm-12 m-0 p-0"  >
+                    <app-common-table [columns]="columns" [data]="table_data" ></app-common-table>
+                </div>
+
+            </div>
+        </app-common-card>
+    </div>
+    <div class="col-sm-4 ">
+
+        <div class="row" > 
+           <div class="col-sm-12  mb-2 ">
+            <app-common-card  [card_title]="'Tank Level'" [card_icon]="'explore'" > 
+                <div>
+                    <div class="row" >
+                        <div class="col-sm-6" >
+                            <mat-form-field appearance="outline">
+                                <mat-select placeholder="Level Below 25%" >
+                                  <mat-option value="option1">Option 1</mat-option>
+                                  <mat-option value="option2" disabled>Option 2 (disabled)</mat-option>
+                                  <mat-option value="option3">Option 3</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-sm-12" >
+                            <span>No Records to show.</span>
+                            <br>
+                            <span class="" style="color:green" >All the tanks are above 25 %  of maximum level</span>
+                        </div>
+                    </div>
+                </div>
+            </app-common-card>
+           </div>
+           <div class="col-sm-12 mt-3">
+            <app-common-card  [card_title]="'Edge Synchronisation Service'" [card_icon]="''" > 
+                    <div  class="d-flex flex-column align-items-center justify-content-center" >
+                        <div class="text-center font-size">
+                            Edge data management (backup/restore) <br>
+                            AWS Certificate management <br>
+                            DMS integrations and configuration services  <br>
+                            will be made available here <br>
+
+                           
+                        </div>
+                        <span class="mt-4" >
+                            <b>LOCK / UNLOCK SITE</b> Option can be given here
+                        </span>
+
+                    </div>
+            </app-common-card>
+           </div>
+        </div>
+
+    </div>
+
+    
+
+</div>

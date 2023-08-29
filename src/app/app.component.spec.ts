@@ -14,16 +14,16 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have as title 'skf-edge'`, () => {
+  it(`should have as title 'sjs-application'`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app.title).toEqual('skf-edge');
+    expect(app.title).toEqual('sjs-application');
   });
 
   it('should render title', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('.content span')?.textContent).toContain('skf-edge app is running!');
+    expect(compiled.querySelector('.content span')?.textContent).toContain('sjs-application app is running!');
   });
 });

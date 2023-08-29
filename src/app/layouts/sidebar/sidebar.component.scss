@@ -1,0 +1,27 @@
+.sidebar{
+    background-color: var(--primary-color);   
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    min-width: 300px;
+    z-index: 6;
+}
+mat-list-item{
+    transition: all 250ms ease-in-out;
+   
+}
+mat-list-item:hover {
+    background-color: rgb(53, 53, 170);
+    color: yellow;
+}
+
+
+.sidebar-container{
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.308);
+    z-index: 5;
+}

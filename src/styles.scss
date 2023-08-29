@@ -1,1 +1,52 @@
 /* You can add global styles to this file, and also import other style files */
+
+
+
+
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif;  }
+
+/* Importing Bootstrap SCSS file. */
+@import 'bootstrap/scss/bootstrap';
+
+*{
+    box-sizing: border-box;
+}
+
+.snackbar{
+    background-color: lightblue;
+    border-bottom: yellow;
+    color: grey;
+}
+p{
+   margin: 0;
+}
+/* Importing Bootstrap SCSS file. */
+@import 'bootstrap/scss/bootstrap';
+
+
+
+
+
+
+
+
+:root {
+    --primary-color:#3c68ae;
+    --font-small: 12px;
+    --font-medium: 16px;
+    --font-large: 24px;
+    --font-xl: 30px;
+    --nav-font-color:white;
+    --icon-size-md:20px;
+}
+
+
+
+.content-wrapper .mat-form-field-underline {
+    display: none;
+  }
+
+
+

@@ -1,0 +1,9 @@
+<div class="card border-0">
+  <highcharts-chart
+    [Highcharts]="Highcharts"
+    [options]="chartOptions?chartOptions:dummy"
+    [style]="styleOptions"
+    [(update)]="changeDetection"
+  ></highcharts-chart>
+ 
+</div>
