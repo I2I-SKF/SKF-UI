@@ -1,17 +1,25 @@
 <nav class="navbar nav_background">
-  <ul class="d-flex align-items-center w-100 m-0 gap-4 " style="list-style: none;padding-right: 20px;">
-    <li  class="d-flex align-items-center gap-1 me-auto" >
-      <div class="rightBar" style="font-size: 24px; color: white; font-weight: bolder">
-        SKF 
+  <ul
+    class="d-flex align-items-center w-100 m-0 gap-4"
+    style="list-style: none; padding-right: 20px"
+  >
+    <li class="d-flex align-items-center gap-1 me-auto">
+      <div
+        class="rightBar"
+        style="font-size: 24px; color: white; font-weight: bolder"
+      >
+        SKF
       </div>
-      <div style="color: #626a78;">|</div>
-      <div style="color: white; font-weight: bold;line-height: 21px;"> LFC Cloud </div>
+      <div style="color: #626a78">|</div>
+      <div style="color: white; font-weight: bold; line-height: 21px">
+        LFC Cloud
+      </div>
     </li>
 
-      <ng-container *ngIf="!isSidebarOpen" >
-      <li   *ngFor="let link of filteredNavigationLinks" class="nav-item">
-        <a 
-        [routerLinkActive]="'active_route'"
+    <ng-container *ngIf="!isSidebarOpen">
+      <li *ngFor="let link of filteredNavigationLinks" class="nav-item">
+        <a
+          [routerLinkActive]="'active_route'"
           [routerLink]="link.link"
           class="nav-link d-flex align-items-center gap-1 link-color"
         >
@@ -19,47 +27,69 @@
             {{ link.icon }} </span
           ><span> {{ link.name }}</span>
         </a>
-      </li> 
+      </li>
     </ng-container>
-    
+
     <li *ngIf="!isSidebarOpen" class="d-flex align-items-center ms-auto">
-      <div class="material-symbols-outlined" style="font-size: 24px; color: white; font-weight: bolder">
-       image
+      <div
+        class="material-symbols-outlined"
+        style="font-size: 24px; color: white; font-weight: bolder"
+      >
+        image
       </div>
-     
     </li>
-    <li *ngIf="isSidebarOpen" (click)="toggleSideNav()" style="position: relative;z-index: 5;"  class="d-flex align-items-center" >
-      <div class="material-symbols-outlined" style="font-size: 24px; color: white; font-weight: bolder">
-       menu
+    <li
+      *ngIf="isSidebarOpen"
+      (click)="toggleSideNav()"
+      style="position: relative; z-index: 5"
+      class="d-flex align-items-center"
+    >
+      <div
+        class="material-symbols-outlined cursor-pointer"
+        style="font-size: 24px; color: white; font-weight: bolder"
+      >
+        menu
       </div>
-     
     </li>
   </ul>
 </nav>
 
-
-
-
-
-<nav  class="navbar nav_background_below" >
-  <ul class="d-flex align-items-center w-100 m-0 gap-4" style="list-style: none;">
-    <li class="me-auto" >
-      <app-buttom [button_icon]="'device_reset'" [button_text]="'Sync All Sites'"></app-buttom>
+<nav class="navbar p-0">
+  <ul
+    class="w-100 m-0 p-0 row d-flex align-items-center "
+    style="list-style: none"
+  >
+    <li class="col-lg-2 col-sm-12 me-auto">
+      <app-button
+        [button_icon]="'device_reset'"
+        [button_text]="'Sync All Sites'"
+      ></app-button>
     </li>
-   <li>
-   <app-navigation-dropdown (select_option)="siteOptionChanged($event)" [placeholder]="'All Sites'" [icon]="'public'" ></app-navigation-dropdown>
-   </li>
-   <li>
-   <app-navigation-dropdown [placeholder]="'Time Interval'" [icon]="'schedule'" ></app-navigation-dropdown>
-   </li>
-   <li class="ms-auto">
-   <app-navigation-dropdown [placeholder]="'Language'" [icon]="'language'" ></app-navigation-dropdown>
-   </li>
-   <li>
-   <app-navigation-dropdown [placeholder]="'Profile'" [icon]="'account_circle'"></app-navigation-dropdown>
-   </li>
-   
+    <li class="col-lg-2 col-sm-12 ">
+      <app-navigation-dropdown
+        (select_option)="siteOptionChanged($event)"
+        [placeholder]="'All Sites'"
+        [icon]="'public'"
+      ></app-navigation-dropdown>
+    </li>
+    <li  class="col-lg-2 col-sm-12 ">
+      <app-navigation-dropdown
+        [placeholder]="'Time Interval'"
+        [icon]="'schedule'"
+      ></app-navigation-dropdown>
+    </li>
+    <li class="col-lg-2 col-sm-12 ms-auto">
+      <app-navigation-dropdown
+        [placeholder]="'Language'"
+        [icon]="'language'"
+      ></app-navigation-dropdown>
+    </li>
+    <li  class="col-lg-2 col-sm-12 ">
+      <app-navigation-dropdown
+        [placeholder]="'Profile'"
+        [icon]="'account_circle'"
+      ></app-navigation-dropdown>
+    </li>
+    
   </ul>
 </nav>
-
-
