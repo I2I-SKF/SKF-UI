@@ -1,7 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 
 
-
+@import '~@angular/material/prebuilt-themes/indigo-pink.css';
 
 
 html, body { height: 100%; }
@@ -57,4 +57,9 @@ p{
 
   .no-text-wrap{
     white-space: nowrap;
+  }
+
+
+  .primary-background{
+    background-color: var(--primary-color);
   }

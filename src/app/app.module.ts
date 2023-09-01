@@ -11,6 +11,7 @@ import { ErrorInterceptorService } from './core/interceptors/error-interceptor.s
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { LayoutsModule } from './layouts/layouts.module';
+import { MatButtonModule } from '@angular/material/button';
 // import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 @NgModule({
   declarations: [
@@ -28,6 +29,8 @@ import { LayoutsModule } from './layouts/layouts.module';
     RouterModule,
     MatSnackBarModule,
     LayoutsModule,
+    MatButtonModule
+   
   ],
   providers: [
     {

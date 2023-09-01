@@ -1,12 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import * as Highcharts from 'highcharts';
-import HighchartsMore from 'highcharts/highcharts-more.src';
-import HighchartsSolidGauge from 'highcharts/modules/solid-gauge';
-import acc from 'highcharts/modules/accessibility.src';
-import { left } from '@popperjs/core';
-
-HighchartsMore(<any>Highcharts);
-HighchartsSolidGauge(Highcharts);
+import { MatDialog } from '@angular/material/dialog';
+import { CommonDialogComponent } from 'src/app/shared/components/common-dialog/common-dialog.component';
 
 @Component({
   selector: 'app-dashboard',
@@ -152,20 +146,16 @@ export class DashboardComponent {
       useHTML: true,
     },
     plotOptions: {
-      series:{
-        label:{
-          enabled: false
-        }
-      }
-      ,
+      series: {
+        label: {
+          enabled: false,
+        },
+      },
       column: {
         pointPadding: 0.2,
         borderWidth: 0,
       },
-      
-      
     },
-    
 
     series: [
       {
@@ -195,16 +185,10 @@ export class DashboardComponent {
             color: 'grey',
           },
         ],
-        showInLegend: false 
+        showInLegend: false,
       },
-
     ],
   };
-
-
-
-
-
   no_data = {
     chart: {
       type: 'column',
@@ -266,12 +250,26 @@ export class DashboardComponent {
 
     series: [],
     noData: {
-      position:{
-        align:'center',
-verticalAlign:'middle',
-x:40,
-y:0
-      }
+      position: {
+        align: 'center',
+        verticalAlign: 'middle',
+        x: 40,
+        y: 0,
+      },
     },
   };
+
+  constructor(private dialog: MatDialog) {}
+
+  openDialog(): void {
+   
+
+    const dialogRef = this.dialog.open(CommonDialogComponent, {
+     
+      data: {
+        title: 'Modal Title',
+        
+      },
+    });
+  }
 }

@@ -10,6 +10,8 @@ import { SiteDetailsCardsComponent } from './components/site-details-cards/site-
 import { CommonTableComponent } from './components/common-table/common-table.component';
 import {MatTableModule} from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import {MatDialogModule} from '@angular/material/dialog';
+import { CommonDialogComponent } from './components/common-dialog/common-dialog.component';
 @NgModule({
   declarations: [
     
@@ -19,14 +21,16 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     CommonCardComponent,
     SiteDetailsCardsComponent,
     CommonTableComponent,
+    CommonDialogComponent,
   ],
   imports: [
     CommonModule,
     HighchartsChartModule,
     MatButtonModule,
     MatTableModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatDialogModule,
   ],
-  exports:[ChartComponent,NavigationDropdownComponent,ButtomComponent,CommonCardComponent,SiteDetailsCardsComponent,CommonTableComponent]
+  exports:[CommonDialogComponent,ChartComponent,NavigationDropdownComponent,ButtomComponent,CommonCardComponent,SiteDetailsCardsComponent,CommonTableComponent]
 })
 export class SharedModule { }

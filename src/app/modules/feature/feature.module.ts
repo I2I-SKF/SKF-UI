@@ -28,7 +28,7 @@ import {MatSidenavModule} from '@angular/material/sidenav';
     SharedModule,
     MatButtonModule,
     MatSelectModule,
-    MatSidenavModule
+    MatSidenavModule,
     
 
   ],
