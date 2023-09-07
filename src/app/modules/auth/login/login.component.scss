@@ -1,5 +1,6 @@
+@import '../../../../variables';
 .nav_background{
-background-color: var(--primary-color);
+background-color: $primary-color;
 color:white;
 padding: 10px 30px;
 }
@@ -23,7 +24,7 @@ border: none;
 }
 
 .login_header{
-color: var(--primary-color);
+color:$primary-color;
 padding: 10px 30px;
 
 }
@@ -33,7 +34,7 @@ padding: 10px 30px;
 }
 
 .forgot_password{
-color: var(--primary-color);
+color: $primary-color;
 text-decoration: none;
 cursor: pointer;
 }

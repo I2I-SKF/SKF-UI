@@ -1,3 +1,5 @@
-.text-style{
-    font-size: var(--font-small);
+@import '../../../../variables';
+
+.text-style {
+    font-size: $font-sm;
 }

@@ -9,13 +9,19 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class ErrorInterceptorService {
 
   constructor(private _snackBar: MatSnackBar) { }
+  
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+    let config:any = {
+      
+      panelClass:['snakbar_style'],
+      horizontalPosition: 'right',
+      verticalPosition: 'top',
+    }
     return next.handle(request).pipe(
       catchError((error: HttpErrorResponse) => {
         
 
-        this._snackBar.open(error.message,'close',{duration:3000,horizontalPosition: 'right',
-          verticalPosition: 'top'});
+        this._snackBar.open(error.message,'close',config);
        return throwError(()=>error);
       })
     );

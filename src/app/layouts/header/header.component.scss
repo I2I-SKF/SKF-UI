@@ -1,15 +1,17 @@
+@import '../../../variables';
+
 .nav_background{
-    background-color: var(--primary-color);   
+    background-color: $primary-color;   
     height: 50px;
 }
 
 
 .link-color{
-    color:var(--nav-font-color)
+    color:$font-light
 }
 
 .icon-size{
-    font-size: var(--icon-size-md);
+    font-size: $font-lg
 }
 
 

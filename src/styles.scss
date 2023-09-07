@@ -1,65 +1,47 @@
-/* You can add global styles to this file, and also import other style files */
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+@import "bootstrap/scss/bootstrap";
+@import "variables";
 
-
-@import '~@angular/material/prebuilt-themes/indigo-pink.css';
-
-
-html, body { height: 100%; }
-body { margin: 0; font-family:  sans-serif;  }
-
-/* Importing Bootstrap SCSS file. */
-@import 'bootstrap/scss/bootstrap';
-
-*{
-    box-sizing: border-box;
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: sans-serif;
 }
 
-.snackbar{
-    background-color: lightblue;
-    border-bottom: yellow;
-    color: grey;
-}
-p{
-   margin: 0;
-}
-/* Importing Bootstrap SCSS file. */
-@import 'bootstrap/scss/bootstrap';
-
-
-
-
-
-
-
-
-:root {
-    --primary-color:#3c68ae;
-    --font-small: 12px;
-    --font-medium: 16px;
-    --font-large: 24px;
-    --font-xl: 30px;
-    --nav-font-color:white;
-    --icon-size-md:20px;
+* {
+  box-sizing: border-box;
 }
 
 
+p {
+  margin: 0;
+}
 
 .content-wrapper .mat-form-field-underline {
-    display: none;
-  }
+  display: none;
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.no-text-wrap {
+  white-space: nowrap;
+}
+
+.primary-background {
+  background-color: $primary-color;
+}
 
 
 
-  .cursor-pointer{
-    cursor: pointer;
-  }
 
 
-  .no-text-wrap{
-    white-space: nowrap;
-  }
-
-
-  .primary-background{
-    background-color: var(--primary-color);
-  }
+.snakbar_style{
+  background-color: $primary-color;
+  color: $font-light;
+  font-size: $font-md;
+}

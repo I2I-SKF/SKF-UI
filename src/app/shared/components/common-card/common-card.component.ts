@@ -6,7 +6,6 @@ import { Component,Input } from '@angular/core';
   styleUrls: ['./common-card.component.scss']
 })
 export class CommonCardComponent {
-
   @Input() card_icon:String = ''
   @Input() card_title:String = ''
   @Input() styles:String = ''
