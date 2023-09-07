@@ -1,4 +1,4 @@
-<div  *ngIf="opened" class="sidebar-container" (click)="close($event)"  >
+<div  *ngIf="opened" class="sidebar-container" (click)="close()"  >
 </div>
 
     <div  *ngIf="opened" class="sidebar">
@@ -13,7 +13,7 @@
        
        
         <mat-list role="list" class="p-0" >
-            <mat-list-item  [routerLinkActive]="'active_route'"
+            <mat-list-item (click)="closeSidebar()"  [routerLinkActive]="'active-link'"
             [routerLink]="link.link" role="listitem" class="border-bottom"  *ngFor="let link of filteredNavigationLinks" >
                 <span 
                

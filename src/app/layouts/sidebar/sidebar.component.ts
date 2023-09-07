@@ -19,8 +19,10 @@ export class SidebarComponent implements OnChanges  {
     console.log(this.opened);
     
   }
-
-  close(event:Event){    
+  closeSidebar(){
+    this.close();
+  }
+  close(){    
       this.clickedOverlay.emit('overlay clicked');
   }
   

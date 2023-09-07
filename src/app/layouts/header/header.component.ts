@@ -15,14 +15,22 @@ export class HeaderComponent {
   @Input() isSidebarOpen = false;
   @Output() toggleSideBar:any =  new EventEmitter<any>();
   userPermissions = ['user'];
+  options:any =[
+    {value:'all_sites',viewValue:'All Sites'},
+    {value:'item2',viewValue:'item 2'},
+    {value:'item3',viewValue:'item 3'},
+    {value:'item4',viewValue:'item 4'},
+   
+    
+  ]
 
   get filteredNavigationLinks() {
     return NAVIGATION.filter((link:any) => this.userPermissions.includes(link.requiredPermission));
   }
   siteOptionChanged(event:any){
-    console.log(event);
-    this.router.navigate(['/site-details'])
-    
+      console.log(event);
+      
+     event.value == 'all_sites' ? this.router.navigate(['/home']) :this.router.navigate(['/site-details']);
     
   }
   toggleSideNav(){

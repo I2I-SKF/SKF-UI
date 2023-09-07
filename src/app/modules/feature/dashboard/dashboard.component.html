@@ -4,25 +4,25 @@
         <div class="col-xl-3  col-lg-3 col-sm-12 col-md-6 mb-2">
 
             <app-common-card  [card_title]="'Lubbock, Texas'" [card_icon]="'push_pin'" > 
-                <app-site-details-cards  ></app-site-details-cards>
+                <app-site-details-cards [chartOptions]="hourly_dispenses" ></app-site-details-cards>
             </app-common-card>
         </div>
         <div class="col-xl-3  col-lg-3 col-sm-12 col-md-6 mb-2">
 
             <app-common-card  [card_title]="'la Jolla, San Diego'" [card_icon]="'push_pin'" > 
-                <app-site-details-cards [chartOptions]="chartOptions"></app-site-details-cards>
+                <app-site-details-cards [chartOptions]="revenue_chart"></app-site-details-cards>
             </app-common-card>
         </div> 
         <div class="col-xl-3  col-lg-3 col-sm-12 col-md-6 mb-2">
 
             <app-common-card   [card_title]="'Franklin, Nashville'" [card_icon]="'push_pin'" > 
-                <app-site-details-cards [chartOptions]="tank_level"></app-site-details-cards>
+                <app-site-details-cards [chartOptions]="tank_level_chart"></app-site-details-cards>
             </app-common-card>
         </div>
         <div class="col-xl-3  col-lg-3 col-sm-12 col-md-6 mb-2">
 
             <app-common-card  [card_title]="'Lube Truck 1- Oil City, Tulsa'" [card_icon]="'push_pin'" > 
-                <app-site-details-cards [chartOptions]="no_data" ></app-site-details-cards>
+                <app-site-details-cards [chartOptions]="no_data_chart" ></app-site-details-cards>
             </app-common-card>
         </div>
         <div class="col-xl-3  col-lg-3 col-sm-12 col-md-6 mb-2">

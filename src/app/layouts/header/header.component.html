@@ -56,23 +56,26 @@
 
 <nav class="navbar p-0">
   <ul
-    class="w-100 m-0 p-0 row d-flex align-items-center "
+    class="w-100 m-0 p-0 row d-flex align-items-center"
     style="list-style: none"
   >
-    <li class="col-lg-2 col-sm-12 me-auto">
-      <app-button style="width: 100%;"
+    <li class="col-lg-2 col-sm-12 mt-2 me-auto">
+      <app-button
+        style="width: 100%"
         [button_icon]="'device_reset'"
         [button_text]="'Sync All Sites'"
       ></app-button>
     </li>
-    <li class="col-lg-2 col-sm-12 ">
+    <li class="col-lg-2 col-sm-12">
       <app-navigation-dropdown
         (select_option)="siteOptionChanged($event)"
         [placeholder]="'All Sites'"
         [icon]="'public'"
-      ></app-navigation-dropdown>
+        [options]="options"
+        
+       ></app-navigation-dropdown>
     </li>
-    <li  class="col-lg-2 col-sm-12 ">
+    <li class="col-lg-2 col-sm-12">
       <app-navigation-dropdown
         [placeholder]="'Time Interval'"
         [icon]="'schedule'"
@@ -84,12 +87,11 @@
         [icon]="'language'"
       ></app-navigation-dropdown>
     </li>
-    <li  class="col-lg-2 col-sm-12 ">
+    <li class="col-lg-2 col-sm-12">
       <app-navigation-dropdown
         [placeholder]="'Profile'"
         [icon]="'account_circle'"
       ></app-navigation-dropdown>
     </li>
-    
   </ul>
 </nav>

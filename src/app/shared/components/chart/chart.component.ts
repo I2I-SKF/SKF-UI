@@ -9,6 +9,7 @@ import * as Highcharts from 'highcharts';
 import HighchartsMore from 'highcharts/highcharts-more.src';
 import HighchartsSolidGauge from 'highcharts/modules/solid-gauge';
 import noDataModule from 'highcharts/modules/no-data-to-display';
+import { ChartServiceService } from '../../services/chart-service.service';
 
 noDataModule(Highcharts);
 HighchartsMore(<any>Highcharts);
@@ -26,6 +27,9 @@ export class ChartComponent implements OnInit, OnChanges {
 
   Highcharts: typeof Highcharts = Highcharts;
   changeDetection: boolean = false;
+  constructor(private chart_service:ChartServiceService){
+
+  }
   ngOnInit(): void {
     this.dummy = {
       chart: {
@@ -123,6 +127,9 @@ export class ChartComponent implements OnInit, OnChanges {
         },
       ],
     };
+    this.chart_service.mySubject.subscribe(()=>{
+      this.changeDetection = true;
+    })
   }
   ngOnChanges(changes: SimpleChanges): void {}
 }

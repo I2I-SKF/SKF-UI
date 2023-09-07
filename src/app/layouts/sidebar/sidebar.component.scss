@@ -17,6 +17,11 @@ mat-list-item:hover {
     color: yellow;
 }
 
+.active-link,.active-link span{
+    background-color: rgb(53, 53, 170);
+    color: yellow;
+}
+
 
 .sidebar-container{
     position: fixed;
