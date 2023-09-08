@@ -1,5 +1,6 @@
+@import '../../../variables';
 .sidebar{
-    background-color: var(--primary-color);   
+    background-color: $primary-color;   
     height: 100vh;
     position: fixed;
     top: 0;

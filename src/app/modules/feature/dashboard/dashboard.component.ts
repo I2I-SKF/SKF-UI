@@ -3,6 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { CommonDialogComponent } from 'src/app/shared/components/common-dialog/common-dialog.component';
 import { CHART,CHART_CONFIGURATIONS } from 'src/app/shared/constants/charts';
 import { ChartServiceService } from 'src/app/shared/services/chart-service.service';
+import { ToastService } from 'src/app/shared/services/toast.service';
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -14,7 +15,7 @@ export class DashboardComponent {
   no_data_chart = CHART_CONFIGURATIONS[CHART.NO_DATA];
   hourly_dispenses = CHART_CONFIGURATIONS[CHART.HOURLY_DISPENSES];
 
-  constructor(private dialog: MatDialog,private chart:ChartServiceService) {}
+  constructor(private dialog: MatDialog,private chart:ChartServiceService,public toastService: ToastService) {}
 
   openDialog(): void {
     
@@ -69,8 +70,8 @@ export class DashboardComponent {
      
       data: {
         title: 'Modal Title',
-        
       },
     });
   }
+ 
 }

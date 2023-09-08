@@ -2,26 +2,22 @@ import { Injectable } from '@angular/core';
 import { Observable, catchError, throwError } from 'rxjs';
 import {  HttpRequest, HttpHandler, HttpEvent, HttpErrorResponse } from '@angular/common/http';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { ToastService } from 'src/app/shared/services/toast.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ErrorInterceptorService {
 
-  constructor(private _snackBar: MatSnackBar) { }
+  constructor(private toaster:ToastService) { }
   
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    let config:any = {
-      
-      panelClass:['snakbar_style'],
-      horizontalPosition: 'right',
-      verticalPosition: 'top',
-    }
+   
     return next.handle(request).pipe(
       catchError((error: HttpErrorResponse) => {
         
-
-        this._snackBar.open(error.message,'close',config);
+        this.toaster.show(error.message,{ classname: 'bg-danger text-light', delay: 5000})
+       
        return throwError(()=>error);
       })
     );

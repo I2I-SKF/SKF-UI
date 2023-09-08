@@ -1,43 +1,50 @@
-@import '../../../../variables';
+@import "../../../../variables";
 
-
-.nav_background{
-    background-color: $primary-color;
-    color:white;
-    padding: 10px 30px;
-    }
-
-.button_Styles{
-    background-color: $primary-color;
-    color:white;
-    padding: 10px 20px;
+.nav_background {
+  background-color: $primary-color;
+  color: white;
+  padding: 10px 30px;
 }
-    
-    
-    .login_container{
-    min-width: 350px;
-   
-    background-color: transparent;
-    border: none;
 
-    
-    }
-    
+.button_Styles {
+  background-color: $primary-color;
+  color: white;
+ 
+}
+
+.login_container {
+  min-width: 400px;
+
+  background-color: transparent;
+  border: none;
+}
+
+.login_header {
+  color: $primary-color;
+  padding: 10px 30px;
+}
+
+.login_form {
+  padding: 10px 30px;
+}
+
+.forgot_password {
+  color: $primary-color;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+
+.text_small{
+    font-size: $font-md;
+}
+
+@media screen and (max-width: 600px) {
    
-    
-    .login_header{
-    color: $primary-color;
-    padding: 10px 30px;
-    
-    }
-    
-    .login_form{
-        padding: 10px 30px;
-    }
-    
-    .forgot_password{
-    color: $primary-color;
-    text-decoration: none;
-    cursor: pointer;
-    }
-    
+    .login_container {
+          min-width: auto;
+        
+          background-color: transparent;
+          border: none;
+        }
+  }

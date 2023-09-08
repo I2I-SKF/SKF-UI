@@ -15,7 +15,6 @@ body {
   box-sizing: border-box;
 }
 
-
 p {
   margin: 0;
 }
@@ -37,11 +36,8 @@ p {
 }
 
 
-
-
-
-.snakbar_style{
-  background-color: $primary-color;
-  color: $font-light;
-  font-size: $font-md;
+.toaster_style{
+  background-color: #3c68ae !important;
+  color: white !important;
+  white-space: pre-wrap
 }

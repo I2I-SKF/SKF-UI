@@ -12,6 +12,8 @@ import {MatTableModule} from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import {MatDialogModule} from '@angular/material/dialog';
 import { CommonDialogComponent } from './components/common-dialog/common-dialog.component';
+import { CommonToasterComponent } from './components/common-toaster/common-toaster.component';
+import { NgbToastModule } from '@ng-bootstrap/ng-bootstrap';
 @NgModule({
   declarations: [
     
@@ -22,6 +24,7 @@ import { CommonDialogComponent } from './components/common-dialog/common-dialog.
     SiteDetailsCardsComponent,
     CommonTableComponent,
     CommonDialogComponent,
+    CommonToasterComponent,
   ],
   imports: [
     CommonModule,
@@ -30,7 +33,8 @@ import { CommonDialogComponent } from './components/common-dialog/common-dialog.
     MatTableModule,
     MatPaginatorModule,
     MatDialogModule,
+    NgbToastModule
   ],
-  exports:[CommonDialogComponent,ChartComponent,NavigationDropdownComponent,ButtomComponent,CommonCardComponent,SiteDetailsCardsComponent,CommonTableComponent]
+  exports:[CommonDialogComponent,ChartComponent,NavigationDropdownComponent,ButtomComponent,CommonCardComponent,SiteDetailsCardsComponent,CommonTableComponent,CommonToasterComponent]
 })
 export class SharedModule { }
