@@ -19,6 +19,17 @@ export class DashboardComponent {
 
   openDialog(): void {
     
+   
+    
+    const dialogRef = this.dialog.open(CommonDialogComponent, {
+     
+      data: {
+        title: 'Modal Title',
+      },
+    });
+  }
+ 
+  updateRevenueChart(){
     this.chart.updateChart(CHART.REVENUE_CHART, [
       {
         name: 'Fluid 1',
@@ -65,13 +76,5 @@ export class DashboardComponent {
         },
       },
     ])
-    
-    const dialogRef = this.dialog.open(CommonDialogComponent, {
-     
-      data: {
-        title: 'Modal Title',
-      },
-    });
   }
- 
 }

@@ -1,48 +1,55 @@
+<div class="row">
+  <div class="col-xl-3 col-lg-3 col-sm-12 col-md-6 mb-2">
+    <app-common-card [card_title]="'Lubbock, Texas'" [card_icon]="'push_pin'">
+      <app-site-details-cards
+        [chartOptions]="hourly_dispenses"
+      ></app-site-details-cards>
+    </app-common-card>
+  </div>
+  <div class="col-xl-3 col-lg-3 col-sm-12 col-md-6 mb-2">
+    <app-common-card
+      [card_title]="'la Jolla, San Diego'"
+      [card_icon]="'push_pin'"
+    >
+      <app-site-details-cards
+        [chartOptions]="revenue_chart"
+      ></app-site-details-cards>
+    </app-common-card>
+  </div>
+  <div class="col-xl-3 col-lg-3 col-sm-12 col-md-6 mb-2">
+    <app-common-card
+      [card_title]="'Franklin, Nashville'"
+      [card_icon]="'push_pin'"
+    >
+      <app-site-details-cards
+        [chartOptions]="tank_level_chart"
+      ></app-site-details-cards>
+    </app-common-card>
+  </div>
+  <div class="col-xl-3 col-lg-3 col-sm-12 col-md-6 mb-2">
+    <app-common-card
+      [card_title]="'Lube Truck 1- Oil City, Tulsa'"
+      [card_icon]="'push_pin'"
+    >
+      <app-site-details-cards
+        [chartOptions]="no_data_chart"
+      ></app-site-details-cards>
+    </app-common-card>
+  </div>
+  <div class="col-xl-3 col-lg-3 col-sm-12 col-md-6 mb-2">
+    <app-common-card
+      class="text-center"
+      [card_title]="'Add New Site'"
+      [card_icon]="'add_circle'"
+    >
+      <button mat-flat-button style="background-color: #f1f1f1; color: #6688be">
+        Connect Site
+      </button>
+    </app-common-card>
+  </div>
 
-    <div class="row " >
-
-        <div class="col-xl-3  col-lg-3 col-sm-12 col-md-6 mb-2">
-
-            <app-common-card  [card_title]="'Lubbock, Texas'" [card_icon]="'push_pin'" > 
-                <app-site-details-cards [chartOptions]="hourly_dispenses" ></app-site-details-cards>
-            </app-common-card>
-        </div>
-        <div class="col-xl-3  col-lg-3 col-sm-12 col-md-6 mb-2">
-
-            <app-common-card  [card_title]="'la Jolla, San Diego'" [card_icon]="'push_pin'" > 
-                <app-site-details-cards [chartOptions]="revenue_chart"></app-site-details-cards>
-            </app-common-card>
-        </div> 
-        <div class="col-xl-3  col-lg-3 col-sm-12 col-md-6 mb-2">
-
-            <app-common-card   [card_title]="'Franklin, Nashville'" [card_icon]="'push_pin'" > 
-                <app-site-details-cards [chartOptions]="tank_level_chart"></app-site-details-cards>
-            </app-common-card>
-        </div>
-        <div class="col-xl-3  col-lg-3 col-sm-12 col-md-6 mb-2">
-
-            <app-common-card  [card_title]="'Lube Truck 1- Oil City, Tulsa'" [card_icon]="'push_pin'" > 
-                <app-site-details-cards [chartOptions]="no_data_chart" ></app-site-details-cards>
-            </app-common-card>
-        </div>
-        <div class="col-xl-3  col-lg-3 col-sm-12 col-md-6 mb-2">
-
-            <app-common-card  class="text-center"  [card_title]="'Add New Site'" [card_icon]="'add_circle'" > 
-                <button  mat-flat-button style="background-color:#f1f1f1;color:#6688be" >Connect Site</button>
-            </app-common-card>
-        </div>
-
-        <div>
-            <button mat-button (click)="openDialog()">Test Popup</button>
-        </div>
-
-        
-      
-        
-        
-
-    </div>
-
-
-
-
+  <div>
+    <button mat-button (click)="openDialog()">Test Popup</button>
+    <button mat-button (click)="updateRevenueChart()">update revenue</button>
+  </div>
+</div>
