@@ -4,6 +4,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { AlertsComponent } from './alerts/alerts.component';
 import { SitesComponent } from './sites/sites.component';
 import { CommonSiteDetailComponent } from './common-site-detail/common-site-detail.component';
+import { PageNotFoundComponent } from 'src/app/pages/page-not-found/page-not-found.component';
 
 const routes: Routes = [
   {
@@ -29,6 +30,11 @@ const routes: Routes = [
   {
     path:'site-details',
     component:CommonSiteDetailComponent
+    
+  },
+  {
+    path:'**',
+    component:PageNotFoundComponent
     
   },
   
