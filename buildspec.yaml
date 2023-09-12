@@ -1,1 +1,20 @@
+version: 0.2
+
+phases:
+  install:
+    commands:
+      - echo installing apache2
+      - sudo apt-get update
+      - sudo apt-get install apache2
+  build:
+    commands:
+      - echo Build started on `date`
+      - mvn install
+      - ng build
+  post_build:
+    commands:
+      - echo Build completed on `date`
+artifacts:
+  files:
+    - /home/ubuntu/messageUtil-1.0.jar
 
