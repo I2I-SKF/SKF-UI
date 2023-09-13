@@ -12,7 +12,7 @@ export class SidebarComponent implements OnChanges  {
     return NAVIGATION.filter((link:any) => this.userPermissions.includes(link.requiredPermission));
   }
   @Input() opened = true;
-  @Output() clickedOverlay = new EventEmitter<any>();
+  @Output() linkedClicked = new EventEmitter<any>();
   
 
   ngOnChanges(){
@@ -20,10 +20,12 @@ export class SidebarComponent implements OnChanges  {
     
   }
   closeSidebar(){
-    this.close();
+    this.linkedClicked.emit('linked clicked');
+    
+
   }
   close(){    
-      this.clickedOverlay.emit('overlay clicked');
+      this.linkedClicked.emit('overlay clicked');
   }
   
 }

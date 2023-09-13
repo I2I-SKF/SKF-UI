@@ -1,13 +1,8 @@
 @import '../../../variables';
 .sidebar{
     background-color: $primary-color;   
-    height: 100vh;
-    position: fixed;
-    top: 0;
-    bottom: 0;
-    left: 0;
+    height: 100%;
     min-width: 300px;
-    z-index: 6;
 }
 mat-list-item{
     transition: all 250ms ease-in-out;
@@ -24,10 +19,3 @@ mat-list-item:hover {
 }
 
 
-.sidebar-container{
-    position: fixed;
-    width: 100vw;
-    height: 100vh;
-    background-color: rgba(0, 0, 0, 0.308);
-    z-index: 5;
-}

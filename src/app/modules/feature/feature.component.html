@@ -1,13 +1,22 @@
-<div class="" >
-            <app-sidebar (clickedOverlay)="checkIfMenuPressed($event)" *ngIf="sidebarVisible" [opened]="this.isSidebarOpened" ></app-sidebar>
-            <app-header (toggleSideBar)="checkIfMenuPressed($event)" [isSidebarOpen]="sidebarVisible" ></app-header>
-            <div class="content-wrapper">
-                <router-outlet></router-outlet>
-                
-            </div>
-            
-    
-    
-    <!-- <app-footer></app-footer> -->
-</div>
+<div>
+  
 
+
+  <mat-drawer-container class="w-100" autosize>
+    <mat-drawer #drawer mode="over">
+        <app-sidebar (linkedClicked)="drawer.toggle()" ></app-sidebar>    
+    </mat-drawer>
+
+    <div>
+        <app-header
+        (toggleSideBar)="drawer.toggle()"
+        [isSidebarOpen]="sidebarVisible"
+      ></app-header>
+       <div class="content-wrapper">
+        <router-outlet></router-outlet>
+      </div> 
+    </div>
+  </mat-drawer-container>
+
+  <!-- <app-footer></app-footer> -->
+</div>
