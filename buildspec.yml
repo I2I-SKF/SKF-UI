@@ -9,7 +9,7 @@ phases:
       
       # Use Node Version Manager (nvm) to install the specified Node.js version
       - curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
-      - source ~/.nvm/nvm.sh
+      - sudo source ~/.nvm/nvm.sh
       - nvm install "$NODEJS_VERSION"
       - nvm use "$NODEJS_VERSION"
       
