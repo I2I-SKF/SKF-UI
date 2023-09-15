@@ -16,7 +16,7 @@ phases:
       # - nvm use "$NODEJS_VERSION"
       
       # Install the specified Angular version globally
-      - npm install -g @angular/cli@"$ANGULAR_VERSION"
+      - npm install -g @angular/cli@"15.2.9"
 
   build:
     commands:
@@ -26,8 +26,8 @@ phases:
       - npm install 
       
       # Build your Angular app
-      - ng build --prod
+      - ng build 
 
 artifacts:
   files:
-    - dist/**/*
+    - /redmine-bucket-new/skf-build/
