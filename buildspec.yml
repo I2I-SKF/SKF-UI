@@ -23,7 +23,6 @@ phases:
       # Check installed versions
       - node -v
       - npm -v
-      - ng --version
       - npm install 
       
       # Build your Angular app
