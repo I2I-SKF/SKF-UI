@@ -22,6 +22,7 @@ phases:
       - node -v
       - npm -v
       - ng --version
+      - npm install 
       
       # Build your Angular app
       - ng build --prod
