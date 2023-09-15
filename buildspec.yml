@@ -32,3 +32,4 @@ artifacts:
   files:
     - dist/**/*
     - appspec.yml
+    - after-install.sh
