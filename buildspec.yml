@@ -1,17 +1,19 @@
 version: 0.2
 
 phases:
-  pre_build:
+  install:
+    runtime-versions:
+      nodejs: 18
     commands:
       # Set the desired Angular and Node.js versions as environment variables
-      - export ANGULAR_VERSION="15.2.9"
-      - export NODEJS_VERSION="18.15.0"
+      # - export ANGULAR_VERSION="15.2.9"
+      # - export NODEJS_VERSION="18.15.0"
       
       # Use Node Version Manager (nvm) to install the specified Node.js version
       # - curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
       # - sudo source ~/.nvm/nvm.sh
-      - nvm install "$NODEJS_VERSION"
-      - nvm use "$NODEJS_VERSION"
+      # - nvm install "18.15.0"
+      # - nvm use "$NODEJS_VERSION"
       
       # Install the specified Angular version globally
       - npm install -g @angular/cli@"$ANGULAR_VERSION"
