@@ -3,7 +3,7 @@ version: 0.2
 phases:
   install:
     runtime-versions:
-      nodejs: 18.15.0
+      nodejs: 18
     commands:
       # Set the desired Angular and Node.js versions as environment variables
       # - export ANGULAR_VERSION="15.2.9"
