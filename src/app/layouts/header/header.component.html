@@ -4,12 +4,9 @@
     style="list-style: none; padding-right: 20px"
   >
     <li class="d-flex align-items-center gap-1 me-auto">
-      <div
-        class="rightBar"
-        style="font-size: 24px; color: white; font-weight: bolder"
-      >
-        SKF
-      </div>
+      <span class="header-title me-3" >
+        <img style="height: 100%;width: 75px;" src="../../../assets/imges/skf-logo-white.svg" alt="">
+    </span>
       <div style="color: #626a78">|</div>
       <div style="color: white; font-weight: bold; line-height: 21px">
         LFC Cloud
@@ -59,12 +56,15 @@
     class="w-100 m-0 p-0 row d-flex align-items-center"
     style="list-style: none"
   >
-    <li class="col-lg-2 col-sm-12 mt-2 me-auto">
-      <app-button
+    <li class="col-lg-2 col-sm-12 ms-2 me-auto">
+      <!-- <app-button
         style="width: 100%"
         [button_icon]="'device_reset'"
         [button_text]="'Sync All Sites'"
-      ></app-button>
+      ></app-button> -->
+      <button class="btn action-button-1 d-flex align-items-center">
+        <span class="material-symbols-outlined font-size-lg" >device_reset</span><span >Sync All Sites </span> 
+      </button>
     </li>
     <li class="col-lg-2 col-sm-12">
       <app-navigation-dropdown

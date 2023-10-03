@@ -1,10 +1,16 @@
-td,th{
+@import '../../../../variables';
+td{
     // border: 1px solid#f0f0f0;
     border: 1px solid#e6e5e5;
    white-space: nowrap;
+   @include table-row ;
    
 }
-
+th{
+    border: 1px solid#e6e5e5;
+    @include table-heading;
+    
+}
 
 tr:nth-child(even){
     background-color: #f5f5f5;
@@ -12,5 +18,9 @@ tr:nth-child(even){
 
 
 .mat-mdc-table .mdc-data-table__row {
+    height: 35px;
+}
+
+.mat-mdc-table .mdc-data-table__header-row {
     height: 35px;
 }

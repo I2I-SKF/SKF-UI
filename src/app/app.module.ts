@@ -9,7 +9,7 @@ import { RouterModule } from '@angular/router';
 import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
 import { ErrorInterceptorService } from './core/interceptors/error-interceptor.service';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
-import {  MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { LayoutsModule } from './layouts/layouts.module';
 import { MatButtonModule } from '@angular/material/button';
 import { SharedModule } from './shared/shared.module';

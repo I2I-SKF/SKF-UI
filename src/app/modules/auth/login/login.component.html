@@ -1,18 +1,26 @@
-<div class="wrapper-class">
-  <div class="login_container border">
-       <h3 class="nav_background" >SKF</h3>
-       <h5 class="login_header">Login to LFC Cloud</h5>
-       <div class="login_form" >
 
-        <form>
-            <input placeholder="username" type="text" class="form-control mb-2" style="outline: none;box-shadow: none;" >
-            <input placeholder="password" type="Password" class="form-control mb-2" style="outline:none;box-shadow: none;">
-            <button class="nav_background" style="color: white;" mat-button>Log In</button>
-            <p><a class="forgot_password" [routerLink]="'/auth/mail-verification'" >Forgot Password?</a></p>
-        </form>
 
-       </div>
-
-        
+<div class="center-container">
+  <div class="login-container">
+    <div class="mb-5">
+      <img style="height: 100%;width: 120px;" src="../../../../assets/imges/logo-skf.svg" alt="">  
+    </div>
+    <div class="page-title mb-3 page-title-color">Login to LFC Cloud</div>
+    <form class="row">
+      <div class="col-sm-12 mb-2">
+        <input type="email" class="form-control" placeholder="Email" />
+      </div>
+      <div class="col-sm-12 mb-3">
+        <input type="password" class="form-control" placeholder="Password" />
+      </div>
+      <div class="col-sm-12 mb-3" >
+        <button [routerLink]="'/'" class="btn action-button-1" >
+            Login</button>
+      </div>
+      <div class="col-sm-12 mb-1" >
+        <span [routerLink]="'/auth/mail-verification'" class="hyperlink cursor-pointer" >
+            forgot Password? </span>
+      </div>
+    </form>
   </div>
 </div>

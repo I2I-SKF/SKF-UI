@@ -14,22 +14,11 @@ export class LoginComponent implements OnInit {
   }
   ngOnInit(){
    
-      this.calltestapi();
+      
 
     
   }
-  calltestapi(){
-    this.http.get('dsaldkasj').subscribe({
-      next:(res)=>{
-        console.log(res);
-        
-      },
-      error:(err)=>{
-        console.log(err);
-        
-      }
-    })
-  }
+  
   
   login(){
     this.router.navigate(['/feature/dashboard'])

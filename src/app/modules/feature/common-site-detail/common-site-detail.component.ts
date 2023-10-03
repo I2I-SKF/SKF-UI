@@ -149,7 +149,7 @@ columns: string[] = [
   'Start Time',
   'End Time',
   'Status',
-  'Dispense By'
+  'Dispense By'  
   
 ];
 
@@ -159,7 +159,6 @@ table_data = [
   'Dispense ID':12345,
   'Station ID':101,
   'Fluid ID':'F1001',
-
   'Ord.vol.':10,
   'Disp.vol.':9,
   'Unit':'gallon',

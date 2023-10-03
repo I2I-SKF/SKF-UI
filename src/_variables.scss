@@ -1,23 +1,98 @@
 // colors
-$primary-color: #3c68ae;
+$skf-blue: #3c68ae;
+$bright-blue: #4169e1;
+$white:  #fff;
+$grey-1: #f7f7f7;
+$grey-2: #f1f1f1;
+$grey-3: #d6d6d6;
+$grey-4: #787878;
+$grey-5: #282828;
 
+$green-1:#01661c;
+$green-2:#03992b;
+$green-3:#77ca8d;
+$green-4:#e3f4e8;
+
+$yellow-1:#fab905;
+$yellow-2:#fcd15b;
+$yellow-3:#feeab4;
+$yellow-4:#fef4d9;
+
+$red-1:#d30000;
+$red-2:#b80f0a;
+$red-3:#fff1f1;
+$red-4:#ffd6d6;
 
 
 // fonts
-$primary-font-family: 'Roboto', sans-serif;
+$light-font:'noto-light', sans-serif;
+$thin-font:'noto-thin', sans-serif;
+$regular-font:'noto-regular', sans-serif;
+$medium-font:'noto-medium', sans-serif;
+$bold-font:'noto-bold', sans-serif;
 
 
 // font-sizes
-$font-xm: 8px;
-$font-sm: 10px;
-$font-md: 14px;
+$font-xm: 10px;
+$font-sm: 12px;
+$font-rg: 14px;
+$font-md: 16px;
 $font-lg: 18px;
-$font-xl: 24px;
-$font-xxl: 40px;;
+$font-xl: 20px;
+$font-xxl: 24px;
+$font-xxxl: 36px;
 
 
 // font-colors
 
-$font-light:#ffffff;
-$font-dark: #696969;
+$page-title:$font-xxl;
+$page-subtitle:$font-xl;
+$section-title:$font-lg;
+$section-subtitle:$font-md;
+
+
+@mixin table-heading {
+   font-size: $font-rg;
+    font-weight: 500;
+    color: $grey-5;
+}
+@mixin table-row {
+   font-size: $font-rg;
+   color: $grey-5;
+}
+@mixin table-pagination {
+   font-size: $font-sm;
+   color: $grey-3;
+}
+
+@mixin action-btn-1{
+    // border: 1px solid $grey-4;
+    // border-radius: 5px;
+    // color: $grey-4;
+    transition: all 100ms ease-in-out;
+    border: 1px solid $skf-blue;
+    color: $skf-blue;
+    
+
+}
+@mixin action-btn-2{
+    // border: 1px solid $grey-4;
+    // border-radius: 5px;
+    // color: $grey-4;
+    transition: all 100ms ease-in-out;
+    border: 1px solid $red-2;
+    color: $red-2;
+
+}
+
+
+
+$page-title:$font-xxl;
+$page-subtitle:$font-xl;
+$section-title:$font-lg;
+$section-subtitle:$font-md;
+
+
+
+
 

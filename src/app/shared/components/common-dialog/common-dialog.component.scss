@@ -1,35 +1,34 @@
 @import "../../../../variables";
 
 .nav_background {
-  background-color: $primary-color;
+  background-color: $skf-blue;
   color: white;
-  padding: 10px 30px;
+  padding:10px;
 }
 
 .button_Styles {
-  background-color: $primary-color;
+  background-color: $skf-blue;
   color: white;
  
 }
 
 .login_container {
   min-width: 400px;
-
   background-color: transparent;
   border: none;
 }
 
 .login_header {
-  color: $primary-color;
+  color: $skf-blue;
   padding: 10px 30px;
 }
 
 .login_form {
-  padding: 10px 30px;
+  padding: 10px;
 }
 
 .forgot_password {
-  color: $primary-color;
+  color: $skf-blue;
   text-decoration: none;
   cursor: pointer;
 }

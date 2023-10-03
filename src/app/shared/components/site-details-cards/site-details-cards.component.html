@@ -1,26 +1,35 @@
-<div class="site_details_container" >
-
-    <div  class="row">
-        <div class="col-sm-6">
-           <app-navigation-dropdown></app-navigation-dropdown>
-        </div>
-        <div class="col-sm-6">
-            <app-navigation-dropdown></app-navigation-dropdown>
-        </div>
+<div class="site_details_container">
+  <div class="row">
+    <div class="col-sm-6">
+      <app-navigation-dropdown></app-navigation-dropdown>
     </div>
-    <div>
-        <app-chart [chartOptions]="chartOptions" ></app-chart>
+    <div class="col-sm-6">
+      <app-navigation-dropdown></app-navigation-dropdown>
     </div>
-    <div class="row m-0 p-0 d-flex align-items-center" >
-        <div class="col-sm-9 m-0 p-0 text-style " [style]="chartOptions?.lang?.noData ?'color:red':''" >
-          {{chartOptions?.lang?.noData ? 'Off-line since last 7:28 HH:MM ':'Latest Data : 22 august at 12:36 CDT'   }} 
-        </div>
-        <div class="col-sm-3 m-0 p-0  " >
-            <button mat-button  class="float-end" >
-                <div class="d-flex align-items-center text-style" ><span>Site</span>
-                    <span class="material-symbols-outlined" style="font-size: 14px;" >open_in_new</span></div>
-            </button>
-        </div>
+  </div>
+  <div>
+    <app-chart [chartOptions]="chartOptions"></app-chart>
+  </div>
+  <div class="row m-0 p-0 d-flex align-items-center">
+    <div
+      class="col-sm-9 col-9 m-0 p-0 text-style"
+      [style]="chartOptions?.lang?.noData ? 'color:red' : ''"
+    >
+      {{
+        chartOptions?.lang?.noData
+          ? "Off-line since last 7:28 HH:MM "
+          : "Latest Data : 22 august at 12:36 CDT"
+      }}
     </div>
-
+    <div class="col-sm-3 col-3 m-0 p-0">
+      <button class="float-end action-button-1 btn btn-sm">
+        <div class="d-flex align-items-center text-style">
+          <span class="font-size-rg">Site</span>
+          <span class="material-symbols-outlined font-size-rg"
+            >open_in_new</span
+          >
+        </div>
+      </button>
+    </div>
+  </div>
 </div>

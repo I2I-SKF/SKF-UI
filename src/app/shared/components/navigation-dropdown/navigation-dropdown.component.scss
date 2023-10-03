@@ -1,4 +1,4 @@
-.select{
+.custom_select{
     background-color: #ffffff;
     color: rgb(65, 65, 65);
     min-width: 100px;
@@ -9,6 +9,7 @@
     position: relative;
     padding-left: 20px;
     user-select: none;
+    max-width: 170px;
     
    box-sizing: border-box; 
 

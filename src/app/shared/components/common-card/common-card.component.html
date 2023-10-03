@@ -1,9 +1,9 @@
 <div class="card h-100"  >
-    <div class="card-header d-flex align-items-center text-size" [style]="styles" style="font-weight: 600;" *ngIf="card_icon || card_title" >
+    <div class="card-header d-flex align-items-center text-size" [style]="styles" *ngIf="card_icon || card_title" >
         <span class="material-symbols-outlined icon-size me-2"  *ngIf="card_icon" >
             {{card_icon}}
         </span>
-        <span class="text-size" >
+        <span class="text-size-rg" >
             {{card_title}}
         </span>       
     </div>

@@ -35,7 +35,9 @@ export class ChartComponent implements OnInit, OnChanges,OnDestroy {
   }
   ngOnInit(): void {
   
-    this.subscription = this.chart_service.mySubject.subscribe(()=>{
+    this.subscription = this.chart_service.mySubject.subscribe((data)=>{
+      console.log(data);
+      
       this.changeDetection = true;
     })
   }

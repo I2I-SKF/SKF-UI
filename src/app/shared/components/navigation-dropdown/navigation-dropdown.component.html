@@ -1,6 +1,6 @@
 <div
   tabindex="0"
-  class="select"
+  class="custom_select"
   (blur)="focusOut()"
   [ngClass]="{
     dropdown_expanded: isDropdownExpanded ? isDropdownExpanded : false
@@ -14,7 +14,7 @@
     (click)="toggleDropdown()"
     class="text-inside d-flex align-items-center gap-2 w-100"
   >
-    <span *ngIf="!isDropdownExpanded" class="material-symbols-outlined"
+    <span *ngIf="!isDropdownExpanded" class="material-symbols-outlined font-size-lg"
       >{{ icon }}
     </span>
     {{ selected_item?.viewValue || placeholder }}

@@ -2,17 +2,30 @@
 @import "bootstrap/scss/bootstrap";
 @import "variables";
 
+
+@font-face {
+  font-family: noto-light;
+  src: url(./assets/fonts/NotoSansDisplay-Light.ttf);
+}
+@font-face {
+  font-family: noto-thin;
+  src: url(./assets/fonts/NotoSansDisplay-Thin.ttf);
+}
+@font-face {
+  font-family: noto-regular;
+  src: url(./assets/fonts/NotoSansDisplay-Regular.ttf);
+}
+
+
 html,
 body {
   height: 100%;
 }
-body {
-  margin: 0;
-  font-family: sans-serif;
-}
+body { margin: 0;font-family:$regular-font; color: $grey-5; }
 
 * {
   box-sizing: border-box;
+  font-size: $font-rg;
 }
 
 p {
@@ -32,12 +45,78 @@ p {
 }
 
 .primary-background {
-  background-color: $primary-color;
+  background-color: $skf-blue;
 }
 
 
-.toaster_style{
-  background-color: #3c68ae !important;
-  color: white !important;
-  white-space: pre-wrap
+.font-size-xm{
+font-size: $font-xm;
 }
+.font-size-sm{
+font-size: $font-sm;
+}
+.font-size-rg{
+font-size: $font-rg;
+}
+.font-size-md{
+font-size:$font-md ;
+
+}
+.font-size-lg{
+font-size:$font-lg ;
+}
+
+.font-size-xl{
+font-size:$font-xl ;
+
+}
+.font-size-xxl{
+font-size:$font-xxl ;
+
+}
+.font-size-xxxl{
+font-size:$font-xxxl ;
+
+}
+
+
+.action-button-1{
+  @include action-btn-1;
+
+}
+.action-button-2{
+  @include action-btn-2;
+
+}
+
+.action-button-1:hover{
+  background-color: $skf-blue;
+  color: $white;
+}
+.action-button-2:hover{
+  background-color: $red-2;
+  color: $white;
+}
+
+
+.hyperlink{
+  color: $bright-blue;
+  font-size: $font-rg;
+}
+
+
+
+.select{
+  border: 1px solid $grey-3;
+}
+.input_border{
+  border: 1px solid $grey-3;
+}
+
+
+.page-title{
+  font-size: $page-subtitle;
+  color: $skf-blue;
+  }
+
+
