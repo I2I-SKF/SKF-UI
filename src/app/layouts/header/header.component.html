@@ -3,95 +3,106 @@
     class="d-flex align-items-center w-100 m-0 gap-4"
     style="list-style: none; padding-right: 20px"
   >
-    <li class="d-flex align-items-center gap-1 me-auto">
+    <li class="d-flex align-items-center gap-1 me-5">
       <span class="header-title me-3" >
         <img style="height: 100%;width: 75px;" src="../../../assets/imges/skf-logo-white.svg" alt="">
     </span>
-      <div style="color: #626a78">|</div>
-      <div style="color: white; font-weight: bold; line-height: 21px">
-        LFC Cloud
-      </div>
+      
+      
     </li>
 
     <ng-container *ngIf="!isSidebarOpen">
-      <li *ngFor="let link of filteredNavigationLinks" class="nav-item">
+      <li *ngFor="let link of filteredNavigationLinks" class="nav-item me-2">
         <a
           [routerLinkActive]="'active_route'"
           [routerLink]="link.link"
           class="nav-link d-flex align-items-center gap-1 link-color"
         >
-          <span class="material-symbols-outlined icon-size">
-            {{ link.icon }} </span
+          <span class="">
+            <img class="icon-regular" [src]="link.icon" alt=""> </span
           ><span> {{ link.name }}</span>
         </a>
       </li>
     </ng-container>
 
-    <li *ngIf="!isSidebarOpen" class="d-flex align-items-center ms-auto">
+    <li *ngIf="!isSidebarOpen" class="d-flex align-items-center ms-auto me-5">
       <div
-        class="material-symbols-outlined"
-        style="font-size: 24px; color: white; font-weight: bolder"
+        class=""
+       
       >
-        image
+        <img class="icon-regular" src="../../../assets/imges/icons/global.svg" alt="">
       </div>
+      <div>
+        <select class="transparent-select"  name="" id="">
+          <option value="en">En</option>
+          <option value="fr">Fr</option>
+        </select>
+      </div>
+    </li>
+    <li *ngIf="!isSidebarOpen" class="d-flex align-items-center">
+      <div style="color: white; font-size: 18px;" >
+        Company Name 
+      </div>
+    </li>
+    <li *ngIf="!isSidebarOpen" class="d-flex align-items-center ">
+      <div>
+        <img class="icon-regular" src="../../../assets/imges/icons/users.svg" alt="">
+      </div>
+      <div>
+        <select class="transparent-select"  name="" id="">
+          <option value="someone" selected hidden>Someone</option>
+          <option value="logout">Log out</option>
+        </select>
+      </div>
+
     </li>
     <li
       *ngIf="isSidebarOpen"
       (click)="toggleSideNav()"
       style="position: relative; z-index: 5"
-      class="d-flex align-items-center"
+      class="d-flex align-items-center ms-auto"
     >
       <div
-        class="material-symbols-outlined cursor-pointer"
-        style="font-size: 24px; color: white; font-weight: bolder"
+        class=" cursor-pointer icon-size"
+        style=""
       >
-        menu
+        <img src="../../../assets/imges/icons/menu.svg" alt="">
       </div>
     </li>
   </ul>
 </nav>
 
-<nav class="navbar p-0" style="background-color: white;">
+<nav class="sub-header">
   <ul
-    class="w-100 m-0 p-0 row d-flex align-items-center"
+    class="w-100 m-0 p-0  d-flex align-items-center flex-row"
     style="list-style: none"
   >
-    <li class="col-lg-2 col-sm-12 ms-2 me-auto">
-      <!-- <app-button 
-        style="width: 100%"
-        [button_icon]="'device_reset'"
-        [button_text]="'Sync All Sites'"
-      ></app-button> -->
-      <button class="btn action-button-1 d-flex align-items-center">
-        <span class="material-symbols-outlined font-size-lg" >device_reset</span><span >Sync All Sites </span> 
-      </button>
+    <li class="ms-4 me-5 " >
+     <div style="font-size: 18px;">
+      LFC Cloud
+     </div>
     </li>
-    <li class="col-lg-2 col-sm-12">
+   
+    <li class="ms-5">
       <app-navigation-dropdown
         (select_option)="siteOptionChanged($event)"
         [placeholder]="'All Sites'"
-        [icon]="'public'"
+        [icon]="'../../../../assets/imges/icons/global.svg'"
         [options]="options"
         
        ></app-navigation-dropdown>
     </li>
-    <li class="col-lg-2 col-sm-12">
+    <li class="ms-3">
       <app-navigation-dropdown
         [placeholder]="'Time Interval'"
-        [icon]="'schedule'"
+        [icon]="'../../../../assets/imges/icons/refresh.svg'"
       ></app-navigation-dropdown>
     </li>
-    <li class="col-lg-2 col-sm-12 ms-auto">
-      <app-navigation-dropdown
-        [placeholder]="'Language'"
-        [icon]="'language'"
-      ></app-navigation-dropdown>
+    <li class="ms-3">
+      <button class="btn action-button-3 d-flex align-items-center">
+        <img [src]="'../../assets/imges/icons/refresh.svg'" class="icon-regular me-2" alt=""> <span >Sync All Sites </span> 
+      </button>
     </li>
-    <li class="col-lg-2 col-sm-12">
-      <app-navigation-dropdown
-        [placeholder]="'Profile'"
-        [icon]="'account_circle'"
-      ></app-navigation-dropdown>
-    </li>
+    
   </ul>
 </nav>

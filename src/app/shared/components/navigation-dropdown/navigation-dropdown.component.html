@@ -14,8 +14,8 @@
     (click)="toggleDropdown()"
     class="text-inside d-flex align-items-center gap-2 w-100"
   >
-    <span *ngIf="!isDropdownExpanded" class="material-symbols-outlined font-size-lg"
-      >{{ icon }}
+    <span  
+      ><img class="icon-regular" [src]="icon" alt="">
     </span>
     {{ selected_item?.viewValue || placeholder }}
     <div class="material-symbols-outlined cursor_selected ms-auto">

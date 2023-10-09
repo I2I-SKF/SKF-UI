@@ -88,6 +88,10 @@ font-size:$font-xxxl ;
   @include action-btn-2;
 
 }
+.action-button-3{
+  @include action-btn-3;
+
+}
 
 .action-button-1:hover{
   background-color: $skf-blue;
@@ -95,6 +99,10 @@ font-size:$font-xxxl ;
 }
 .action-button-2:hover{
   background-color: $red-2;
+  color: $white;
+}
+.action-button-3:hover{
+  background-color: $skf-blue;
   color: $white;
 }
 
@@ -120,3 +128,17 @@ font-size:$font-xxxl ;
   }
 
 
+
+
+  .transparent-select{
+    background-color: transparent;border: none;color: white;
+  }
+  .transparent-select option{
+    color: $grey-5;
+  }
+
+
+  .icon-regular{
+    width: 22px;
+    height: 22px;
+  }

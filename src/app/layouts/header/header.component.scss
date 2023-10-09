@@ -11,7 +11,7 @@
 }
 
 .icon-size{
-    font-size: $font-lg
+    width: $font-lg;
 }
 
 
@@ -29,5 +29,11 @@
 
 }
 
+
+.sub-header{
+    background-color: $grey-5;
+    color: $grey-1;
+    padding: 5px 0;
+}
 
 

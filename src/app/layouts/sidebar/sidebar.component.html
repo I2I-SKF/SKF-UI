@@ -9,7 +9,7 @@
       class="rightBar"
       style="font-size: 24px; color: white; font-weight: bolder"
     >
-      SKF
+      <img style="width: 75px;" src="../../../assets/imges/skf-logo-white.svg" alt="">
     </div>
     <div style="color: #626a78">|</div>
     <div style="color: white; font-weight: bold; line-height: 21px">
@@ -26,11 +26,9 @@
       class="border-bottom"
       *ngFor="let link of filteredNavigationLinks"
     >
-      <span class="d-flex align-items-center gap-3" style="color: white">
-        <span class="material-symbols-outlined icon-size">
-          {{ link.icon }} </span
-        ><span> {{ link.name }}</span>
-      </span>
+      <div class="d-flex align-items-center" >
+        <img [src]="link.icon" alt="" class="icon-regular"> <span class="ms-2" style="color: white;" > {{link.name}} </span> 
+      </div>
     </mat-list-item>
   </mat-list>
 </div>

@@ -85,6 +85,16 @@ $section-subtitle:$font-md;
 
 }
 
+@mixin action-btn-3{
+    // border: 1px solid $grey-4;
+    // border-radius: 5px;
+    // color: $grey-4;
+    transition: all 100ms ease-in-out;
+    border: 1px solid $grey-4;
+    color: $grey-1;
+
+}
+
 
 
 $page-title:$font-xxl;
