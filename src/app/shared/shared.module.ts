@@ -14,6 +14,8 @@ import {MatDialogModule} from '@angular/material/dialog';
 import { CommonDialogComponent } from './components/common-dialog/common-dialog.component';
 import { CommonToasterComponent } from './components/common-toaster/common-toaster.component';
 import { NgbToastModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbPopoverModule } from '@ng-bootstrap/ng-bootstrap';
+import { RouterModule } from '@angular/router';
 @NgModule({
   declarations: [
     
@@ -33,7 +35,9 @@ import { NgbToastModule } from '@ng-bootstrap/ng-bootstrap';
     MatTableModule,
     MatPaginatorModule,
     MatDialogModule,
-    NgbToastModule
+    NgbToastModule,
+    NgbPopoverModule,
+    RouterModule
   ],
   exports:[CommonDialogComponent,ChartComponent,NavigationDropdownComponent,ButtomComponent,CommonCardComponent,SiteDetailsCardsComponent,CommonTableComponent,CommonToasterComponent]
 })

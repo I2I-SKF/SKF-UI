@@ -1,16 +1,22 @@
-import { Component,ViewChild, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component,ViewChild, EventEmitter, Input, OnInit, Output,OnChanges,SimpleChanges } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import {MatPaginator} from '@angular/material/paginator';
 @Component({
   selector: 'app-common-table',
   templateUrl: './common-table.component.html',
   styleUrls: ['./common-table.component.scss'],
 })
-export class CommonTableComponent implements OnInit {
+export class CommonTableComponent implements OnInit, OnChanges {
   displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
   dataSource: any;
   resultsLength:any;
+ 
+  constructor(private dialog: MatDialog){
+
+  }
+
   @ViewChild(MatPaginator) paginator!: MatPaginator;
-  @Input() buttons = ['Edit', 'Delete'];
+  @Input() actions = {type:'btn',data : ['edit','buttons']};
 
   @Input() columns: string[] = [
     'Site Name',
@@ -87,11 +93,28 @@ export class CommonTableComponent implements OnInit {
 
   ngOnInit(): void {
     this.dataSource = this.data;
+    
+    
+  }
+  ngOnChanges(changes: SimpleChanges){
+    console.log(changes);
+    
   }
 
   @Output() buttonClicked = new EventEmitter<{ row: any, button: string }>();
+  @Output() selectChange = new EventEmitter<any>();
   
   onButtonClicked(row: any, button: string) {
     this.buttonClicked.emit({ row, button });
   }
+
+  onSelectionChange(event:any,row:any){
+    this.selectChange.emit({ row, value:event.targer.value });
+  }
+
+  showSystemHealthDetails(row:any){
+      console.log(row);
+      
+  }
+  
 }

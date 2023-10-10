@@ -1,25 +1,76 @@
-<div class="w-100" style="overflow-x: auto;" >
-
-
-<table mat-table [dataSource]="data">
-    <ng-container *ngFor="let column of columns; let columnIndex = index" [matColumnDef]="column">
+<div class="w-100" style="overflow-x: auto">
+  <table mat-table [dataSource]="data">
+    <ng-container
+      *ngFor="let column of columns; let columnIndex = index"
+      [matColumnDef]="column"
+    >
       <th mat-header-cell *matHeaderCellDef>{{ column }}</th>
-      <td mat-cell *matCellDef="let row; let rowIndex = index">
-        <ng-container *ngIf="column !== 'Actions'; else actionsColumn">
+      <td [ngClass]="{ 'tag_cancelled':row['Connection'] == 'Offline'}" mat-cell *matCellDef="let row; let rowIndex = index">
+        <ng-container *ngIf="column !== 'Action' && column !== 'Pin' && column !== 'System Health' ">
           {{ row[column] }}
         </ng-container>
-        <ng-template #actionsColumn>
-          <button mat-button *ngFor="let button of buttons"
-            (click)="onButtonClicked(row, button)">
-            {{ button }}
-          </button>
-        </ng-template>
+        <ng-container *ngIf="column == 'Pin'">
+          <span >
+            <span
+
+              class="font-size-sm cursor-pointer"
+              [popoverTitle]="'PIN'"
+              [autoClose]="'outside'"
+              [ngbPopover]="row[column]"
+            >
+              Show
+            </span>
+           
+          </span>
+        </ng-container>
+        <ng-container *ngIf="column == 'System Health'">
+         
+         <span >
+          <span
+
+            class="font-size-sm cursor-pointer"
+            [popoverTitle]="'System Health'"
+            [autoClose]="'outside'"
+            [ngbPopover]=" 
+               row['system_health_details']"
+          >
+          {{ row[column] }}
+          </span>
+         
+        </span>
+        </ng-container>
+
+        <ng-container *ngIf="column == 'Action'">
+          <ng-container *ngIf="actions.type == 'btn'">
+            <button
+              mat-button
+              *ngFor="let button of actions.data"
+              (click)="onButtonClicked(row, button)"
+            >
+              {{ button }}
+            </button>
+          </ng-container>
+          <ng-container *ngIf="actions?.type == 'dd'">
+            <select
+              style="min-width: 100px"
+              class="action-select"
+              (change)="onSelectionChange($event, row)"
+            >
+              <option value="option" *ngFor="let option of row?.['Action']">
+                {{ option }}
+              </option>
+            </select>
+          </ng-container>
+        </ng-container>
       </td>
     </ng-container>
-  
+
     <tr mat-header-row *matHeaderRowDef="columns"></tr>
-    <tr mat-row *matRowDef="let row; columns: columns;"></tr>
-</table>
+    <tr mat-row *matRowDef="let row; columns: columns"></tr>
+  </table>
 </div>
-<mat-paginator [length]="data.length" [pageSize]="30" aria-label="Select page of GitHub search results"></mat-paginator>
-  
+<mat-paginator
+  [length]="data.length"
+  [pageSize]="30"
+  aria-label="Select page of GitHub search results"
+></mat-paginator>

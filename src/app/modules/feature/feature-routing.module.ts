@@ -33,10 +33,18 @@ const routes: Routes = [
     
   },
   {
+    path:'devices',
+    loadChildren: () =>
+      import('./devices/devices.module').then((m) => m.DevicesModule),
+    
+  },
+  
+  {
     path:'**',
     component:PageNotFoundComponent
     
   },
+  
   
 
  

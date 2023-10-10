@@ -18,6 +18,7 @@ const routes: Routes = [
     loadChildren: () =>
       import('./modules/feature/feature.module').then((m) => m.FeatureModule),
     canActivateChild: [authGuard],
+    
   
     
   },

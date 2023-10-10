@@ -52,12 +52,12 @@ $section-subtitle:$font-md;
 
 
 @mixin table-heading {
-   font-size: $font-rg;
+   font-size: $font-sm;
     font-weight: 500;
     color: $grey-5;
 }
 @mixin table-row {
-   font-size: $font-rg;
+   font-size: $font-sm;
    color: $grey-5;
 }
 @mixin table-pagination {
@@ -66,9 +66,8 @@ $section-subtitle:$font-md;
 }
 
 @mixin action-btn-1{
-    // border: 1px solid $grey-4;
-    // border-radius: 5px;
-    // color: $grey-4;
+    display: flex;
+    align-items: center;
     transition: all 100ms ease-in-out;
     border: 1px solid $skf-blue;
     color: $skf-blue;
@@ -76,9 +75,8 @@ $section-subtitle:$font-md;
 
 }
 @mixin action-btn-2{
-    // border: 1px solid $grey-4;
-    // border-radius: 5px;
-    // color: $grey-4;
+    display: flex;
+    align-items: center;
     transition: all 100ms ease-in-out;
     border: 1px solid $red-2;
     color: $red-2;
@@ -86,13 +84,19 @@ $section-subtitle:$font-md;
 }
 
 @mixin action-btn-3{
-    // border: 1px solid $grey-4;
-    // border-radius: 5px;
-    // color: $grey-4;
+    display: flex;
+    align-items: center;
     transition: all 100ms ease-in-out;
     border: 1px solid $grey-4;
     color: $grey-1;
 
+}
+@mixin action-btn-4{
+    display: flex;
+    align-items: center;
+    transition: all 100ms ease-in-out;
+    border: 1px solid $grey-4;
+    color: $grey-1;
 }
 
 

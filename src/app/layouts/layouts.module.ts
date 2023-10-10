@@ -7,6 +7,8 @@ import {MatSelectModule} from '@angular/material/select';
 import { SharedModule } from '../shared/shared.module';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import {MatListModule} from '@angular/material/list';
+import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
+
 
 @NgModule({
   declarations: [
@@ -19,7 +21,8 @@ import {MatListModule} from '@angular/material/list';
     RouterModule,
     MatSelectModule,
     SharedModule,
-    MatListModule
+    MatListModule,
+    NgbDropdownModule
 
   ],
   exports:[HeaderComponent,FooterComponent,SidebarComponent]

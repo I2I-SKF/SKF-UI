@@ -24,3 +24,34 @@ tr:nth-child(even){
 .mat-mdc-table .mdc-data-table__header-row {
     height: 35px;
 }
+
+.action-select{
+border: 0;
+padding: 3px;
+background-color: transparent;
+max-width: 100px;
+outline: none;
+}
+
+
+
+
+
+
+
+.tag_success{
+    background-color: $green-4;
+    // border: 1px solid $green-3;
+    
+}
+.tag_cancelled{
+    background-color: $red-3;
+    // border: 1px solid $red-4;
+    
+}
+.tag_warn{
+    background-color: $yellow-4;
+    // border: 1px solid $yellow-3;
+    
+}
+

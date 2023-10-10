@@ -92,6 +92,10 @@ font-size:$font-xxxl ;
   @include action-btn-3;
 
 }
+.action-button-4{
+  @include action-btn-3;
+
+}
 
 .action-button-1:hover{
   background-color: $skf-blue;
@@ -105,11 +109,16 @@ font-size:$font-xxxl ;
   background-color: $skf-blue;
   color: $white;
 }
+.action-button-4:hover{
+  background-color: $grey-4;
+  color: $white;
+}
 
 
 .hyperlink{
   color: $bright-blue;
   font-size: $font-rg;
+  cursor: pointer;
 }
 
 
@@ -139,6 +148,6 @@ font-size:$font-xxxl ;
 
 
   .icon-regular{
-    width: 22px;
-    height: 22px;
+    width: auto;
+    height: 18px;
   }

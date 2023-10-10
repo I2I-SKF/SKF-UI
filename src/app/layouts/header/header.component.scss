@@ -2,21 +2,29 @@
 
 .nav_background{
     background-color: $skf-blue;   
-    height: 50px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    padding: 0 30px;
 }
 
 
 .link-color{
-    color:$white
+    color:$white;
+    transition: all 100ms ease-in-out;
+    text-decoration: none;
+    
 }
-
+.link-color:hover{
+    color: $yellow-2;
+}
 .icon-size{
     width: $font-lg;
 }
 
 
 .active_route{
-   color:#fdd158;
+   color:$yellow-2;
 }
 
 .nav_background_below{
@@ -33,7 +41,17 @@
 .sub-header{
     background-color: $grey-5;
     color: $grey-1;
-    padding: 5px 0;
+    height: 45px;
+    padding: 0px 30px;
+    display: flex;
+    align-items: center;
+}
+
+.header-link-text{
+    line-height: 2%;
 }
 
 
+.header-link-text{
+    vertical-align: middle;
+}

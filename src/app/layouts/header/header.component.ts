@@ -17,10 +17,18 @@ export class HeaderComponent {
   userPermissions = ['user'];
   options:any =[
     {value:'all_sites',viewValue:'All Sites'},
-    {value:'item2',viewValue:'item 2'},
-    {value:'item3',viewValue:'item 3'},
-    {value:'item4',viewValue:'item 4'},
-   
+    {value:'Sitea',viewValue:'Site A'},
+    {value:'item3',viewValue:'Site B'},
+    {value:'item4',viewValue:'Site C'},
+    {value:'item5',viewValue:'Site D'},
+    
+  ]
+  options_today:any =[
+    {value:'today',viewValue:'Today'},
+    {value:'last_two_days',viewValue:'Last 2 Days'},
+    {value:'last_week',viewValue:'Last Week'},
+    {value:'last_month',viewValue:'Last Month'},
+    
     
   ]
 

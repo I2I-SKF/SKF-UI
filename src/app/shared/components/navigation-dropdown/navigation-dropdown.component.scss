@@ -17,6 +17,9 @@
     padding: 5px;
 
 }
+.custom_select:hover{
+    color: $yellow-2;
+}
 .dropdown_expanded{
     background-color:$grey-5 ;
     color: $white;
@@ -44,12 +47,14 @@
    background-color: #787878;
    margin-top: 2px;
    display: flex;
+   color: $grey-1;
    align-items: center;
   
 }
 .dropdown ul li:hover{
     background-color: #616161;
     cursor: pointer;
+  
 }
 
 .selected_option{

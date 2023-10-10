@@ -19,6 +19,7 @@ import {MatSidenavModule} from '@angular/material/sidenav';
     AlertsComponent,
     SitesComponent,
     CommonSiteDetailComponent,
+
   ],
   imports: [
     CommonModule,
