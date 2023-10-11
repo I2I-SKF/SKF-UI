@@ -4,8 +4,8 @@
 </div> -->
 
 <div class="d-flex justify-content-between"  style="margin-bottom: 15px;" >
-    <span class="font-size-xl" >Devices</span>
-    <button class="btn action-button-1"  (click)="addDevice()" >Add Device</button>
+    <span class="font-size-xl" >Sites</span>
+    <button class="btn action-button-1"  (click)="addDevice()" >Add Site</button>
 </div>
 <div style="margin-bottom: 15px;" >
     <app-common-table (rowClick)="rowClick($event)" [actions]="{type:'dd',data : []}" [columns]="displayed_columns" [data]="data" ></app-common-table>

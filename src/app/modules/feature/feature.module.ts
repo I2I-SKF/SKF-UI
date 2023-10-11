@@ -8,7 +8,6 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { MatButtonModule } from '@angular/material/button';
 import { AlertsComponent } from './alerts/alerts.component';
-import { SitesComponent } from './sites/sites.component';
 import { CommonSiteDetailComponent } from './common-site-detail/common-site-detail.component';
 import { MatSelectModule } from '@angular/material/select';
 import {MatSidenavModule} from '@angular/material/sidenav';
@@ -17,7 +16,6 @@ import {MatSidenavModule} from '@angular/material/sidenav';
     FeatureComponent,
     DashboardComponent,
     AlertsComponent,
-    SitesComponent,
     CommonSiteDetailComponent,
 
   ],

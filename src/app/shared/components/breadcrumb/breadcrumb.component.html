@@ -1,0 +1,14 @@
+<ul class="p-0 m-0 d-flex align-items-center breadcrumb-container"  >
+    <li *ngFor="let breadcrumb of breadcrumbItems; let last = last; let first = first">
+      <ng-container *ngIf="!last && !first">
+        <a [routerLink]="breadcrumb.route">{{ breadcrumb.label }}</a> <img style="height: 40px;transform: rotateZ(86deg); user-select: none;"  src="../../../../assets/imges/icons/angle-up.svg" alt="">
+      </ng-container>
+      <ng-container *ngIf="last">
+        {{ breadcrumb.label }}
+      </ng-container>
+      <ng-container *ngIf="first">
+        <!-- {{ breadcrumb.label }} -->
+        <img style="height: 20px;filter: invert(1);user-select: none;" class="cursor-pointer" [routerLink]="breadcrumb.route"   src="../../../../assets/imges/icons/home.svg" alt=""> <img style="height: 40px;transform: rotateZ(86deg); user-select: none;"  src="../../../../assets/imges/icons/angle-up.svg" alt="">
+      </ng-container>
+    </li>
+</ul>

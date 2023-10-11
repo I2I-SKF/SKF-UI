@@ -1,0 +1,52 @@
+<div class="device-add-container p-5" >
+    <form [formGroup]="deviceForm" >
+        <div class="row">
+            <div class="font-size-lg mb-2"  >
+                Add Device
+                <!-- <hr> -->
+            </div>
+            <div class="col-sm-6">
+                <label class="font-size-rg mb-2 mt-2" for="">Hardware</label>
+                <select class="form-select" formControlName="hardware" name="" id="">
+                    <option value="">Select Hardware</option>
+                </select>
+            </div>
+            <div class="col-sm-6 ">
+                <label class="mb-2 mt-2" for="">Location</label>
+                <input class="form-control"  type="text" placeholder="Location">
+            </div>
+            <div class="col-sm-6 ">
+                <label class="mb-2 mt-2" for="">Dispense Sites</label>
+                <select class="form-control" formControlName="dispense_sites" name="" id="">
+                    <option value="">Select</option>
+                </select>
+            </div>
+            <div class="col-sm-6 ">
+                <label class="mb-2 mt-2" for="">Remote Access</label>
+                <select class="form-control" formControlName="remote_access" name="" id="">
+                    <option value="">Select</option>
+                    <option value="true">Allowed</option>
+                    <option value="false">Not Allowed</option>
+                </select>
+            </div>
+            <div class="col-sm-6 ">
+                <label class="mb-2 mt-2" for="">LFC</label>
+                <select class="form-control" formControlName="lfc" name="" id="">
+                    <option value="">Select</option>
+                    
+                </select>
+            </div>
+            <div class="col-sm-6 ">
+                <label class="mb-2 mt-2" for="">PIN</label>
+                <input class="form-control" type="text" placeholder="PIN">
+            </div>
+            <div class="col-sm-12 d-flex justify-content-start mt-4  gap-2"  >
+                <button class="btn action-button-1" >Add</button>
+                <button class="btn action-button-1" >Cancel</button>
+            </div>
+        </div>
+       
+
+    </form>
+</div>
+

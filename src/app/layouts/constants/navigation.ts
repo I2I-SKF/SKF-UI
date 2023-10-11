@@ -33,7 +33,7 @@ export const NAVIGATION = [
   {
     icon: '../../../assets/imges/icons/users.svg',
     name: 'Users',
-    link: '/services',
+    link: '/users',
     requiredPermission: 'user',
   },
   // {

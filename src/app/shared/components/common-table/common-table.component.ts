@@ -1,6 +1,7 @@
 import { Component,ViewChild, EventEmitter, Input, OnInit, Output,OnChanges,SimpleChanges } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import {MatPaginator} from '@angular/material/paginator';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-common-table',
   templateUrl: './common-table.component.html',
@@ -11,7 +12,7 @@ export class CommonTableComponent implements OnInit, OnChanges {
   dataSource: any;
   resultsLength:any;
  
-  constructor(private dialog: MatDialog){
+  constructor(private router:Router){
 
   }
 
@@ -103,18 +104,29 @@ export class CommonTableComponent implements OnInit, OnChanges {
 
   @Output() buttonClicked = new EventEmitter<{ row: any, button: string }>();
   @Output() selectChange = new EventEmitter<any>();
+  @Output() rowClick = new EventEmitter<any>();
   
-  onButtonClicked(row: any, button: string) {
+  onButtonClicked(event:any,row: any, button: string) {
     this.buttonClicked.emit({ row, button });
+    event.stopPropagation();
   }
 
   onSelectionChange(event:any,row:any){
     this.selectChange.emit({ row, value:event.targer.value });
+    event.stopPropagation();
   }
 
   showSystemHealthDetails(row:any){
       console.log(row);
       
+  }
+  onRowClick(event:any,data:any){
+    console.log(data);
+
+    this.rowClick.emit(data);
+    // this.router.navigate(['devices/device-details'])
+    
+    
   }
   
 }

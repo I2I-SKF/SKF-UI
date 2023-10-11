@@ -1,7 +1,7 @@
-<!-- <div class="d-flex justify-content-between"  style="margin-bottom: 15px;" >
-    <span class="font-size-xl" >Alerts</span>
-    <button class="btn action-button-1">Add Device</button>
-</div> -->
+<div class="d-flex justify-content-between"  style="margin-bottom: 15px;" >
+    <span class="font-size-xl" >Users</span>
+    <button class="btn action-button-1"  (click)="addUser()" >Add User</button>
+</div>
 <div style="margin-bottom: 15px;" >
     <app-common-table  [actions]="{type:'dd',data : []}" [columns]="displayed_columns" [data]="data" ></app-common-table>
 </div>

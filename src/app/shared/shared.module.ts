@@ -16,9 +16,9 @@ import { CommonToasterComponent } from './components/common-toaster/common-toast
 import { NgbToastModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgbPopoverModule } from '@ng-bootstrap/ng-bootstrap';
 import { RouterModule } from '@angular/router';
+import { BreadcrumbComponent } from './components/breadcrumb/breadcrumb.component';
 @NgModule({
   declarations: [
-    
     ChartComponent,
     NavigationDropdownComponent,
     ButtomComponent,
@@ -27,6 +27,7 @@ import { RouterModule } from '@angular/router';
     CommonTableComponent,
     CommonDialogComponent,
     CommonToasterComponent,
+    BreadcrumbComponent,
   ],
   imports: [
     CommonModule,
@@ -39,6 +40,6 @@ import { RouterModule } from '@angular/router';
     NgbPopoverModule,
     RouterModule
   ],
-  exports:[CommonDialogComponent,ChartComponent,NavigationDropdownComponent,ButtomComponent,CommonCardComponent,SiteDetailsCardsComponent,CommonTableComponent,CommonToasterComponent]
+  exports:[CommonDialogComponent,ChartComponent,NavigationDropdownComponent,ButtomComponent,CommonCardComponent,SiteDetailsCardsComponent,CommonTableComponent,CommonToasterComponent,BreadcrumbComponent]
 })
 export class SharedModule { }

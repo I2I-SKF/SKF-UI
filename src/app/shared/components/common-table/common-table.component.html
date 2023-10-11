@@ -5,9 +5,11 @@
       [matColumnDef]="column"
     >
       <th mat-header-cell *matHeaderCellDef>{{ column }}</th>
-      <td [ngClass]="{ 'tag_cancelled':row['Connection'] == 'Offline'}" mat-cell *matCellDef="let row; let rowIndex = index">
+      <td  [ngClass]="{ 'tag_cancelled':row['Connection'] == 'Offline'}" mat-cell *matCellDef="let row; let rowIndex = index">
         <ng-container *ngIf="column !== 'Action' && column !== 'Pin' && column !== 'System Health' ">
-          {{ row[column] }}
+          <span class="font-size-sm" (click)="onRowClick($event,row)" >
+            {{ row[column] }}
+          </span>
         </ng-container>
         <ng-container *ngIf="column == 'Pin'">
           <span >
@@ -45,7 +47,8 @@
             <button
               mat-button
               *ngFor="let button of actions.data"
-              (click)="onButtonClicked(row, button)"
+              (click)="onButtonClicked($event,row, button)"
+
             >
               {{ button }}
             </button>
