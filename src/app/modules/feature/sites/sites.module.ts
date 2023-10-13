@@ -18,6 +18,7 @@ import { SiteDetailsComponent } from './site-details/site-details.component';
     CommonModule,
     SitesRoutingModule,
     SharedModule
-  ]
+  ],
+  exports:[SitesComponent,SiteDetailsComponent]
 })
 export class SitesModule { }

@@ -4,70 +4,62 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { AlertsComponent } from './alerts/alerts.component';
 import { CommonSiteDetailComponent } from './common-site-detail/common-site-detail.component';
 import { PageNotFoundComponent } from 'src/app/pages/page-not-found/page-not-found.component';
+import { SiteDetailsComponent } from './sites/site-details/site-details.component';
+import { SitesComponent } from './sites/sites/sites.component';
 
 const routes: Routes = [
   {
-    path:'',
-    component:DashboardComponent,
+    path: '',
+    component: DashboardComponent,
     // data: { breadcrumb: 'Home' }
-
-    
   },
   {
-    path:'home',
-    component:DashboardComponent,
+    path: 'home',
+    component: DashboardComponent,
     // data: { breadcrumb: 'Home' }
-    
   },
   {
-    path:'alerts',
-    component:AlertsComponent,
-    data: { breadcrumb: 'Alerts' }
-    
+    path: 'alerts',
+    component: AlertsComponent,
+    data: { breadcrumb: 'Alerts' },
   },
   {
-    path:'sites',
+    path: 'sites',
     loadChildren: () =>
       import('./sites/sites.module').then((m) => m.SitesModule),
-      data: { breadcrumb: 'Sites' }
-  },
-  {
-    path:'site-details',
-    component:CommonSiteDetailComponent,
-    data: { breadcrumb: 'Site Details' }
+      data:{breadcrumb:'Sites'}
+    
+   
     
   },
   {
-    path:'devices',
-   
+    path: 'site-details',
+    component: CommonSiteDetailComponent,
+    data: { breadcrumb: 'Site Details' },
+  },
+  {
+    path: 'devices',
+
     loadChildren: () =>
       import('./devices/devices.module').then((m) => m.DevicesModule),
-      data: { breadcrumb: 'Devices' }
+    data: { breadcrumb: 'Devices' },
   },
   {
-    path:'users',
-   
+    path: 'users',
+
     loadChildren: () =>
       import('./users/users.module').then((m) => m.UsersModule),
-      data: { breadcrumb: 'Users' }
+    data: { breadcrumb: 'Users' },
   },
-  
-  {
-    path:'**',
-    component:PageNotFoundComponent
-    
-  },
-  
-  
 
- 
- 
-  
-  
+  {
+    path: '**',
+    component: PageNotFoundComponent,
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class FeatureRoutingModule { }
+export class FeatureRoutingModule {}

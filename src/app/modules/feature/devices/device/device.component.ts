@@ -4,13 +4,15 @@ import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import * as XLSX from 'xlsx';
 import { AddDeviceComponent } from '../add-device/add-device.component';
+import { BreadcrumbComponent } from 'src/app/shared/components/breadcrumb/breadcrumb.component';
+import { BreadcrumbService } from 'src/app/shared/services/breadcrumb.service';
 @Component({
   selector: 'app-device',
   templateUrl: './device.component.html',
   styleUrls: ['./device.component.scss'],
 })
 export class DeviceComponent implements OnInit {
-  constructor(private router: Router, private dialog: Dialog) {}
+  constructor(private router: Router, private dialog: Dialog,private breadcrumbService:BreadcrumbService) {}
 
   extractedData: any[] = [];
   displayed_columns = [
@@ -437,8 +439,21 @@ export class DeviceComponent implements OnInit {
     this.router.navigate(['/devices/device-details']);
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.breadcrumbService.setBreadcrumb([
+      {
+        name:'Home',
+        link:'/home'
+      },
+     
+      {
+        name:'Devices',
+        link:'/devices'
+      },
+     
+    ]);
 
+  }
   openDialog(): void {
     const dialogRef = this.dialog.open(AddDeviceComponent, {
       data: {

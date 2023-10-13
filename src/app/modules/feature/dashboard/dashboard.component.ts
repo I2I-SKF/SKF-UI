@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { CommonDialogComponent } from 'src/app/shared/components/common-dialog/common-dialog.component';
 import { CHART, CHART_CONFIGURATIONS } from 'src/app/shared/constants/charts';
+import { BreadcrumbService } from 'src/app/shared/services/breadcrumb.service';
 import { ChartServiceService } from 'src/app/shared/services/chart-service.service';
 import { ToastService } from 'src/app/shared/services/toast.service';
 @Component({
@@ -9,7 +10,7 @@ import { ToastService } from 'src/app/shared/services/toast.service';
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss'],
 })
-export class DashboardComponent {
+export class DashboardComponent implements OnInit {
   revenue_chart = CHART_CONFIGURATIONS[CHART.REVENUE_CHART];
   tank_level_chart = CHART_CONFIGURATIONS[CHART.TANK_LEVEL];
   no_data_chart = CHART_CONFIGURATIONS[CHART.NO_DATA];
@@ -18,8 +19,19 @@ export class DashboardComponent {
   constructor(
     private dialog: MatDialog,
     private chart: ChartServiceService,
-    public toastService: ToastService
+    public toastService: ToastService,
+    public breadcrumbService: BreadcrumbService,
   ) {}
+  ngOnInit(): void {
+    this.breadcrumbService.setBreadcrumb([
+      {
+        name:'Home',
+        link:'/home'
+      },
+     
+    ]);
+
+  }
 
   openDialog(): void {
     const dialogRef = this.dialog.open(CommonDialogComponent, {

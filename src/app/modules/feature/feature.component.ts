@@ -1,4 +1,6 @@
 import { Component, HostListener, OnInit } from '@angular/core';
+import { BreadcrumbComponent } from 'src/app/shared/components/breadcrumb/breadcrumb.component';
+import { BreadcrumbService } from 'src/app/shared/services/breadcrumb.service';
 
 @Component({
   selector: 'app-feature',
@@ -32,7 +34,13 @@ export class FeatureComponent implements OnInit {
     
     
   }
+  constructor(private breadcrumbService:BreadcrumbService){
+
+  }
   ngOnInit(): void {
+  const customBreadcrumbs = [{name:'Home',link:'/home'}];
+  this.breadcrumbService.setBreadcrumb(customBreadcrumbs)
+
     if(localStorage.getItem('iSV')){
       this.sidebarVisible =localStorage.getItem('iSV') == 'true' ? true :false;
       

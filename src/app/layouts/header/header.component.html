@@ -21,7 +21,7 @@
           [routerLink]="link.link"
           class="gap-1 link-color"
         >
-          <span> <img class="icon-regular" [src]="link.icon" alt="" /> </span
+          <span> <img class="icon-regular" [ngClass]="link.class" [src]="link.icon" alt="" /> </span
           ><span class="header-link-text"> {{ link.name }}</span>
         </a>
       </li>
@@ -41,6 +41,7 @@
           <option value="fr">FR</option>
           <option value="sp">SP</option>
         </select>
+       
       </div>
     </li>
     <li *ngIf="!isSidebarOpen" class="d-flex align-items-center">
@@ -55,12 +56,12 @@
         />
       </div>
       <div>
-        <!-- <select class="transparent-select" name="" id="">
+        <select  style="width: 100px;" class="transparent-select" name="" id="">
           <option value="someone" selected hidden>John D</option>
           <option value="change Password">Change Password</option>
           <option value="logout">Log out</option>
-        </select> -->
-        <div ngbDropdown class="d-inline-block">
+        </select>
+        <!-- <div ngbDropdown class="d-inline-block">
           <button type="button" id="dropdownBasic1" style="background-color: transparent;border:none;color:white" ngbDropdownToggle>
             John D
           </button>
@@ -68,7 +69,7 @@
             <button ngbDropdownItem> Change Password </button>
             <button ngbDropdownItem> Log out </button>
           </div>
-        </div>
+        </div> -->
       </div>
     </li>
     <li
@@ -102,20 +103,20 @@
       ></app-navigation-dropdown>
     </li>
     <li class="ms-3">
-      <app-navigation-dropdown
-        [placeholder]="'Select'"
-        [icon]="'../../../../assets/imges/icons/refresh.svg'"
+      <app-navigation-dropdown 
+       
+        [icon]="'../../../../assets/imges/icons/clock.svg'"
         [options]="options_today"
       ></app-navigation-dropdown>
     </li>
     <li class="ms-3">
-      <button style="height: 36px;" class="btn action-button-4">
+      <button style="height: 28px;" class="btn action-button-4">
         <img
-          [src]="'../../assets/imges/icons/refresh.svg'"
+          [src]="'../../assets/imges/icons/refresh-2.svg'"
           class="icon-regular me-2"
           alt=""
         />
-        <span>Sync All Sites</span>
+        <span>Refresh</span>
       </button>
     </li>
   </ul>

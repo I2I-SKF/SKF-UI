@@ -4,12 +4,14 @@ export const NAVIGATION = [
     name: 'Home',
     link: '/home',
     requiredPermission: 'user',
+    class:null
   },
   {
-    icon: '../../../assets/imges/icons/bell.svg',
+    icon: '../../../assets/imges/icons/edge-pc.svg',
     name: 'Devices',
     link: '/devices',
     requiredPermission: 'user',
+    class:'invert_img'
   },
   {
     icon: '../../../assets/imges/icons/info.svg',
@@ -25,10 +27,11 @@ export const NAVIGATION = [
   },
 
   {
-    icon: '../../../assets/imges/icons/graph1.svg',
+    icon: '../../../assets/imges/icons/file.svg',
     name: 'Reports',
     link: '/services',
     requiredPermission: 'user',
+    class:'invert_img'
   },
   {
     icon: '../../../assets/imges/icons/users.svg',

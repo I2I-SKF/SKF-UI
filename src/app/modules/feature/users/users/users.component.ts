@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { BreadcrumbService } from 'src/app/shared/services/breadcrumb.service';
 
 @Component({
   selector: 'app-users',
@@ -120,6 +121,24 @@ export class UsersComponent {
   ]
   addUser(){
     
+  }
+  constructor(private breadcrumbs:BreadcrumbService){
+
+  }
+
+  ngOnInit(): void {
+    this.breadcrumbs.setBreadcrumb([
+      {
+        name:'Home',
+        link:'/home'
+      },
+     
+      {
+        name:'Users',
+        link:'/users'
+      },
+     
+    ]);
   }
   
 }

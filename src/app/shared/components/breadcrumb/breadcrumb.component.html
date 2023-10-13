@@ -1,14 +1,22 @@
-<ul class="p-0 m-0 d-flex align-items-center breadcrumb-container"  >
-    <li *ngFor="let breadcrumb of breadcrumbItems; let last = last; let first = first">
-      <ng-container *ngIf="!last && !first">
-        <a [routerLink]="breadcrumb.route">{{ breadcrumb.label }}</a> <img style="height: 40px;transform: rotateZ(86deg); user-select: none;"  src="../../../../assets/imges/icons/angle-up.svg" alt="">
+
+<nav aria-label="breadcrumb" style="min-height: 30px;" class="mb-2">
+  <ol class="d-flex align-items-center m-0 p-0" style="list-style: none; ">
+    <li  class="d-flex align-items-center" *ngFor="let breadcrumb of breadcrumbs;let first=first;let last=last" >
+      <ng-container *ngIf="last && !first" >
+        <div class="w-100" >
+          {{ breadcrumb.name }}  
+        </div>
+       
       </ng-container>
-      <ng-container *ngIf="last">
-        {{ breadcrumb.label }}
+      <ng-container *ngIf="!last && !first" >
+        <span class="cursor-pointer" [routerLink]="breadcrumb.link" >  {{ breadcrumb.name }}  </span> <img *ngIf="breadcrumbs.length > 1" style="height: 30px; transform: rotateZ(90deg);" src="../../../../assets/imges/icons/angle-up.svg" alt="">
+       
       </ng-container>
-      <ng-container *ngIf="first">
-        <!-- {{ breadcrumb.label }} -->
-        <img style="height: 20px;filter: invert(1);user-select: none;" class="cursor-pointer" [routerLink]="breadcrumb.route"   src="../../../../assets/imges/icons/home.svg" alt=""> <img style="height: 40px;transform: rotateZ(86deg); user-select: none;"  src="../../../../assets/imges/icons/angle-up.svg" alt="">
+      <ng-container *ngIf="first" >
+        <span [routerLink]="breadcrumb.link" >  <img  class="cursor-pointer" style="height: 20px; filter: invert(1);" src="../../../../assets/imges/icons/home.svg" alt="">  <img *ngIf="breadcrumbs.length > 1" style="height: 30px; transform: rotateZ(90deg);" src="../../../../assets/imges/icons/angle-up.svg" alt="">  </span>
       </ng-container>
+      
+     
     </li>
-</ul>
+  </ol>
+</nav>

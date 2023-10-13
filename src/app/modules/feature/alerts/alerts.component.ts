@@ -1,11 +1,12 @@
-import { Component } from '@angular/core';
+import { Component,OnInit } from '@angular/core';
+import { BreadcrumbService } from 'src/app/shared/services/breadcrumb.service';
 
 @Component({
   selector: 'app-alerts',
   templateUrl: './alerts.component.html',
   styleUrls: ['./alerts.component.scss']
 })
-export class AlertsComponent {
+export class AlertsComponent implements OnInit {
   displayed_columns = [
    "Date & Time",
    "Device",
@@ -86,4 +87,22 @@ export class AlertsComponent {
    "Description":""
   },
   ]
+
+  constructor(private breadcrumbs:BreadcrumbService){
+
+  }
+
+  ngOnInit(): void {
+    this.breadcrumbs.setBreadcrumb([
+      {
+        name:'Home',
+        link:'/home'
+      },
+      {
+        name:'Alerts',
+        link:'/alerts'
+      },
+     
+    ]);
+  }
 }

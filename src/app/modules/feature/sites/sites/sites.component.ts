@@ -1,16 +1,17 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Dialog } from '@angular/cdk/dialog';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import * as XLSX from 'xlsx';
+import { BreadcrumbService } from 'src/app/shared/services/breadcrumb.service';
 
 @Component({
   selector: 'app-sites',
   templateUrl: './sites.component.html',
   styleUrls: ['./sites.component.scss'],
 })
-export class SitesComponent {
-  constructor(private router: Router, private dialog: Dialog) {}
+export class SitesComponent implements OnInit {
+  constructor(private router: Router, private dialog: Dialog,private breadcrumbs:BreadcrumbService) {}
 
   extractedData: any[] = [];
   displayed_columns = [
@@ -211,7 +212,21 @@ export class SitesComponent {
     this.router.navigate(['/sites/site-details']);
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    console.log("called");
+    
+    const customBreadcrumbs = [
+      {
+        name:'Home',
+        link:'/home'
+      },
+      {
+        name:'Sites',
+        link:'/sites'
+      }
+    ];
+    this.breadcrumbs.setBreadcrumb(customBreadcrumbs)
+  }
 
   // openDialog(): void {
   //   const dialogRef = this.dialog.open(, {
