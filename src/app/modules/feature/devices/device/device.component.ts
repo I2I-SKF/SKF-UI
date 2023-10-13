@@ -399,6 +399,18 @@ export class DeviceComponent implements OnInit {
       ],
     },
   ];
+  formControls = [
+    { name: 'devices', label: 'Select Device', type: 'text', options:[
+      {value:"all", viewValue:"All"},
+      {value:"device A", viewValue:"Device A"},
+      {value:"Device B", viewValue:"Device B"},
+    ],value:'all'  },
+    { name: 'status', label: 'Status', type: 'text', options:[
+      {value:"all", viewValue:"All"}
+      // {value:"all", viewValue:"All"},
+    ],value:'all' },
+    
+  ];
 
   handleFile(event: any): void {
     const file = event.target.files[0];

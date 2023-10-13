@@ -1,0 +1,27 @@
+<div class="mb-2"  >
+  <span class="font-size-xl" > {{component_details.name}}</span>
+</div>
+<form [formGroup]="form">
+      <div class="filter-container" >
+
+        <ng-container *ngFor="let control of controlConfig" >
+        
+          <div class="d-flex" >
+            <label class="filter-label" for="">{{control.label}}</label>
+            <select style="max-width: 150px;" class="form-select filter" type="text" [formControlName]="control.name" >
+              <!-- <option value="" selected >Select</option> -->
+              <option [value]="option.value" *ngFor="let option of control.options" > {{option.viewValue}}</option>
+            </select>
+          </div>
+        </ng-container>
+        <div class="input-group input-search">
+          <input #searchedValue type="text" class="form-control search-box" placeholder="Search" aria-label="Example text with button addon" aria-describedby="button-addon1">
+          <button (click)="searchEvent(searchedValue)" class="btn search-button"  type="button" id="button-addon1">
+            <img style="height: 20px;" src="../../../../assets/imges/icons/basic_magnifier.svg" alt="">
+          </button>
+        </div>
+      </div>
+   
+
+</form>
+

@@ -17,6 +17,8 @@ import { NgbToastModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgbPopoverModule } from '@ng-bootstrap/ng-bootstrap';
 import { RouterModule } from '@angular/router';
 import { BreadcrumbComponent } from './components/breadcrumb/breadcrumb.component';
+import { FilterBarComponent } from './components/filter-bar/filter-bar.component';
+import { ReactiveFormsModule } from '@angular/forms';
 @NgModule({
   declarations: [
     ChartComponent,
@@ -28,6 +30,7 @@ import { BreadcrumbComponent } from './components/breadcrumb/breadcrumb.componen
     CommonDialogComponent,
     CommonToasterComponent,
     BreadcrumbComponent,
+    FilterBarComponent,
   ],
   imports: [
     CommonModule,
@@ -38,8 +41,9 @@ import { BreadcrumbComponent } from './components/breadcrumb/breadcrumb.componen
     MatDialogModule,
     NgbToastModule,
     NgbPopoverModule,
-    RouterModule
+    RouterModule,
+    ReactiveFormsModule
   ],
-  exports:[CommonDialogComponent,ChartComponent,NavigationDropdownComponent,ButtomComponent,CommonCardComponent,SiteDetailsCardsComponent,CommonTableComponent,CommonToasterComponent,BreadcrumbComponent]
+  exports:[CommonDialogComponent,ChartComponent,NavigationDropdownComponent,ButtomComponent,CommonCardComponent,SiteDetailsCardsComponent,CommonTableComponent,CommonToasterComponent,BreadcrumbComponent,FilterBarComponent]
 })
 export class SharedModule { }
