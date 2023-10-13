@@ -68,8 +68,8 @@
       </td>
     </ng-container>
 
-    <tr mat-header-row *matHeaderRowDef="columns"></tr>
-    <tr mat-row *matRowDef="let row; columns: columns"></tr>
+    <tr class="header-color" mat-header-row *matHeaderRowDef="columns"></tr>
+    <tr class="body_row"  mat-row *matRowDef="let row; columns: columns"></tr>
   </table>
 </div>
 <mat-paginator

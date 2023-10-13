@@ -11,12 +11,14 @@ import { AlertsComponent } from './alerts/alerts.component';
 import { CommonSiteDetailComponent } from './common-site-detail/common-site-detail.component';
 import { MatSelectModule } from '@angular/material/select';
 import {MatSidenavModule} from '@angular/material/sidenav';
+import { ReportsComponent } from './reports/reports.component';
 @NgModule({
   declarations: [
     FeatureComponent,
     DashboardComponent,
     AlertsComponent,
     CommonSiteDetailComponent,
+    ReportsComponent,
 
   ],
   imports: [
@@ -32,7 +34,7 @@ import {MatSidenavModule} from '@angular/material/sidenav';
     
 
   ],
- 
+  exports:[CommonSiteDetailComponent]
  
 })
 export class FeatureModule { }

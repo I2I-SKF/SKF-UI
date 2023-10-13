@@ -209,7 +209,7 @@ export class SitesComponent implements OnInit {
   rowClick(data: any) {
     console.log(data);
 
-    this.router.navigate(['/sites/site-details']);
+    this.router.navigate(['/sites/site-details',data['Site Name']]);
   }
 
   ngOnInit(): void {

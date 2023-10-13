@@ -10,7 +10,7 @@ const routes: Routes = [
     data: { breadcrumb: 'Sites' }
   },
   {
-    path:'site-details',
+    path:'site-details/:name',
     component:SiteDetailsComponent,
     data: { breadcrumb: 'Site Details' }
   },

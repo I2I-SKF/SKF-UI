@@ -6,6 +6,7 @@ import { CommonSiteDetailComponent } from './common-site-detail/common-site-deta
 import { PageNotFoundComponent } from 'src/app/pages/page-not-found/page-not-found.component';
 import { SiteDetailsComponent } from './sites/site-details/site-details.component';
 import { SitesComponent } from './sites/sites/sites.component';
+import { ReportsComponent } from './reports/reports.component';
 
 const routes: Routes = [
   {
@@ -33,6 +34,13 @@ const routes: Routes = [
     
   },
   {
+    path: 'reports',
+    component:ReportsComponent
+    
+   
+    
+  },
+  {
     path: 'site-details',
     component: CommonSiteDetailComponent,
     data: { breadcrumb: 'Site Details' },
@@ -43,6 +51,13 @@ const routes: Routes = [
     loadChildren: () =>
       import('./devices/devices.module').then((m) => m.DevicesModule),
     data: { breadcrumb: 'Devices' },
+  },
+  {
+    path: 'dispenses',
+
+    loadChildren: () =>
+      import('./dispenses/dispenses.module').then((m) => m.DispensesModule),
+    
   },
   {
     path: 'users',

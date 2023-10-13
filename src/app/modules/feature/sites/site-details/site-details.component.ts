@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { BreadcrumbService } from 'src/app/shared/services/breadcrumb.service';
 
 @Component({
@@ -7,7 +8,8 @@ import { BreadcrumbService } from 'src/app/shared/services/breadcrumb.service';
   styleUrls: ['./site-details.component.scss']
 })
 export class SiteDetailsComponent implements OnInit {
-  constructor(private breadcrumbService:BreadcrumbService){}
+  constructor(private breadcrumbService:BreadcrumbService,private route:ActivatedRoute){}
+  siteName:any;
   ngOnInit(): void {
     this.breadcrumbService.setBreadcrumb([
       {
@@ -23,6 +25,10 @@ export class SiteDetailsComponent implements OnInit {
         link:'/sites/site-details',
       },
     ]);
+
+    this.siteName = this.route.snapshot.paramMap.get('name');
+
+    
 
   }
 

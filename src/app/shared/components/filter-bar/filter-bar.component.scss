@@ -30,3 +30,12 @@ display: flex;
     border-bottom: 1px solid #dee2e6;
 }
 
+.input-group {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: stretch;
+    /* width: 100%; */
+    height: 33.5px;
+    align-self: end;
+}

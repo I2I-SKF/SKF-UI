@@ -7,17 +7,25 @@ export const NAVIGATION = [
     class:null
   },
   {
-    icon: '../../../assets/imges/icons/edge-pc.svg',
+    icon: '../../../assets/imges/icons/edge-device-4.svg',
     name: 'Devices',
     link: '/devices',
     requiredPermission: 'user',
-    class:'invert_img'
+    class:'me-1'
   },
   {
-    icon: '../../../assets/imges/icons/info.svg',
+    icon: '../../../assets/imges/icons/arrows_squares.svg',
     name: 'Sites',
     link: '/sites',
     requiredPermission: 'user',
+    class:'invert_img me-1'
+  },
+  {
+    icon: '../../../assets/imges/icons/drop.svg',
+    name: 'Dispenses',
+    link: '/dispenses',
+    requiredPermission: 'user',
+    class:'invert_img'
   },
   {
     icon: '../../../assets/imges/icons/bell.svg',
@@ -29,7 +37,7 @@ export const NAVIGATION = [
   {
     icon: '../../../assets/imges/icons/file.svg',
     name: 'Reports',
-    link: '/services',
+    link: '/reports',
     requiredPermission: 'user',
     class:'invert_img'
   },

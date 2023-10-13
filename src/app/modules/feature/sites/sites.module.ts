@@ -5,19 +5,21 @@ import { SitesRoutingModule } from './sites-routing.module';
 import { SitesComponent } from './sites/sites.component';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { SiteDetailsComponent } from './site-details/site-details.component';
+import { FeatureModule } from '../feature.module';
 
 
 @NgModule({
   declarations: [
     
   
-    SitesComponent,
+            SitesComponent,
             SiteDetailsComponent
   ],
   imports: [
     CommonModule,
     SitesRoutingModule,
-    SharedModule
+    SharedModule,
+    FeatureModule
   ],
   exports:[SitesComponent,SiteDetailsComponent]
 })

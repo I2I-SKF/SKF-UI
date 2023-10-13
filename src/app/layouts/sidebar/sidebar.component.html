@@ -27,7 +27,7 @@
       *ngFor="let link of filteredNavigationLinks"
     >
       <div class="d-flex align-items-center" >
-        <img [src]="link.icon" alt="" class="icon-regular"> <span class="ms-2" style="color: white;" > {{link.name}} </span> 
+        <img [src]="link.icon" alt="" class="icon-regular" style="filter: invert(1);" > <span class="ms-2" style="color: white;" > {{link.name}} </span> 
       </div>
     </mat-list-item>
   </mat-list>
