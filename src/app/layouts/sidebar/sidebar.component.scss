@@ -1,6 +1,6 @@
 @import '../../../variables';
 .sidebar{
-    background-color: $skf-blue;   
+    background-color: $primary-600;   
     height: 100%;
     min-width: 300px;
 }
@@ -9,7 +9,7 @@ mat-list-item{
    
 }
 mat-list-item:hover {
-    background-color: rgb(53, 53, 170);
+    background-color: $blue-dark;
     color: yellow;
 }
 

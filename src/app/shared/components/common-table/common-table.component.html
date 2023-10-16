@@ -7,7 +7,7 @@
       <th mat-header-cell *matHeaderCellDef>{{ column }}</th>
       <td  [ngClass]="{ 'tag_cancelled':row['Connection'] == 'Offline'}" mat-cell *matCellDef="let row; let rowIndex = index">
         <ng-container *ngIf="column !== 'Action' && column !== 'Pin' && column !== 'System Health' ">
-          <span class="font-size-sm" (click)="onRowClick($event,row)" >
+          <span class="font-size-xs" (click)="onRowClick($event,row)" >
             {{ row[column] }}
           </span>
         </ng-container>
@@ -15,7 +15,7 @@
           <span >
             <span
 
-              class="font-size-sm cursor-pointer"
+              class="font-size-xs cursor-pointer"
               [popoverTitle]="'PIN'"
               [autoClose]="'outside'"
               [ngbPopover]="row[column]"
@@ -30,7 +30,7 @@
          <span >
           <span
 
-            class="font-size-sm cursor-pointer"
+            class="font-size-xs cursor-pointer"
             [popoverTitle]="'System Health'"
             [autoClose]="'outside'"
             [ngbPopover]=" 

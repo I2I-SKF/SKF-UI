@@ -1,26 +1,31 @@
 @import '../../../../variables';
 td{
     // border: 1px solid#f0f0f0;
-    border: 1px solid#e6e5e5;
+   border: 1px solid#e6e5e5;
    white-space: nowrap;
    @include table-row ;
+   font-size: $font-xs ;
+   
    
 }
 th{
     border: 1px solid#e6e5e5;
     @include table-heading;
+    font-size: $font-xs ;
+   
     
 }
 .header-color{
-    background-color: $grey-2;
+    background-color: $grey-300;
 }
 
 
 .mat-mdc-table .mdc-data-table__row {
     height: 35px;
+   
 }
 .mat-mdc-table .mdc-data-table__row:hover{
-    background-color: $grey-1;
+    background-color:$grey-50;
     cursor: pointer;
 }
 .mat-mdc-table .mdc-data-table__header-row {
@@ -42,17 +47,17 @@ outline: none;
 
 
 .tag_success{
-    background-color: $green-4;
+    background-color: $green-base;
     // border: 1px solid $green-3;
     
 }
 .tag_cancelled{
-    background-color: $red-3;
+    background-color: $red-light;
     // border: 1px solid $red-4;
     
 }
 .tag_warn{
-    background-color: $yellow-4;
+    background-color: $yellow-base;
     // border: 1px solid $yellow-3;
     
 }

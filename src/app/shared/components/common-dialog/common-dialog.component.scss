@@ -1,13 +1,13 @@
 @import "../../../../variables";
 
 .nav_background {
-  background-color: $skf-blue;
+  background-color: $primary-600;
   color: white;
   padding:10px;
 }
 
 .button_Styles {
-  background-color: $skf-blue;
+  background-color: $primary-600;
   color: white;
  
 }
@@ -19,7 +19,7 @@
 }
 
 .login_header {
-  color: $skf-blue;
+  color: $primary-600;
   padding: 10px 30px;
 }
 
@@ -28,7 +28,7 @@
 }
 
 .forgot_password {
-  color: $skf-blue;
+  color: $blue-dark;
   text-decoration: none;
   cursor: pointer;
 }

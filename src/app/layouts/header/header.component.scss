@@ -1,7 +1,7 @@
 @import '../../../variables';
 
 .nav_background{
-    background-color: $skf-blue;   
+    background-color: $primary-600;   
     height: 60px;
     display: flex;
     align-items: center;
@@ -16,7 +16,7 @@
     
 }
 .link-color:hover{
-    color: $yellow-2;
+    color: $yellow-dark;
 }
 .icon-size{
     width: $font-lg;
@@ -24,7 +24,7 @@
 
 
 .active_route{
-   color:$yellow-2;
+   color:$yellow-dark;
 }
 
 .nav_background_below{
@@ -38,14 +38,14 @@
 }
 
 
-.sub-header{
-    background-color: $grey-5;
-    color: $grey-1;
-    height: 45px;
-    padding: 0px 30px;
-    display: flex;
-    align-items: center;
-}
+// .sub-header{
+//     background-color: $grey-5;
+//     color: $grey-1;
+//     height: 45px;
+//     padding: 0px 30px;
+//     display: flex;
+//     align-items: center;
+// }
 
 .header-link-text{
     line-height: 2%;

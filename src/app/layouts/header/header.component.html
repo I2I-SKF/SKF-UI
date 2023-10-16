@@ -3,15 +3,18 @@
     class="d-flex p-0 align-items-center w-100 m-0 gap-4"
     style="list-style: none;"
   >
-    <li class="me-5">
+    <li class="me-2">
       <span class="">
         <img
           class=""
-          style="height: 25px; width:auto"
+          style="height: 20px; width:auto"
           src="../../../assets/imges/skf-logo-white.svg"
           alt=""
         />
       </span>
+    </li>
+    <li style="color: white;" class="me-auto">
+      <div style="font-size: 18px">LFC Cloud  </div>
     </li>
 
     <ng-container *ngIf="!isSidebarOpen">
@@ -21,19 +24,19 @@
           [routerLink]="link.link"
           class="gap-1 link-color"
         >
-          <span> <img class="icon-regular" [ngClass]="link.class" [src]="link.icon" alt="" /> </span
-          ><span class="header-link-text"> {{ link.name }}</span>
+        <!-- <span> <img class="icon-regular" [ngClass]="link.class" [src]="link.icon" alt="" /> </span> -->
+          <span class="header-link-text"> {{ link.name }}</span>
         </a>
       </li>
     </ng-container>
 
-    <li *ngIf="!isSidebarOpen" class="d-flex align-items-center ms-auto me-5">
+    <li *ngIf="!isSidebarOpen" class="d-flex align-items-center">
       <div class="">
-        <img
+        <!-- <img
           class="icon-regular"
           src="../../../assets/imges/icons/global.svg"
           alt=""
-        />
+        /> -->
       </div>
       <div>
         <select class="transparent-select" name="" id="">
@@ -44,32 +47,22 @@
        
       </div>
     </li>
+   
     <li *ngIf="!isSidebarOpen" class="d-flex align-items-center">
-      <div style="color: white; font-size: 18px">Company Name</div>
-    </li>
-    <li *ngIf="!isSidebarOpen" class="d-flex align-items-center">
-      <div>
+      <!-- <div>
         <img
           class="icon-regular"
           src="../../../assets/imges/icons/user.svg"
           alt=""
         />
-      </div>
+      </div> -->
       <div>
         <select  style="width: 100px;" class="transparent-select" name="" id="">
           <option value="someone" selected hidden>John D</option>
           <option value="change Password">Change Password</option>
           <option value="logout">Log out</option>
         </select>
-        <!-- <div ngbDropdown class="d-inline-block">
-          <button type="button" id="dropdownBasic1" style="background-color: transparent;border:none;color:white" ngbDropdownToggle>
-            John D
-          </button>
-          <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-            <button ngbDropdownItem> Change Password </button>
-            <button ngbDropdownItem> Log out </button>
-          </div>
-        </div> -->
+        
       </div>
     </li>
     <li
@@ -85,7 +78,7 @@
   </ul>
 </nav>
 
-<nav class="sub-header">
+<!-- <nav class="sub-header">
   <ul
     class="w-100 m-0 p-0 d-flex align-items-center"
     style="list-style: none"
@@ -94,30 +87,6 @@
       <div style="font-size: 18px">LFC Cloud</div>
     </li>
 
-    <!-- <li class="" style="margin-left:85px;">
-      <app-navigation-dropdown
-        (select_option)="siteOptionChanged($event)"
-        [placeholder]="'All Sites'"
-        [icon]="'../../../../assets/imges/icons/global.svg'"
-        [options]="options"
-      ></app-navigation-dropdown>
-    </li>
-    <li class="ms-3">
-      <app-navigation-dropdown 
-       
-        [icon]="'../../../../assets/imges/icons/clock.svg'"
-        [options]="options_today"
-      ></app-navigation-dropdown>
-    </li>
-    <li class="ms-3">
-      <button style="height: 28px;" class="btn action-button-4">
-        <img
-          [src]="'../../assets/imges/icons/refresh-2.svg'"
-          class="icon-regular me-2"
-          alt=""
-        />
-        <span>Refresh</span>
-      </button>
-    </li> -->
+    
   </ul>
-</nav>
+</nav> -->

@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { HighchartsChartModule } from 'highcharts-angular';
 import { ChartComponent } from './components/chart/chart.component';
 import { NavigationDropdownComponent } from './components/navigation-dropdown/navigation-dropdown.component';
-import { ButtomComponent } from './components/buttom/buttom.component';
 import {MatButtonModule} from '@angular/material/button';
 import { CommonCardComponent } from './components/common-card/common-card.component';
 import { SiteDetailsCardsComponent } from './components/site-details-cards/site-details-cards.component';
@@ -19,11 +18,12 @@ import { RouterModule } from '@angular/router';
 import { BreadcrumbComponent } from './components/breadcrumb/breadcrumb.component';
 import { FilterBarComponent } from './components/filter-bar/filter-bar.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { ButtonComponent } from './components/button/button.component';
 @NgModule({
   declarations: [
     ChartComponent,
     NavigationDropdownComponent,
-    ButtomComponent,
+    
     CommonCardComponent,
     SiteDetailsCardsComponent,
     CommonTableComponent,
@@ -31,6 +31,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     CommonToasterComponent,
     BreadcrumbComponent,
     FilterBarComponent,
+    ButtonComponent,
   ],
   imports: [
     CommonModule,
@@ -44,6 +45,6 @@ import { ReactiveFormsModule } from '@angular/forms';
     RouterModule,
     ReactiveFormsModule
   ],
-  exports:[CommonDialogComponent,ChartComponent,NavigationDropdownComponent,ButtomComponent,CommonCardComponent,SiteDetailsCardsComponent,CommonTableComponent,CommonToasterComponent,BreadcrumbComponent,FilterBarComponent]
+  exports:[CommonDialogComponent,ChartComponent,NavigationDropdownComponent,CommonCardComponent,SiteDetailsCardsComponent,CommonTableComponent,CommonToasterComponent,BreadcrumbComponent,FilterBarComponent,ButtonComponent]
 })
 export class SharedModule { }

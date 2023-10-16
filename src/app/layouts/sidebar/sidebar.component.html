@@ -1,17 +1,19 @@
-
-
-<div  class="sidebar">
+<div class="sidebar">
   <div
-    style="min-height: 50px; padding-left: 20px"
-    class="d-flex align-items-center gap-1 me-auto border-bottom"
+    style="height: 60px; padding-left: 20px"
+    class="d-flex align-items-center gap-1 me-auto"
   >
     <div
-      class="rightBar"
+      class="me-3"
       style="font-size: 24px; color: white; font-weight: bolder"
     >
-      <img style="width: 75px;" src="../../../assets/imges/skf-logo-white.svg" alt="">
+      <img
+        style="width: 75px"
+        src="../../../assets/imges/skf-logo-white.svg"
+        alt=""
+      />
     </div>
-    <div style="color: #626a78">|</div>
+
     <div style="color: white; font-weight: bold; line-height: 21px">
       LFC Cloud
     </div>
@@ -23,11 +25,13 @@
       [routerLinkActive]="'active-link'"
       [routerLink]="link.link"
       role="listitem"
-      class="border-bottom"
       *ngFor="let link of filteredNavigationLinks"
     >
-      <div class="d-flex align-items-center" >
+      <!-- <div class="d-flex align-items-center" >
         <img [src]="link.icon" alt="" class="icon-regular" style="filter: invert(1);" > <span class="ms-2" style="color: white;" > {{link.name}} </span> 
+      </div> -->
+      <div class="d-flex align-items-center">
+        <span class="ms-2" style="color: white"> {{ link.name }} </span>
       </div>
     </mat-list-item>
   </mat-list>
