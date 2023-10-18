@@ -6,6 +6,7 @@
     display: flex;
     align-items: center;
     padding: 0 30px;
+    
 }
 
 
@@ -16,7 +17,7 @@
     
 }
 .link-color:hover{
-    color: $yellow-dark;
+    font-weight: bold;
 }
 .icon-size{
     width: $font-lg;
@@ -24,7 +25,10 @@
 
 
 .active_route{
-   color:$yellow-dark;
+//    color:$yellow-dark;
+font-weight: bold;
+color: $white;
+
 }
 
 .nav_background_below{
