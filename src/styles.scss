@@ -107,7 +107,11 @@ font-size:$font-xxxxl ;
 }
 
 .action-button-1:hover{
-  background-color: $primary-600;
+  background-color:$blue-dark;
+  color: $white;
+}
+.action-button-1:active{
+  background-color:$blue-darker;
   color: $white;
 }
 .action-button-2:hover{
@@ -125,7 +129,7 @@ font-size:$font-xxxxl ;
 
 
 .hyperlink{
-  color: $primary-500;
+  color: $primary-600;
   font-size: $font-sm;
   cursor: pointer;
 }
@@ -191,12 +195,52 @@ font-size:$font-xxxxl ;
 
 
 
-  input,select,option{
+  input,select,option,label{
     font-size: $font-sm;
     color: $black; 
+    
   }
 
   ::placeholder{
     font-size: $font-sm;
     
+  }
+
+
+  $font-md: 16px;
+  $font-lg: 18px;
+  $font-xl: 20px;
+  $font-xxl: 24px;
+
+
+
+  .header-1{
+    font-size: $font-xxl;
+  }
+  .header-2{
+    font-size: $font-xl;
+  }
+  .header-3{
+    font-size: $font-lg;
+  }
+  .header-4{
+    font-size: $font-md;
+  }
+
+  ::placeholder{
+    font-size: $font-sm;
+  }
+
+  ::-moz-placeholder{
+    font-size: $font-sm;
+    
+  }
+
+  ::-webkit-input-placeholder{
+    font-size: $font-sm;
+  }
+
+
+  .input_border_class{
+    border:1px solid  #d2d2d2;
   }

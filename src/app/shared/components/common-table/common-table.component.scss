@@ -1,7 +1,7 @@
 @import '../../../../variables';
 td{
     // border: 1px solid#f0f0f0;
-   border: 1px solid#e6e5e5;
+//    border: 1px solid#e6e5e5;
    white-space: nowrap;
    @include table-row ;
    font-size: $font-xs ;
@@ -9,19 +9,19 @@ td{
    
 }
 th{
-    border: 1px solid#e6e5e5;
+    // border: 1px solid#e6e5e5;
     @include table-heading;
     font-size: $font-xs ;
    
     
 }
 .header-color{
-    background-color: $grey-300;
+    background-color: $grey-100;
 }
 
 
 .mat-mdc-table .mdc-data-table__row {
-    height: 35px;
+    height: 40px;
    
 }
 .mat-mdc-table .mdc-data-table__row:hover{
@@ -29,7 +29,7 @@ th{
     cursor: pointer;
 }
 .mat-mdc-table .mdc-data-table__header-row {
-    height: 35px;
+    height: 40px;
 }
 
 .action-select{
@@ -51,11 +51,11 @@ outline: none;
     // border: 1px solid $green-3;
     
 }
-.tag_cancelled{
-    background-color: $red-light;
-    // border: 1px solid $red-4;
+// .tag_cancelled{
+//     background-color: $red-light;
+//     // border: 1px solid $red-4;
     
-}
+// }
 .tag_warn{
     background-color: $yellow-base;
     // border: 1px solid $yellow-3;

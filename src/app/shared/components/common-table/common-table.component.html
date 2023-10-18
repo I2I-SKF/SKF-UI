@@ -1,5 +1,5 @@
 <div class="w-100" style="overflow-x: auto">
-  <table mat-table [dataSource]="data">
+  <table mat-table [dataSource]="data" class="table table-striped">
     <ng-container
       *ngFor="let column of columns; let columnIndex = index"
       [matColumnDef]="column"
@@ -44,14 +44,19 @@
 
         <ng-container *ngIf="column == 'Action'">
           <ng-container *ngIf="actions.type == 'btn'">
-            <button
-              mat-button
+            <!-- <button
+              class="btn  d-flex align-items-center"
               *ngFor="let button of actions.data"
               (click)="onButtonClicked($event,row, button)"
 
             >
               {{ button }}
-            </button>
+            </button> -->
+           <ng-container *ngFor="let button of actions.data">
+            <span style="color: rgb(128, 136, 149);font-size: 16px;vertical-align: middle;" (click)="onButtonClicked($event,row, button)" class="material-icons" >
+              settings
+            </span>
+           </ng-container>
           </ng-container>
           <ng-container *ngIf="actions?.type == 'dd'">
             <select

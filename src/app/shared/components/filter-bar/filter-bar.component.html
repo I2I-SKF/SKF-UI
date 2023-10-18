@@ -1,5 +1,8 @@
-<div class="mb-2"  >
-  <span class="font-size-xl" > {{component_details.name}}</span>
+<div class="mb-2 d-flex justify-content-between w-100  align-items-center"  >
+  <span class="header-1 " > {{component_details.name}}</span>
+  <span class="ms-auto " *ngIf="component_details.button" > 
+    <button class="btn action-button-1" >{{component_details.button.name}}</button>
+  </span>
 </div>
 <div class="w-100" >
   <form [formGroup]="form">
@@ -9,7 +12,7 @@
       
         <div class="col-sm-3" >
           <label  for="">{{control.label}}</label>
-          <select  class="form-select" type="text" [formControlName]="control.name" >
+          <select  class="form-select input_border_class" type="text" [formControlName]="control.name" >
             <!-- <option value="" selected >Select</option> -->
             <option [value]="option.value" *ngFor="let option of control.options" > {{option.viewValue}}</option>
           </select>
@@ -21,9 +24,7 @@
           <img style="height: 20px;" src="../../../../assets/imges/icons/basic_magnifier.svg" alt="">
         </button>
       </div>
-      <div class="col-auto align-self-end ms-auto" *ngIf="component_details.button" > 
-        <button class="btn action-button-1" >{{component_details.button.name}}</button>
-      </div>
+     
     </div>
    
 

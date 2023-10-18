@@ -71,7 +71,7 @@ $grey-100 :rgb(235, 236, 238);
 $grey-200 : rgb(226, 228, 231);
 $grey-300 : rgb(213, 216, 220);
 $grey-400 : rgb(199, 202, 208);
-$grey-500 : #aaafb8;
+$grey-500 : rgb(170, 175, 184);
 $grey-600 : rgb(128, 136, 149);
 $grey-700 : rgb(103, 111, 124);
 
@@ -82,16 +82,16 @@ $primary-200:rgb(231, 238, 250);
 $primary-300:rgb(207, 222, 247);
 $primary-400:rgb(159, 188, 238);
 $primary-500:rgb(98, 146, 228);
-$primary-600:rgb(15, 88, 214);
+$primary-600:#0f58d6;
 $primary-700:rgb(12, 74, 182);
 $primary-800:#09398b;
 
 // font 
-$light-font:'noto-light', sans-serif;
-$thin-font:'noto-thin', sans-serif;
-$regular-font:'noto-regular', sans-serif;
-$medium-font:'noto-medium', sans-serif;
-$bold-font:'noto-bold', sans-serif;
+// $light-font:'noto-light', sans-serif;
+// $thin-font:'noto-thin', sans-serif;
+// $regular-font:'noto-regular', sans-serif;
+// $medium-font:'noto-medium', sans-serif;
+// $bold-font:'noto-bold', sans-serif;
 
 
 // font-sizes
@@ -128,14 +128,30 @@ $section-subtitle:$font-md;
    color: $grey-700;
 }
 
+// @mixin action-btn-1{
+//     display: flex;
+//     align-items: center;
+//     transition: all 100ms ease-in-out;
+//     border: 1px solid $primary-600;
+//     color: $primary-600;
+//     padding: 4px 8px;
+//     border-radius: 3px;
+//     background-color: transparent;
+//     font-size: $font-sm;
+//     // font-weight: 600;
+
+// }
 @mixin action-btn-1{
     display: flex;
     align-items: center;
     transition: all 100ms ease-in-out;
-    border: 1px solid $blue-dark;
-    color: $blue-dark;
-    padding: 7px 15px;
-    border-radius: 2px;
+    border: 1px solid $primary-600;
+    color: $primary-600;
+    padding: 4px 8px;
+    border-radius: 3px;
+    background-color: $primary-600;
+    font-size: $font-sm;
+    // font-weight: 600;
 
 }
 @mixin action-btn-2{
@@ -165,10 +181,10 @@ $section-subtitle:$font-md;
 
 
 
-$page-title:$font-xxl;
-$page-subtitle:$font-xl;
-$section-title:$font-lg;
-$section-subtitle:$font-md;
+// $page-title:$font-xxl;
+// $page-subtitle:$font-xl;
+// $section-title:$font-lg;
+// $section-subtitle:$font-md;
 
 
 
