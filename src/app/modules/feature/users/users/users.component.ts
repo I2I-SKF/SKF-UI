@@ -1,5 +1,7 @@
+import { Dialog } from '@angular/cdk/dialog';
 import { Component } from '@angular/core';
 import { BreadcrumbService } from 'src/app/shared/services/breadcrumb.service';
+import { AddUserComponent } from '../add-user/add-user.component';
 
 @Component({
   selector: 'app-users',
@@ -14,7 +16,8 @@ export class UsersComponent {
     "Email",
     "Contact No",
     "Status",
-    "Last Log In",
+    // "Last Log In",
+    
     "Action"
 
   ];
@@ -119,13 +122,14 @@ export class UsersComponent {
       "Delete User"
     ]},
   ]
-  addUser(){
+  constructor(private breadcrumbs:BreadcrumbService,private dialog:Dialog){
+
     
   }
-  constructor(private breadcrumbs:BreadcrumbService){
-
+  
+  addUser(){
+   this.dialog.open(AddUserComponent)
   }
-
   ngOnInit(): void {
     this.breadcrumbs.setBreadcrumb([
       {

@@ -7,6 +7,7 @@ import { PageNotFoundComponent } from 'src/app/pages/page-not-found/page-not-fou
 import { SiteDetailsComponent } from './sites/site-details/site-details.component';
 import { SitesComponent } from './sites/sites/sites.component';
 import { ReportsComponent } from './reports/reports.component';
+import { SupportComponent } from './support/support.component';
 
 const routes: Routes = [
   {
@@ -65,6 +66,12 @@ const routes: Routes = [
     loadChildren: () =>
       import('./users/users.module').then((m) => m.UsersModule),
     data: { breadcrumb: 'Users' },
+  },
+  {
+    path: 'support',
+    loadChildren: () =>
+    import('./support/support.module').then((m) => m.SupportModule),
+     data: { breadcrumb: 'Users' },
   },
 
   {

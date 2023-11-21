@@ -1,6 +1,7 @@
 import { Component,ViewChild, EventEmitter, Input, OnInit, Output,OnChanges,SimpleChanges } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import {MatPaginator} from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 @Component({
   selector: 'app-common-table',
@@ -35,74 +36,56 @@ export class CommonTableComponent implements OnInit, OnChanges {
     
   ];
   @Input() data: any = [
-    {
-    'Site Name':'Lubock',
-    'Stations':4,
-    'Hoes':16,
-    'Tanks':2,
-    'Low Warnings':0,
-    'Users':8,
-    'Customers':150,
-    'Active Disp.':6,
-    'Complete Disp.':42,
-    'Failed Disp.':3,
-    'Billed Disp.':876.50,
-    },
-    {
-    'Site Name':'La Jolla',
-    'Stations':4,
-    'Hoes':16,
-    'Tanks':2,
-    'Low Warnings':0,
-    'Users':8,
-    'Customers':150,
-    'Active Disp.':6,
-    'Complete Disp.':42,
-    'Failed Disp.':3,
-    'Billed Disp.':876.50,
-    },
-    {
-    'Site Name':'Franklin',
-    'Stations':4,
-    'Hoes':16,
-    'Tanks':2,
-    'Low Warnings':0,
-    'Users':8,
-    'Customers':150,
-    'Active Disp.':6,
-    'Complete Disp.':42,
-    'Failed Disp.':3,
-    'Billed Disp.':876.50,
-    },
-    {
-    'Site Name':'Lube Truck 1',
-    'Stations':4,
-    'Hoes':16,
-    'Tanks':2,
-    'Low Warnings':0,
-    'Users':8,
-    'Customers':150,
-    'Active Disp.':6,
-    'Complete Disp.':42,
-    'Failed Disp.':3,
-    'Billed Disp.':876.50,
-    
-    
-    },
+   
    
   ];
 
   ngOnInit(): void {
-    this.dataSource = this.data;
+    
     
     
   }
   ngOnChanges(changes: SimpleChanges){
     console.log(changes);
+
+    this.dataSource = new MatTableDataSource(this.data);
+    this.dataSource.paginator = this.paginator;
     
   }
 
+  ngAfterViewInit() {
+   
+  }
+
+  onClickSearch(data:any){
+    console.log(data);
+    
+    this.searched.emit({
+      data : data,
+    })
+  }
+  onSearch(data:any){
+    
+    if(data.target.value != '' ){
+      this.searched.emit({
+        data : data.target.value,
+      })
+    }
+    else{
+      if(data.target.value == ''){
+        this.searched.emit(null)
+      }
+    }
+    
+    
+
+      
+   
+   
+  }
+
   @Output() buttonClicked = new EventEmitter<{ row: any, button: string }>();
+  @Output() searched = new EventEmitter();
   @Output() selectChange = new EventEmitter<any>();
   @Output() rowClick = new EventEmitter<any>();
   

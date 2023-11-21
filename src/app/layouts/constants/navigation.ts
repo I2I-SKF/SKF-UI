@@ -47,6 +47,12 @@ export const NAVIGATION = [
     link: '/users',
     requiredPermission: 'user',
   },
+  {
+    icon: '../../../assets/imges/icons/users.svg',
+    name: 'Support',
+    link: '/support',
+    requiredPermission: 'user',
+  },
   // {
   //   icon: 'paid',
   //   name: 'Customer',

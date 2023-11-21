@@ -3,6 +3,9 @@ import { Dialog } from '@angular/cdk/dialog';
 import { Router } from '@angular/router';
 import * as XLSX from 'xlsx';
 import { BreadcrumbService } from 'src/app/shared/services/breadcrumb.service';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { ApiService } from 'src/app/shared/services/api.service';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-dispenses',
@@ -10,197 +13,121 @@ import { BreadcrumbService } from 'src/app/shared/services/breadcrumb.service';
   styleUrls: ['./dispenses.component.scss'],
 })
 export class DispensesComponent {
+  dispensesForm: any;
   constructor(
     private router: Router,
     private dialog: Dialog,
-    private breadcrumbService: BreadcrumbService
+    private breadcrumbService: BreadcrumbService,
+    private fb: FormBuilder,
+    private api: ApiService
   ) {}
 
-  extractedData: any[] = [];
-  displayed_columns = [
-    'Site',
-    'Dispense ID',
-    'Job Number',
-    'Part Number',
-    'Authorised At',
-    'Authorised by',
-    'Dispense Status',
-    'Completed At',
-    'Fluid Name',
-    'Ordered Qty.',
-    'Dispensed Qty.',
-    'Unit',
-    'DMS',
+  devices_data = [
+    { viewValue: 'Device 1, Pune', value: '00001ACYAE9OI' },
+    { viewValue: 'Device 2, st. Louis', value: '00001S81KOXLA' },
+  ];
+  sites_data = [{ value: 'all', viewValue: 'All' }];
+  dispense_statuses = [
+    { value: 'all', viewValue: 'All' },
    
+        { value: 0, viewValue: 'Active' },
+        { value: 1, viewValue: 'Ending' },
+        { value: 2, viewValue: 'Complete' },
+        { value: 3, viewValue: 'Error' },
+        { value: 4, viewValue: 'Cancelled' },
+    
+  ];
+  dispense_data: any = [];
+  last_sync_time: any = null;
+  extractedData: any[] = [];
+  backup_for_filter:any = [];
+  displayed_columns = [
+    'Device',
+    'Site Name',
+    'Transaction No',
+    'Start Time',
+    'Dispense Status',
+    'Controller Response',
+    'Fluid Name',
+    'Initiated By',
+    'Ordered',
+    'Dispensed',
+    'End Time',
   ];
 
   data = [
     {
-      Site: 'A1',
-      'Dispense ID': 'D12345',
-      'Job Number': 'J001',
-      'Part Number': 'P765',
-      'Authorised At': '10/1/2023 8:30',
-      'Authorised by': 'User1',
-      'Dispense Status': 'Dispensing',
-      'Fluid Name': 'Synthetic Oil',
-      'Ordered Qty.': 10,
-      'Dispensed Qty.': 5,
-      Unit: 'gallon',
-      DMS: 'Procede',
+      Device: 'Device 1, Pune',
+      'Site Name': 'Site A',
+      'Transaction No': 171,
+      'Start Time': '11/17/2023 3:32:28 PM',
+      'Dispense Status': 'Complete',
+      'Controller Response': 'Successful',
+      'Fluid Name': 'Mobile 1',
+      'Initiated By': 'System Administrator',
+      Ordered: '1 Quarts',
+      Dispensed: '1 Quarts',
+      'End Time': 1,
     },
     {
-      Site: 'B2',
-      'Dispense ID': 'D12346',
-      'Job Number': 'J002',
-      'Part Number': 'P766',
-      'Authorised At': '10/2/2023 9:00',
-      'Authorised by': 'User2',
-      'Dispense Status': 'Error',
-      'Fluid Name': 'Motor Oil',
-      'Ordered Qty.': 15,
-      'Dispensed Qty.': 0,
-      Unit: 'quart',
-      DMS: 'AssetWorks',
+      Device: 'Device 1, Pune',
+      'Site Name': 'Site A',
+      'Transaction No': 171,
+      'Start Time': '11/17/2023 3:32:28 PM',
+      'Dispense Status': 'Complete',
+      'Controller Response': 'Successful',
+      'Fluid Name': 'Mobile 1',
+      'Initiated By': 'System Administrator',
+      Ordered: '1 Quarts',
+      Dispensed: '1 Quarts',
+      'End Time': 1,
     },
     {
-      Site: 'C3',
-      'Dispense ID': 'D12347',
-      'Job Number': 'J003',
-      'Part Number': 'P767',
-      'Authorised At': '10/3/2023 10:15',
-      'Authorised by': 'User3',
-      'Dispense Status': 'Fully Dispensed',
-      'Completed At': '10/3/2023 11:15',
-      'Fluid Name': 'Brake Fluid',
-      'Ordered Qty.': 20,
-      'Dispensed Qty.': 20,
-      Unit: 'pint',
-      DMS: 'CDK',
-    },
-    {
-      Site: 'D4',
-      'Dispense ID': 'D12348',
-      'Job Number': 'J004',
-      'Part Number': 'P768',
-      'Authorised At': '10/4/2023 11:20',
-      'Authorised by': 'User4',
-      'Dispense Status': 'Part Dispensed',
-      'Completed At': '10/4/2023 12:20',
-      'Fluid Name': 'Synthetic Oil',
-      'Ordered Qty.': 25,
-      'Dispensed Qty.': 15,
-      Unit: 'oz',
-      DMS: 'DBS',
-    },
-    {
-      Site: 'E5',
-      'Dispense ID': 'D12349',
-      'Job Number': 'J005',
-      'Part Number': 'P769',
-      'Authorised At': '10/5/2023 12:25',
-      'Authorised by': 'User5',
-      'Dispense Status': 'Dispensing',
-      'Fluid Name': 'Motor Oil',
-      'Ordered Qty.': 30,
-      'Dispensed Qty.': 20,
-      Unit: 'gallon',
-      DMS: 'DSI',
-    },
-    {
-      Site: 'F6',
-      'Dispense ID': 'D12350',
-      'Job Number': 'J006',
-      'Part Number': 'P770',
-      'Authorised At': '10/6/2023 13:30',
-      'Authorised by': 'User6',
-      'Dispense Status': 'Error',
-      'Fluid Name': 'Brake Fluid',
-      'Ordered Qty.': 35,
-      'Dispensed Qty.': 0,
-      Unit: 'quart',
-      DMS: 'SKF',
-    },
-    {
-      Site: 'G7',
-      'Dispense ID': 'D12351',
-      'Job Number': 'J007',
-      'Part Number': 'P771',
-      'Authorised At': '10/7/2023 14:35',
-      'Authorised by': 'User7',
-      'Dispense Status': 'Fully Dispensed',
-      'Completed At': '10/7/2023 15:35',
-      'Fluid Name': 'Synthetic Oil',
-      'Ordered Qty.': 40,
-      'Dispensed Qty.': 40,
-      Unit: 'pint',
-      DMS: 'TMW',
-    },
-    {
-      Site: 'H8',
-      'Dispense ID': 'D12352',
-      'Job Number': 'J008',
-      'Part Number': 'P772',
-      'Authorised At': '10/7/2023 14:35',
-      'Authorised by': 'User8',
-      'Dispense Status': 'Part Dispensed',
-      'Completed At': '10/9/2023 16:45',
-      'Fluid Name': 'Motor Oil',
-      'Ordered Qty.': 45,
-      'Dispensed Qty.': 30,
-      Unit: 'oz',
-      DMS: 'Karmak',
-    },
-    {
-      Site: 'I9',
-      'Dispense ID': 'D12353',
-      'Job Number': 'J009',
-      'Part Number': 'P773',
-      'Authorised At':'10/8/2023 15:40',
-      'Authorised by': 'User9',
-      'Dispense Status': 'Dispensing',
-      'Fluid Name': 'Brake Fluid',
-      'Ordered Qty.': 50,
-      'Dispensed Qty.': 25,
-      Unit: 'gallon',
-      DMS: 'Procede',
-    },
-    {
-      Site: 'J10',
-      'Dispense ID': 'D12354',
-      'Job Number': 'J010',
-      'Part Number': 'P774',
-      'Authorised At': '10/10/2023 17:50',
-      'Authorised by': 'User10',
-      'Dispense Status': 'Error',
-      'Fluid Name': 'Synthetic Oil',
-      'Ordered Qty.': 55,
-      'Dispensed Qty.': 0,
-      Unit: 'quart',
-      DMS: 'AssetWorks',
+      Device: 'Device 1, Pune',
+      'Site Name': 'Site A',
+      'Transaction No': 171,
+      'Start Time': '11/17/2023 3:32:28 PM',
+      'Dispense Status': 'Complete',
+      'Controller Response': 'Successful',
+      'Fluid Name': 'Mobile 1',
+      'Initiated By': 'System Administrator',
+      Ordered: '1 Quarts',
+      Dispensed: '1 Quarts',
+      'End Time': 1,
     },
   ];
   formControls = [
     {
       name: 'dispenses',
-      label: 'Select Dispense',
+      label: 'Select Device',
       type: 'text',
       options: [
         { value: 'all', viewValue: 'All' },
-        { value: 'dispense A', viewValue: 'dispense A' },
-        { value: 'dispense B', viewValue: 'dispense B' },
+        { viewValue: 'Device 1, Pune', value: '11231223' },
       ],
       value: 'all',
     },
     {
-      name: 'status',
+      name: 'Sites',
+      label: 'Site',
+      type: 'text',
+      options: [
+        { value: 'all', viewValue: 'All' },
+        { value: 'Site 1', viewValue: 'Site 1' },
+      ],
+      value: 'all',
+    },
+    {
+      name: 'Dispense',
       label: 'Status',
       type: 'text',
       options: [
-        {value: 'all', viewValue: 'All' },
-        {value:"Active", viewValue:"Active"},
-        {value:"Cancelled", viewValue:"Cancelled"},
-        {value:"Paused", viewValue:"Paused"},
+        { value: 'all', viewValue: 'All' },
+        { value: 0, viewValue: 'Active' },
+        { value: 1, viewValue: 'Ending' },
+        { value: 2, viewValue: 'Complete' },
+        { value: 3, viewValue: 'Error' },
+        { value: 4, viewValue: 'Cancelled' },
       ],
       value: 'all',
     },
@@ -251,22 +178,258 @@ export class DispensesComponent {
         name: 'Home',
         link: '/home',
       },
-
       {
         name: 'Dispenses',
         link: '',
       },
     ]);
+
+    let date = new Date();
+    this.dispensesForm = this.fb.group({
+      devices: [this.devices_data[0].value],
+      sites: ['all'],
+      start_date: [this.formatDate(date)],
+      end_date: [this.formatDate(date)],
+      dispense_status: ['all'],
+      
+    });
+
+    this.getCloudData();
   }
-  // openDialog(): void {
-  //   const dialogRef = this.dialog.open(AddDeviceComponent, {
-  //     data: {
-  //       title: 'Modal Title',
-  //     },
-  //   });
-  // }
+
+  date_min_max = {
+    start_date_min: '2023-11-20',
+    start_date_max: '',
+    end_date_min: '',
+    end_date_max: '',
+  };
+
+  private formatDate(date: Date): string {
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    console.log(`${year}-${month}-${day}`);
+
+    return `${year}-${month}-${day}`;
+  }
 
   addDevice() {
     // this.openDialog();
+  }
+  startDateChange(data: any) {}
+
+  endDateChange(data: any) {}
+
+
+  searchFilterBackup:any = [];
+
+  catchSearchEvents(data:any){
+
+    this.dispensesForm.get('dispense_status').setValue('all')
+
+    this.onDispenseStatusChange({target:{value:'all'}});
+
+
+    if(this.searchFilterBackup.length>0){
+      this.dispense_data =  this.searchFilterBackup 
+    }
+    else{
+      this.searchFilterBackup = this.dispense_data;
+    }
+
+    if(data?.data){
+      let filtered_data = this.dispense_data.filter((record:any)=>{
+        return record['Transaction No'] == parseInt(data.data)
+      });
+      this.dispense_data = filtered_data;
+
+      console.log(filtered_data);
+      
+    }
+    else{
+      this.dispense_data = this.searchFilterBackup;
+    }
+  }
+
+  onSiteChange(data: any) {
+    let site_id = data.target.value;
+    this.dispense_data =
+      site_id == 'all'
+        ? this.createDispenseLogForAll()
+        : this.createDispenseLog(site_id);
+    console.log(this.dispense_data);
+  }
+
+  createDispenseLog(site_id: any) {
+    let data: any[] = this.site_wise_dispneses[site_id];
+    if (data.length != 0) {
+      return data.map((record: any) => {
+        return {
+          Device: this.checkIfKeyExists(record.deviceid),
+          'Site Name': this.checkIfKeyExists(record.dmsTypeDescription),
+          'Transaction No': this.checkIfKeyExists(record.transactionNumber),
+          'Start Time': this.checkIfKeyExists(record.dispenseStartedLocal),
+          'Dispense Status': this.checkIfKeyExists(record.statusDescription),
+          'Controller Response': this.checkIfKeyExists(
+            record.hardwareStatusCodeDescription
+          ),
+          'Fluid Name': this.checkIfKeyExists(record.tankFluidDescription),
+          'Initiated By': this.checkIfKeyExists(record.initiatedBy),
+          Ordered: this.checkIfKeyExists(record.quantityRequested),
+          Dispensed: this.checkIfKeyExists(record.quantityDispensed),
+          'End Time': this.checkIfKeyExists(record.dispenseCompletedLocal),
+          'dispense_status_id':`${record.statusId}`
+        };
+      });
+    } else {
+      return [];
+    }
+  }
+
+  createDispenseLogForAll() {
+    this.dispensesForm.get('sites').setValue('all');
+    let dispense_data: any = [];
+    this.sites_data.forEach((site: any) => {
+      if (site.value != 'all') {
+        this.site_wise_dispneses[site.value].forEach((record: any) => {
+
+          this.dispense_statuses.push()
+
+          dispense_data.push({
+            Device: this.checkIfKeyExists(record.deviceid),
+            'Site Name': this.checkIfKeyExists(record.dmsTypeDescription),
+            'Transaction No': this.checkIfKeyExists(record.transactionNumber),
+            'Start Time': this.checkIfKeyExists(record.dispenseStartedLocal),
+            'Dispense Status': this.checkIfKeyExists(record.statusDescription),
+            'Controller Response': this.checkIfKeyExists(
+              record.hardwareStatusCodeDescription
+            ),
+            'Fluid Name': this.checkIfKeyExists(record.tankFluidDescription),
+            'Initiated By': this.checkIfKeyExists(record.initiatedBy),
+            Ordered: this.checkIfKeyExists(record.quantityRequested),
+            Dispensed: this.checkIfKeyExists(record.quantityDispensed),
+            'End Time': this.checkIfKeyExists(record.dispenseCompletedLocal),
+            'dispense_status_id':`${record.statusId}`
+
+            
+          });
+        });
+      }
+    });
+
+    return dispense_data;
+  }
+
+  checkIfKeyExists(key: any) {
+    if (key != null && key != '') {
+      return key;
+    } else {
+      return 'NA';
+    }
+  }
+
+  site_wise_dispneses: any = {};
+
+  onDeviceChange(data: any) {
+    let selected_device = data.target.value;
+    let today = new Date();
+    
+    this.dispensesForm.get('start_date').setValue(this.formatDate(today));
+    this.dispensesForm.get('end_date').setValue(this.formatDate(today));
+    this.getCloudData();
+  }
+  resetEverything() {
+    this.site_wise_dispneses = [];
+    this.dispense_data = [];
+    this.sites_data = [{ value: 'all', viewValue: 'All' }];
+  }
+
+  onDispenseStatusChange(data:any){
+
+    let selected_dispense_status:any = data.target.value;
+    console.log('selected option dispense ',selected_dispense_status);
+  
+    
+    if(this.backup_for_filter.length != 0){
+
+      this.dispense_data = this.backup_for_filter;
+
+
+    }
+    else{
+      this.backup_for_filter = this.dispense_data;
+    }
+
+
+    if(selected_dispense_status =='all'){
+      this.dispense_data = this.backup_for_filter;
+    }
+    else{
+      let filterd_data = this.dispense_data.filter((dispense:any)=>{
+        console.log(dispense['dispense_status_id'] + " " + selected_dispense_status);
+        
+        if(dispense['dispense_status_id'] == selected_dispense_status){
+          return true;
+        }
+        else{
+          return false; 
+        }
+      });
+  
+      this.dispense_data = filterd_data;
+    }
+
+   
+
+
+
+  }
+  
+
+  getCloudData() {
+    this.resetEverything();
+
+    console.log('inside cloud fetch');
+
+    let data = {
+      device_id: this.dispensesForm.get('devices').value,
+      from_time: this.dispensesForm.get('start_date').value,
+      to_time: this.dispensesForm.get('end_date').value,
+    };
+
+    this.api.getDataFromCloud(data).subscribe({
+      next: (res) => {
+        console.log(res.body);
+
+        this.dispense_data = res.body.forEach((dispense_record: any) => {
+          let updated_record = { ...dispense_record };
+
+          if (this.site_wise_dispneses[dispense_record.siteId]) {
+            this.site_wise_dispneses[dispense_record.siteId].push(
+              updated_record
+            );
+          } else {
+            this.site_wise_dispneses[dispense_record.siteId] = [updated_record];
+            this.sites_data.push({
+              value: dispense_record.siteId,
+              viewValue: dispense_record.dmsTypeDescription,
+            });
+          }
+        });
+
+        console.log(this.site_wise_dispneses, this.sites_data);
+
+        this.onSiteChange({ target: { value: 'all' } });
+
+       
+
+       
+        this.last_sync_time = new DatePipe('en-US').transform(res.utctime, 'yyyy-MM-dd HH:mm');
+        
+      },
+      error: (err) => {
+        console.error('error occurred while reading from cloud', err);
+      },
+    });
   }
 }

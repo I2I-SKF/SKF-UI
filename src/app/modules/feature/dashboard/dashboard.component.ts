@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { CommonDialogComponent } from 'src/app/shared/components/common-dialog/common-dialog.component';
@@ -21,6 +22,7 @@ export class DashboardComponent implements OnInit {
     private chart: ChartServiceService,
     public toastService: ToastService,
     public breadcrumbService: BreadcrumbService,
+    private httpclient:HttpClient
   ) {}
   ngOnInit(): void {
     this.breadcrumbService.setBreadcrumb([
@@ -30,7 +32,14 @@ export class DashboardComponent implements OnInit {
       },
      
     ]);
+    this.checkTestAPI();
+  }
 
+  checkTestAPI(){
+    this.httpclient.get(	"https://dummy.restapiexample.com/api/v1/employees" , { observe: 'response' }).subscribe(res=>{
+      console.log("response form test api",res.headers);
+      
+    })
   }
 
   openDialog(): void {

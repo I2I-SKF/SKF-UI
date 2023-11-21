@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA,NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -13,6 +13,11 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { LayoutsModule } from './layouts/layouts.module';
 import { MatButtonModule } from '@angular/material/button';
 import { SharedModule } from './shared/shared.module';
+import { MatDialogRef } from '@angular/material/dialog';
+import { NgxSpinnerModule } from 'ngx-spinner';
+import { LoaderInterceptor } from './core/interceptors/loader-interceptor';
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -32,10 +37,17 @@ import { SharedModule } from './shared/shared.module';
     MatButtonModule,
     NgbToastModule,
     NgbToast,
-    SharedModule
+    SharedModule,
+    NgxSpinnerModule
+ 
+    
+  
    
    
   ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+ 
+  
   providers: [
     {
       provide: HTTP_INTERCEPTORS,
@@ -43,11 +55,24 @@ import { SharedModule } from './shared/shared.module';
       multi: true
     },
    
+    
+      {
+        provide: MatDialogRef,
+        useValue: {}
+      },
+     
+      {
+        provide: HTTP_INTERCEPTORS,
+        useClass: LoaderInterceptor,
+        multi: true,
+      },
+  
 
 
    
   
   ],
+  
   bootstrap: [AppComponent],
 })
 export class AppModule { }

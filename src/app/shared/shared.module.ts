@@ -19,6 +19,7 @@ import { BreadcrumbComponent } from './components/breadcrumb/breadcrumb.componen
 import { FilterBarComponent } from './components/filter-bar/filter-bar.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ButtonComponent } from './components/button/button.component';
+import { HttpClientModule } from '@angular/common/http';
 @NgModule({
   declarations: [
     ChartComponent,
@@ -43,7 +44,8 @@ import { ButtonComponent } from './components/button/button.component';
     NgbToastModule,
     NgbPopoverModule,
     RouterModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpClientModule
   ],
   exports:[CommonDialogComponent,ChartComponent,NavigationDropdownComponent,CommonCardComponent,SiteDetailsCardsComponent,CommonTableComponent,CommonToasterComponent,BreadcrumbComponent,FilterBarComponent,ButtonComponent]
 })

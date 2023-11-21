@@ -1,5 +1,31 @@
 <div class="w-100" style="overflow-x: auto">
-  <table mat-table [dataSource]="data" class="table table-striped">
+
+  <div class="header-color d-flex align-items-end " style="height: 50px;" >
+    <div
+        class="input-group col-sm-3 ms-2"
+        style="width: unset; height: 38px; align-self: end"
+      >
+        <input
+          (keyup)="onSearch($event)"
+         
+          #searchedValue
+          type="text"
+          class="form-control search-box"
+          placeholder="Search By Transaction Number"
+          aria-label="Example text with button addon"
+          aria-describedby="button-addon1"
+         
+        />
+        <button (click)="onClickSearch(searchedValue.value)" class="btn search-button" type="button" id="button-addon1">
+          <img
+            style="height: 20px"
+            src="../../../../assets/imges/icons/basic_magnifier.svg"
+            alt=""
+          />
+        </button>
+      </div>
+  </div>
+  <table mat-table [dataSource]="dataSource" class="table table-striped">
     <ng-container
       *ngFor="let column of columns; let columnIndex = index"
       [matColumnDef]="column"
@@ -73,12 +99,17 @@
       </td>
     </ng-container>
 
+  
+
     <tr class="header-color" mat-header-row *matHeaderRowDef="columns"></tr>
     <tr class="body_row"  mat-row *matRowDef="let row; columns: columns"></tr>
   </table>
 </div>
+<div *ngIf="data.length == 0" class="header-color d-flex align-items-end justify-content-center p-2 fw-bold"  >
+  No Records Found
+</div>
 <mat-paginator
-  [length]="data.length"
-  [pageSize]="30"
-  aria-label="Select page of GitHub search results"
+ 
+  [pageSize]="10"
+  
 ></mat-paginator>

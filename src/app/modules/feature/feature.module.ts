@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HighchartsChartModule } from 'highcharts-angular';
 import { FeatureRoutingModule } from './feature-routing.module';
@@ -12,6 +12,10 @@ import { CommonSiteDetailComponent } from './common-site-detail/common-site-deta
 import { MatSelectModule } from '@angular/material/select';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import { ReportsComponent } from './reports/reports.component';
+import { HttpClientModule } from '@angular/common/http';
+import { DispensesModule } from './dispenses/dispenses.module';
+
+
 @NgModule({
   declarations: [
     FeatureComponent,
@@ -30,10 +34,14 @@ import { ReportsComponent } from './reports/reports.component';
     MatButtonModule,
     MatSelectModule,
     MatSidenavModule,
+    HttpClientModule,
+    DispensesModule,
+    
   
     
 
   ],
+  
   exports:[CommonSiteDetailComponent]
  
 })
