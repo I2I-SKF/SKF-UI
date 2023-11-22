@@ -23,7 +23,7 @@ export class DispensesComponent {
   ) {}
 
   devices_data = [
-    { viewValue: 'Device 1, Pune', value: '00001ACYAE9OI' },
+    { viewValue: 'Device 1, Pune', value: '00001UZ1XYETP' },
     { viewValue: 'Device 2, st. Louis', value: '00001S81KOXLA' },
   ];
   sites_data = [{ value: 'all', viewValue: 'All' }];
@@ -346,6 +346,9 @@ export class DispensesComponent {
 
   onDispenseStatusChange(data:any){
 
+
+    console.log(data);
+    
     let selected_dispense_status:any = data.target.value;
     console.log('selected option dispense ',selected_dispense_status);
   
@@ -432,4 +435,11 @@ export class DispensesComponent {
       },
     });
   }
+
+
+
+
+
+
+
 }

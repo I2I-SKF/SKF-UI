@@ -1,4 +1,5 @@
 import { Component,ViewChild, EventEmitter, Input, OnInit, Output,OnChanges,SimpleChanges } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import {MatPaginator} from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
@@ -12,8 +13,24 @@ export class CommonTableComponent implements OnInit, OnChanges {
   displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
   dataSource: any;
   resultsLength:any;
+  dispense_status_form :FormGroup;
+  dispense_statuses:any = [
+    { value: 'all', viewValue: 'All' },
+   
+        { value: 0, viewValue: 'Active' },
+        { value: 1, viewValue: 'Ending' },
+        { value: 2, viewValue: 'Complete' },
+        { value: 3, viewValue: 'Error' },
+        { value: 4, viewValue: 'Cancelled' },
+    
+  ];
  
-  constructor(private router:Router){
+  constructor(private router:Router,private fb:FormBuilder){
+
+    this.dispense_status_form = this.fb.group({
+      dispense_status : ['all']
+    })
+
 
   }
 
@@ -50,6 +67,8 @@ export class CommonTableComponent implements OnInit, OnChanges {
 
     this.dataSource = new MatTableDataSource(this.data);
     this.dataSource.paginator = this.paginator;
+
+    
     
   }
 
@@ -59,12 +78,14 @@ export class CommonTableComponent implements OnInit, OnChanges {
 
   onClickSearch(data:any){
     console.log(data);
+   
     
     this.searched.emit({
       data : data,
     })
   }
   onSearch(data:any){
+    
     
     if(data.target.value != '' ){
       this.searched.emit({
@@ -74,21 +95,18 @@ export class CommonTableComponent implements OnInit, OnChanges {
     else{
       if(data.target.value == ''){
         this.searched.emit(null)
+        this.dispense_status_form.get('dispense_status')?.setValue('all'); 
       }
     }
-    
-    
 
-      
-   
-   
   }
 
   @Output() buttonClicked = new EventEmitter<{ row: any, button: string }>();
   @Output() searched = new EventEmitter();
+  @Output() statusChange = new EventEmitter();
   @Output() selectChange = new EventEmitter<any>();
   @Output() rowClick = new EventEmitter<any>();
-  
+
   onButtonClicked(event:any,row: any, button: string) {
     this.buttonClicked.emit({ row, button });
     event.stopPropagation();
@@ -110,6 +128,9 @@ export class CommonTableComponent implements OnInit, OnChanges {
     // this.router.navigate(['devices/device-details'])
     
     
+  }
+  onDispenseStatusChange(data:any){
+    this.statusChange.emit(data);
   }
   
 }

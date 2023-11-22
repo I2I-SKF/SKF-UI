@@ -57,7 +57,7 @@
           class="form-control input_border_class"
         />
       </div>
-      <div class="col-sm-2 mb-2">
+      <!-- <div class="col-sm-2 mb-2">
         <label for="">Dispense Status</label>
         <select
           (change)="onDispenseStatusChange($event)"
@@ -73,8 +73,8 @@
             {{ dispense.viewValue }}
           </option>
         </select>
-      </div>
-      <div class="col-sm-2 mb-2 " style="align-self: end;">
+      </div> -->
+      <div class="col-sm-2 mb-2 ms-auto" style="align-self: end;">
         <button
           (click)="getCloudData()"
           class="btn action-button-1 ms-auto"
@@ -89,6 +89,8 @@
 </div>
 <div style="margin-bottom: 15px">
   <app-common-table
+   
+    (statusChange)="onDispenseStatusChange($event)"
     (searched)="catchSearchEvents($event)"
     (rowClick)="rowClick($event)"
     [actions]="{ type: 'dd', data: [] }"
@@ -101,3 +103,6 @@
   <span class="me-auto"> Last Synced at {{ last_sync_time }} </span>
   <button class="btn action-button-1">Download List</button>
 </div>
+
+
+
