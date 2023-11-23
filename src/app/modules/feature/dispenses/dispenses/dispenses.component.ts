@@ -24,7 +24,7 @@ export class DispensesComponent {
 
   devices_data = [
     { viewValue: 'Device 1, Pune', value: '00001UZ1XYETP' },
-    { viewValue: 'Device 2, st. Louis', value: '00001S81KOXLA' },
+    { viewValue: 'Device 2, St. Louis', value: '00001S81KOXLA' },
   ];
   sites_data = [{ value: 'all', viewValue: 'All' }];
   dispense_statuses = [
@@ -194,7 +194,7 @@ export class DispensesComponent {
       
     });
 
-    this.getCloudData();
+    this.getCloudData(true);
   }
 
   date_min_max = {
@@ -209,7 +209,6 @@ export class DispensesComponent {
     const month = String(date.getMonth() + 1).padStart(2, '0');
     const day = String(date.getDate()).padStart(2, '0');
     console.log(`${year}-${month}-${day}`);
-
     return `${year}-${month}-${day}`;
   }
 
@@ -324,7 +323,7 @@ export class DispensesComponent {
     if (key != null && key != '') {
       return key;
     } else {
-      return 'NA';
+      return 'Unknown';
     }
   }
 
@@ -336,7 +335,7 @@ export class DispensesComponent {
     
     this.dispensesForm.get('start_date').setValue(this.formatDate(today));
     this.dispensesForm.get('end_date').setValue(this.formatDate(today));
-    this.getCloudData();
+    this.getCloudData(true);
   }
   resetEverything() {
     this.site_wise_dispneses = [];
@@ -387,9 +386,13 @@ export class DispensesComponent {
 
 
   }
+
+  convertToUTCDate(){
+    return new Date().toISOString().split("T")[0];
+  }
   
 
-  getCloudData() {
+  getCloudData(isOnload=false) {
     this.resetEverything();
 
     console.log('inside cloud fetch');
@@ -399,6 +402,13 @@ export class DispensesComponent {
       from_time: this.dispensesForm.get('start_date').value,
       to_time: this.dispensesForm.get('end_date').value,
     };
+    if(isOnload){
+       data = {
+        device_id: this.dispensesForm.get('devices').value,
+        from_time: this.convertToUTCDate(),
+        to_time: new Date().toISOString(),
+      };
+    }
 
     this.api.getDataFromCloud(data).subscribe({
       next: (res) => {

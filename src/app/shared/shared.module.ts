@@ -20,11 +20,11 @@ import { FilterBarComponent } from './components/filter-bar/filter-bar.component
 import { ReactiveFormsModule } from '@angular/forms';
 import { ButtonComponent } from './components/button/button.component';
 import { HttpClientModule } from '@angular/common/http';
+import { MatSortModule } from '@angular/material/sort';
 @NgModule({
   declarations: [
     ChartComponent,
     NavigationDropdownComponent,
-    
     CommonCardComponent,
     SiteDetailsCardsComponent,
     CommonTableComponent,
@@ -45,7 +45,8 @@ import { HttpClientModule } from '@angular/common/http';
     NgbPopoverModule,
     RouterModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    MatSortModule
   ],
   exports:[CommonDialogComponent,ChartComponent,NavigationDropdownComponent,CommonCardComponent,SiteDetailsCardsComponent,CommonTableComponent,CommonToasterComponent,BreadcrumbComponent,FilterBarComponent,ButtonComponent]
 })

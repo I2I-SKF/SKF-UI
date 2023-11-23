@@ -1,47 +1,74 @@
 import { Dialog } from '@angular/cdk/dialog';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import * as XLSX from 'xlsx';
 import { AddDeviceComponent } from '../add-device/add-device.component';
 import { BreadcrumbComponent } from 'src/app/shared/components/breadcrumb/breadcrumb.component';
 import { BreadcrumbService } from 'src/app/shared/services/breadcrumb.service';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { MatSort } from '@angular/material/sort';
 @Component({
   selector: 'app-device',
   templateUrl: './device.component.html',
   styleUrls: ['./device.component.scss'],
 })
 export class DeviceComponent implements OnInit {
-  constructor(private router: Router, private dialog: Dialog,private breadcrumbService:BreadcrumbService) {}
+
+  dispense_status_form:FormGroup;
+  @ViewChild(MatSort) sort!: MatSort;
+
+  constructor(private router: Router, private dialog: Dialog,private breadcrumbService:BreadcrumbService,private fb:FormBuilder) {
+    this.dispense_status_form = this.fb.group({
+      device_status:['all']
+    })
+  }
+
+  
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+
+
+
+  dispense_statuses:any = [
+    {value:'all',viewValue:'All'},
+    {value:'online',viewValue:'Online'},
+    {value:'offline',viewValue:'Offline'},
+  ]
+  table_actions = [
+    {value:null,viewValue: 'Select Action'},
+    {value:0,viewValue: 'Edit Device'},
+    {value:1,viewValue: 'Take Backup'},
+    {value:2,viewValue: 'Download Backup'},
+    {value:4,viewValue:'Update Enterprise'},
+    {value:5,viewValue: 'Update Agent'},
+    {value:6,viewValue: 'Lock Device'},
+    {value:7,viewValue: 'Delete Device'},
+  ]
+
+
 
   extractedData: any[] = [];
   displayed_columns = [
     'Device ID',
-    'Hardware ID',
-    'Location',
-    'Dispenser Sites',
     'Status',
-    // 'Pin',
-    // 'Connection',
-    // 'Avg.uptime (%/month)',
-    // 'System Health',
-    // "Sys. Temp. (F)",
-    // "Network (%)",
-    // "Memory (GB)",
-    // "Storage (%)",
-    'Remote Access',
-    'Data Backup',
-    // 'Config Backup',
-    'LFC',
-    'Update',
+    'Device Name',
+    'Device Location',
+    'Device Manager',
+    'Sites',
+    'Controllers',
+    'Latest Backup',
+    'Enterprise Version',
+    'Agent Version',
     'Action',
   ];
-
-  data = [
+  dataSource:any;
+  data  = [
     {
       'Device ID': '12AB34',
-      'Hardware ID': 'BIOS1234567890',
-      Location: 'New York, USA',
+      'Device Name': 'BIOS1234567890',
+      'Device Location': 'New York, USA',
       Status: 'Online',
       Pin: '1223',
       Connection: 'Online',
@@ -58,26 +85,12 @@ export class DeviceComponent implements OnInit {
       'Config Backup': 'mm/dd/yy',
       LFC: 1.23,
       Update: 'Yes',
-      Action: [
-        'Select Action',
-        'Activate Device',
-        'Change Device PIN',
-        'Update LFC',
-        'Update Services',
-        'Allow Remote Access',
-        'Restrict Remote Access',
-        'View Logs',
-        'Test Connection',
-        'Modify Configurations',
-        'Deactivate Device',
-        'Replace Device',
-        'Delete Device',
-      ],
+      Action: this.table_actions,
     },
     {
       'Device ID': '56CD78',
-      'Hardware ID': 'BIOS0987654321',
-      Location: 'Los Angeles, USA',
+      'Device Name': 'BIOS0987654321',
+      'Device Location': 'Los Angeles, USA',
       Status: 'Online',
       Pin: '1223',
       Connection: 'Online',
@@ -94,26 +107,12 @@ export class DeviceComponent implements OnInit {
       'Config Backup': 'mm/dd/yy',
       LFC: 1.24,
       Update: 'Yes',
-      Action: [
-        'Select Action',
-        'Activate Device',
-        'Change Device PIN',
-        'Update LFC',
-        'Update Services',
-        'Allow Remote Access',
-        'Restrict Remote Access',
-        'View Logs',
-        'Test Connection',
-        'Modify Configurations',
-        'Deactivate Device',
-        'Replace Device',
-        'Delete Device',
-      ],
+      Action: this.table_actions,
     },
     {
       'Device ID': '90EF12',
-      'Hardware ID': 'BIOS1122334455',
-      Location: 'Chicago, USA',
+      'Device Name': 'BIOS1122334455',
+      'Device Location': 'Chicago, USA',
       Status: 'Online',
       Pin: '1223',
       Connection: 'Online',
@@ -130,26 +129,12 @@ export class DeviceComponent implements OnInit {
       'Config Backup': 'mm/dd/yy',
       LFC: 1.25,
       Update: 'Yes',
-      Action: [
-        'Select Action',
-        'Activate Device',
-        'Change Device PIN',
-        'Update LFC',
-        'Update Services',
-        'Allow Remote Access',
-        'Restrict Remote Access',
-        'View Logs',
-        'Test Connection',
-        'Modify Configurations',
-        'Deactivate Device',
-        'Replace Device',
-        'Delete Device',
-      ],
+      Action: this.table_actions,
     },
     {
       'Device ID': '34GH56',
-      'Hardware ID': 'BIOS5566778899',
-      Location: 'Toronto, Canada',
+      'Device Name': 'BIOS5566778899',
+      'Device Location': 'Toronto, Canada',
       Status: 'Online',
       Pin: '1223',
       Connection: 'Online',
@@ -184,8 +169,8 @@ export class DeviceComponent implements OnInit {
     },
     {
       'Device ID': '78IJ90',
-      'Hardware ID': 'BIOS9988776655',
-      Location: 'Vancouver, Canada',
+      'Device Name': 'BIOS9988776655',
+      'Device Location': 'Vancouver, Canada',
       Status: 'Online',
       Pin: '1223',
       Connection: 'Online',
@@ -220,8 +205,8 @@ export class DeviceComponent implements OnInit {
     },
     {
       'Device ID': '12KL34',
-      'Hardware ID': 'BIOS4433221100',
-      Location: 'Miami, USA',
+      'Device Name': 'BIOS4433221100',
+      'Device Location': 'Miami, USA',
       Status: 'Online',
       Pin: '1223',
       Connection: 'Offline',
@@ -256,8 +241,8 @@ export class DeviceComponent implements OnInit {
     },
     {
       'Device ID': '56MN78',
-      'Hardware ID': 'BIOS6677889900',
-      Location: 'Dallas, USA',
+      'Device Name': 'BIOS6677889900',
+      'Device Location': 'Dallas, USA',
       Status: 'Online',
       Pin: '1223',
       Connection: 'Online',
@@ -292,8 +277,8 @@ export class DeviceComponent implements OnInit {
     },
     {
       'Device ID': '90OP12',
-      'Hardware ID': 'BIOS8899001122',
-      Location: 'Montreal, Canada',
+      'Device Name': 'BIOS8899001122',
+      'Device Location': 'Montreal, Canada',
       Status: 'Online',
       Pin: '1223',
       Connection: 'Online',
@@ -328,8 +313,8 @@ export class DeviceComponent implements OnInit {
     },
     {
       'Device ID': '34QR56',
-      'Hardware ID': 'BIOS1234432112',
-      Location: 'San Diego, USA',
+      'Device Name': 'BIOS1234432112',
+      'Device Location': 'San Diego, USA',
       Status: 'Online',
       Pin: '1223',
       Connection: 'Offline',
@@ -364,8 +349,8 @@ export class DeviceComponent implements OnInit {
     },
     {
       'Device ID': '78ST90',
-      'Hardware ID': 'BIOS5566223344',
-      Location: 'Ottawa, Canada',
+      'Device Name': 'BIOS5566223344',
+      'Device Location': 'Ottawa, Canada',
       Status: 'Online',
       Pin: '1223',
       Connection: 'Online',
@@ -451,6 +436,18 @@ export class DeviceComponent implements OnInit {
     this.router.navigate(['/devices/device-details']);
   }
 
+  onTableDDSelection(event:any, data:any){
+    console.log(event,data);
+    let selected_option  = event.target.value;
+
+    if(selected_option == 0 || selected_option == '0'){
+      this.openDialog();
+    }
+
+
+
+    
+  }
   ngOnInit(): void {
     this.breadcrumbService.setBreadcrumb([
       {
@@ -465,7 +462,16 @@ export class DeviceComponent implements OnInit {
      
     ]);
 
+    this.dataSource = new MatTableDataSource(this.data);
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
+
   }
+  ngAfterViewInit() {
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
+  }
+
   openDialog(): void {
     const dialogRef = this.dialog.open(AddDeviceComponent, {
       data: {
@@ -476,5 +482,13 @@ export class DeviceComponent implements OnInit {
 
   addDevice() {
     this.openDialog();
+  }
+
+  onSearch(data:any){
+
+  }
+  onClickSearch(data:any){}
+  onDispenseStatusChange(data:any){
+
   }
 }

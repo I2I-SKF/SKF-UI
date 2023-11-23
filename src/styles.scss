@@ -93,10 +93,28 @@ font-size:$font-xxxxl ;
   @include action-btn-1;
 
 }
-.action-button-2{
-  @include action-btn-2;
 
-}
+
+.action-button-2{
+  background-color: $red-base;
+  color: $white;
+  padding: 4px 8px;
+  border: none;
+  border-radius: 3px;
+ }
+ 
+ .action-button-2:hover{
+   background-color: $red-dark;
+   color: $white;
+ }
+ .action-button-2:active{
+   background-color: $red-darker;
+   color: $white;
+ }
+ .action-button-2:disabled{
+   background-color: $grey-100;
+   color: $grey-500;
+ }
 .action-button-3{
   @include action-btn-3;
 
@@ -168,6 +186,11 @@ font-size:$font-xxxxl ;
     filter: invert(1);
   }
 
+  input,select,option,label{
+    font-size: $font-sm;
+    color: $black; 
+    
+  }
 
 
   

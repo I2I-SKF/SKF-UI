@@ -2,6 +2,7 @@ import { Component,ViewChild, EventEmitter, Input, OnInit, Output,OnChanges,Simp
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import {MatPaginator} from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 @Component({
@@ -10,7 +11,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./common-table.component.scss'],
 })
 export class CommonTableComponent implements OnInit, OnChanges {
-  displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
+
   dataSource: any;
   resultsLength:any;
   dispense_status_form :FormGroup;
@@ -33,7 +34,7 @@ export class CommonTableComponent implements OnInit, OnChanges {
 
 
   }
-
+  @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @Input() actions = {type:'btn',data : ['edit','buttons']};
 
@@ -67,6 +68,7 @@ export class CommonTableComponent implements OnInit, OnChanges {
 
     this.dataSource = new MatTableDataSource(this.data);
     this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
 
     
     

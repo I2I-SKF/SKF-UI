@@ -1,7 +1,12 @@
 @import '../../../../../variables';
 .device-add-container{
-   
     background-color: $white;
     max-width: 500px;
 }   
 
+
+
+.skf-background{
+     background-color: $primary-600;  
+     color: $white;
+}

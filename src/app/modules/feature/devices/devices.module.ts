@@ -7,6 +7,9 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { DeviceDetailsComponent } from './device-details/device-details.component';
 import { AddDeviceComponent } from './add-device/add-device.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSortModule } from '@angular/material/sort';
 
 
 @NgModule({
@@ -19,7 +22,10 @@ import { ReactiveFormsModule } from '@angular/forms';
     CommonModule,
     DevicesRoutingModule,
     SharedModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatSortModule
   ]
 })
 export class DevicesModule { }
