@@ -1,16 +1,12 @@
 @import '../../../../../variables';
-.request-support-container{
+.device-add-container{
     background-color: $white;
-    width: 70vw;
+    max-width: 500px;
+}   
 
-}
 
- select{
-    font-size: $font-sm;
-}
-@media screen and (max-width:500px) {
-    .request-support-container{
-        background-color: $white;
-        width: 90vw;
-    } 
+
+.skf-background{
+     background-color: $primary-600;  
+     color: $white;
 }

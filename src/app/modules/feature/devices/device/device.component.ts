@@ -10,44 +10,45 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatSort } from '@angular/material/sort';
+import { ApiService } from 'src/app/shared/services/api.service';
 @Component({
   selector: 'app-device',
   templateUrl: './device.component.html',
   styleUrls: ['./device.component.scss'],
 })
 export class DeviceComponent implements OnInit {
-
-  dispense_status_form:FormGroup;
+  dispense_status_form: FormGroup;
   @ViewChild(MatSort) sort!: MatSort;
 
-  constructor(private router: Router, private dialog: Dialog,private breadcrumbService:BreadcrumbService,private fb:FormBuilder) {
+  constructor(
+    private router: Router,
+    private dialog: Dialog,
+    private breadcrumbService: BreadcrumbService,
+    private fb: FormBuilder,
+    private apis: ApiService
+  ) {
     this.dispense_status_form = this.fb.group({
-      device_status:['all']
-    })
+      device_status: ['all'],
+    });
   }
 
-  
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
-
-
-  dispense_statuses:any = [
-    {value:'all',viewValue:'All'},
-    {value:'online',viewValue:'Online'},
-    {value:'offline',viewValue:'Offline'},
-  ]
+  dispense_statuses: any = [
+    { value: 'all', viewValue: 'All' },
+    { value: 'online', viewValue: 'Online' },
+    { value: 'offline', viewValue: 'Offline' },
+  ];
   table_actions = [
-    {value:null,viewValue: 'Select Action'},
-    {value:0,viewValue: 'Edit Device'},
-    {value:1,viewValue: 'Take Backup'},
-    {value:2,viewValue: 'Download Backup'},
-    {value:4,viewValue:'Update Enterprise'},
-    {value:5,viewValue: 'Update Agent'},
-    {value:6,viewValue: 'Lock Device'},
-    {value:7,viewValue: 'Delete Device'},
-  ]
-
-
+    { value: null, viewValue: 'Select Action' },
+    { value: 0, viewValue: 'Edit Device' },
+    { value: 1, viewValue: 'Take Backup' },
+    { value: 2, viewValue: 'Download Backup' },
+    { value: 4, viewValue: 'Update Enterprise' },
+    { value: 5, viewValue: 'Update Agent' },
+    { value: 6, viewValue: 'Lock Device' },
+    { value: 7, viewValue: 'Delete Device' },
+  ];
 
   extractedData: any[] = [];
   displayed_columns = [
@@ -63,8 +64,8 @@ export class DeviceComponent implements OnInit {
     'Agent Version',
     'Action',
   ];
-  dataSource:any;
-  data  = [
+  dataSource: any =  new MatTableDataSource([]);
+  data: any = [
     {
       'Device ID': '12AB34',
       'Device Name': 'BIOS1234567890',
@@ -385,16 +386,27 @@ export class DeviceComponent implements OnInit {
     },
   ];
   formControls = [
-    { name: 'devices', label: 'Select Device', type: 'text', options:[
-      {value:"all", viewValue:"All"},
-      {value:"device A", viewValue:"Device A"},
-      {value:"Device B", viewValue:"Device B"},
-    ],value:'all'  },
-    { name: 'status', label: 'Status', type: 'text', options:[
-      {value:"all", viewValue:"All"}
-      // {value:"all", viewValue:"All"},
-    ],value:'all' },
-    
+    {
+      name: 'devices',
+      label: 'Select Device',
+      type: 'text',
+      options: [
+        { value: 'all', viewValue: 'All' },
+        { value: 'device A', viewValue: 'Device A' },
+        { value: 'Device B', viewValue: 'Device B' },
+      ],
+      value: 'all',
+    },
+    {
+      name: 'status',
+      label: 'Status',
+      type: 'text',
+      options: [
+        { value: 'all', viewValue: 'All' },
+        // {value:"all", viewValue:"All"},
+      ],
+      value: 'all',
+    },
   ];
 
   handleFile(event: any): void {
@@ -436,36 +448,30 @@ export class DeviceComponent implements OnInit {
     this.router.navigate(['/devices/device-details']);
   }
 
-  onTableDDSelection(event:any, data:any){
-    console.log(event,data);
-    let selected_option  = event.target.value;
+  onTableDDSelection(event: any, data: any) {
+    console.log(event, data);
+    let selected_option = event.target.value;
 
-    if(selected_option == 0 || selected_option == '0'){
+    if (selected_option == 0 || selected_option == '0') {
       this.openDialog();
     }
-
-
-
-    
   }
   ngOnInit(): void {
     this.breadcrumbService.setBreadcrumb([
       {
-        name:'Home',
-        link:'/home'
+        name: 'Home',
+        link: '/home',
       },
-     
+
       {
-        name:'Devices',
-        link:'/devices'
+        name: 'Devices',
+        link: '/devices',
       },
-     
     ]);
 
-    this.dataSource = new MatTableDataSource(this.data);
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
+    this.getDevices();
 
+   
   }
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
@@ -484,11 +490,51 @@ export class DeviceComponent implements OnInit {
     this.openDialog();
   }
 
-  onSearch(data:any){
+  onSearch(data: any) {}
+  onClickSearch(data: any) {}
+  onDispenseStatusChange(data: any) {}
 
+  getDevices() {
+    let payload = {
+      function_name: 'Get-Device-List',
+      clientid: '1',
+    };
+
+    this.apis.getDeviceDataFromCloud(payload).subscribe({
+      next: (res) => {
+        
+        this.data = res.device_list.map((record:any)=>{
+          return {
+            'Device ID':this.checkIfKeyExists(record.did),
+            'Status':this.checkIfKeyExists(record.status),
+            'Device Name':this.checkIfKeyExists(record.name),
+            'Device Location':this.checkIfKeyExists(record.location),
+            'Device Manager':this.checkIfKeyExists(record.manager),
+            'Sites':this.checkIfKeyExists(record.sites),
+            'Controllers':this.checkIfKeyExists(record.controllers),
+            'Latest Backup':this.checkIfKeyExists(record.latest_backup),
+            'Enterprise Version':this.checkIfKeyExists(record.enterprise_version),
+            'Agent Version':this.checkIfKeyExists(record.agent_version),
+            'Action':this.table_actions,
+          }
+        })
+
+        this.dataSource = new MatTableDataSource(this.data);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+
+      },
+      error: (error) => {
+        console.log('error occurred while fetching device data', error);
+      },
+    });
   }
-  onClickSearch(data:any){}
-  onDispenseStatusChange(data:any){
 
+  checkIfKeyExists(key: any) {
+    if (key != null && key != '') {
+      return key;
+    } else {
+      return 'Unknown';
+    }
   }
 }

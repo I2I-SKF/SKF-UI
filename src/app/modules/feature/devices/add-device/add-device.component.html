@@ -55,6 +55,15 @@
         <input class="form-control" type="text" placeholder="Device Name" />
       </div>
       <div class="col-sm-6">
+        <label class="font-size-sm mb-2 mt-2" for="">Select Timezone</label>
+        <select  class="form-select" formControlName="timezone" name="" id="">
+          <option value="">Select Timezone</option>
+          <option *ngFor="let timezone of timeszones" [value]="timezone.name">
+            {{ timezone.name }} (UTC{{ timezone.offset }})
+          </option>
+        </select>
+      </div>
+      <div class="col-sm-6">
         <label class="mb-2 mt-2" for="">Location</label>
         <input class="form-control" type="text" placeholder="Location" />
       </div>

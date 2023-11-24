@@ -9,8 +9,8 @@ import { BreadcrumbService } from 'src/app/shared/services/breadcrumb.service';
 export class AlertsComponent implements OnInit {
   displayed_columns = [
    "Date & Time",
-   "Device",
-   "Site and Location",
+   "Device Name",
+   "Location",
    "Alert Type",
    "Description"
   ];
@@ -18,71 +18,71 @@ export class AlertsComponent implements OnInit {
   data = [
   {
    "Date & Time":"",
-   "Device":"",
-   "Site and Location":"",
+   "Device Name":"",
+   "Location":"",
    "Alert Type":"Device Health",
    "Description":""
   },
   {
    "Date & Time":"",
-   "Device":"",
-   "Site and Location":"",
+   "Device Name":"",
+   "Location":"",
    "Alert Type":"Device Offline",
    "Description":""
   },
   {
    "Date & Time":"",
-   "Device":"",
-   "Site and Location":"",
+   "Device Name":"",
+   "Location":"",
    "Alert Type":"Dispense Error",
    "Description":""
   },
   {
    "Date & Time":"",
-   "Device":"",
-   "Site and Location":"",
+   "Device Name":"",
+   "Location":"",
    "Alert Type":"Device Health",
    "Description":""
   },
   {
    "Date & Time":"",
-   "Device":"",
-   "Site and Location":"",
+   "Device Name":"",
+   "Location":"",
    "Alert Type":"Device Offline",
    "Description":""
   },
   {
    "Date & Time":"",
-   "Device":"",
-   "Site and Location":"",
+   "Device Name":"",
+   "Location":"",
    "Alert Type":"Dispense Error",
    "Description":""
   },
   {
    "Date & Time":"",
-   "Device":"",
-   "Site and Location":"",
+   "Device Name":"",
+   "Location":"",
    "Alert Type":"Device Health",
    "Description":""
   },
   {
    "Date & Time":"",
-   "Device":"",
-   "Site and Location":"",
+   "Device Name":"",
+   "Location":"",
    "Alert Type":"Device Offline",
    "Description":""
   },
   {
    "Date & Time":"",
-   "Device":"",
-   "Site and Location":"",
+   "Device Name":"",
+   "Location":"",
    "Alert Type":"Dispense Error",
    "Description":""
   },
   {
    "Date & Time":"",
-   "Device":"",
-   "Site and Location":"",
+   "Device Name":"",
+   "Location":"",
    "Alert Type":"Dispense Error",
    "Description":""
   },

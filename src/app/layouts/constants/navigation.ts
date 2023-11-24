@@ -13,13 +13,13 @@ export const NAVIGATION = [
     requiredPermission: 'user',
     class:'me-1'
   },
-  {
-    icon: '../../../assets/imges/icons/arrows_squares.svg',
-    name: 'Sites',
-    link: '/sites',
-    requiredPermission: 'user',
-    class:'invert_img me-1'
-  },
+  // {
+  //   icon: '../../../assets/imges/icons/arrows_squares.svg',
+  //   name: 'Sites',
+  //   link: '/sites',
+  //   requiredPermission: 'user',
+  //   class:'invert_img me-1'
+  // },
   {
     icon: '../../../assets/imges/icons/drop.svg',
     name: 'Dispenses',
@@ -34,13 +34,13 @@ export const NAVIGATION = [
     requiredPermission: 'user',
   },
 
-  {
-    icon: '../../../assets/imges/icons/file.svg',
-    name: 'Reports',
-    link: '/reports',
-    requiredPermission: 'user',
-    class:'invert_img'
-  },
+  // {
+  //   icon: '../../../assets/imges/icons/file.svg',
+  //   name: 'Reports',
+  //   link: '/reports',
+  //   requiredPermission: 'user',
+  //   class:'invert_img'
+  // },
   {
     icon: '../../../assets/imges/icons/users.svg',
     name: 'Users',

@@ -1,16 +1,12 @@
 @import '../../../../../variables';
-.useradd-container{
+.device-add-container{
     background-color: $white;
-    width: 60vw;
-}
+    max-width: 500px;
+}   
 
-select{
-    font-size: $font-sm;
-}
 
-@media screen and (max-width:500px) {
-    .useradd-container{
-        background-color: $white;
-        width: 90vw;
-    } 
+
+.skf-background{
+     background-color: $primary-600;  
+     color: $white;
 }
