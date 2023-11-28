@@ -1,12 +1,67 @@
 <!-- <div class="d-flex justify-content-between"  style="margin-bottom: 15px;" >
     <span class="font-size-xl" >Alerts</span>
-    <button class="btn action-button-1">Add Device</button>
+    <button class="action-button-1">Add Device</button>
 </div> -->
+
+<div class="d-flex justify-content-between" style="margin-bottom: 15px">
+    <span class="header-1">Alert Log</span>
+  </div>
+<div class="w-100 mb-2">
+    <form [formGroup]="dispensesForm">
+      <div class="row">
+        <div class="col-sm-2 mb-2">
+          <label for="">Device</label>
+          <select
+            (change)="onDeviceChange($event)"
+            formControlName="devices"
+            class="form-select input_border_class"
+            name=""
+            id=""
+          >
+            <option [value]="device.value" *ngFor="let device of devices_data">
+              {{ device.viewValue }}
+            </option>
+          </select>
+        </div>
+  
+        
+        <div class="col-sm-2 mb-2">
+          <label for="">Start Date</label>
+          <input
+            formControlName="start_date"
+            (change)="startDateChange($event)"
+            type="date"
+            class="form-control input_border_class"
+          />
+        </div>
+        <div class="col-sm-2 mb-2">
+          <label for="">End Date</label>
+          <input
+            formControlName="end_date"
+            (change)="endDateChange($event)"
+            type="date"
+            class="form-control input_border_class"
+          />
+        </div>
+       
+        <div class="col-sm-2 mb-2 ms-auto" style="align-self: end;">
+          <button
+            (click)="getData()"
+            class="action-button-1 ms-auto"
+            style="height: 35px"
+          >
+            Fetch Data
+          </button>
+        </div>
+      </div>
+      
+    </form>
+  </div>
 <div style="margin-bottom: 15px;" >
     <app-common-table  [actions]="{type:'dd',data : []}" [columns]="displayed_columns" [data]="data" ></app-common-table>
 </div>
 
 <div class="d-flex justify-content-end"    >
    
-    <button class="btn action-button-1" >Download List</button>
+    <button class="action-button-1" >Download List</button>
 </div>

@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NgbModule, NgbToast, NgbToastModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, NgbModule, NgbToast, NgbToastModule } from '@ng-bootstrap/ng-bootstrap';
 import { MatCardModule } from '@angular/material/card';
 import { RouterModule } from '@angular/router';
 import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
@@ -16,6 +16,7 @@ import { SharedModule } from './shared/shared.module';
 import { MatDialogRef } from '@angular/material/dialog';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { LoaderInterceptor } from './core/interceptors/loader-interceptor';
+import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 @NgModule({
@@ -38,7 +39,10 @@ import { LoaderInterceptor } from './core/interceptors/loader-interceptor';
     NgbToastModule,
     NgbToast,
     SharedModule,
-    NgxSpinnerModule
+    NgxSpinnerModule,
+    
+    
+    
  
     
   
@@ -56,16 +60,14 @@ import { LoaderInterceptor } from './core/interceptors/loader-interceptor';
     },
    
     
-      {
-        provide: MatDialogRef,
-        useValue: {}
-      },
+      
      
       {
         provide: HTTP_INTERCEPTORS,
         useClass: LoaderInterceptor,
         multi: true,
       },
+     
   
 
 

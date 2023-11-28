@@ -267,7 +267,7 @@ export class DispensesComponent {
           Device: this.checkIfKeyExists(record.deviceid),
           'Site Name': this.checkIfKeyExists(record.dmsTypeDescription),
           'Transaction No': this.checkIfKeyExists(record.transactionNumber),
-          'Start Time': this.checkIfKeyExists(record.dispenseStartedLocal),
+          'Start Time': this.checkIfKeyExists(record.dispenseStartedLocal)  ,
           'Dispense Status': this.checkIfKeyExists(record.statusDescription),
           'Controller Response': this.checkIfKeyExists(
             record.hardwareStatusCodeDescription
@@ -276,7 +276,7 @@ export class DispensesComponent {
           'Initiated By': this.checkIfKeyExists(record.initiatedBy),
           Ordered: this.checkIfKeyExists(record.quantityRequested),
           Dispensed: this.checkIfKeyExists(record.quantityDispensed),
-          'End Time': this.checkIfKeyExists(record.dispenseCompletedLocal),
+          'End Time': this.checkIfKeyExists(record.dispenseStartedLocal)  ,
           'dispense_status_id':`${record.statusId}`
         };
       });
@@ -298,7 +298,8 @@ export class DispensesComponent {
             Device: this.checkIfKeyExists(record.deviceid),
             'Site Name': this.checkIfKeyExists(record.dmsTypeDescription),
             'Transaction No': this.checkIfKeyExists(record.transactionNumber),
-            'Start Time': this.checkIfKeyExists(record.dispenseStartedLocal),
+            'Start Time':  this.checkIfKeyExists(record.dispenseStartedLocal) ,
+
             'Dispense Status': this.checkIfKeyExists(record.statusDescription),
             'Controller Response': this.checkIfKeyExists(
               record.hardwareStatusCodeDescription
@@ -307,7 +308,8 @@ export class DispensesComponent {
             'Initiated By': this.checkIfKeyExists(record.initiatedBy),
             Ordered: this.checkIfKeyExists(record.quantityRequested),
             Dispensed: this.checkIfKeyExists(record.quantityDispensed),
-            'End Time': this.checkIfKeyExists(record.dispenseCompletedLocal),
+            'End Time': this.checkIfKeyExists(record.dispenseStartedLocal) ,
+
             'dispense_status_id':`${record.statusId}`
 
             
@@ -402,7 +404,10 @@ export class DispensesComponent {
       from_time: this.dispensesForm.get('start_date').value,
       to_time: this.dispensesForm.get('end_date').value,
     };
-    if(isOnload){
+
+    let date_check= this.formatDate(new Date());
+
+    if(isOnload || (date_check == data.from_time && date_check == data.to_time)){
        data = {
         device_id: this.dispensesForm.get('devices').value,
         from_time: this.convertToUTCDate(),

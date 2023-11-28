@@ -4,20 +4,20 @@
 
 <div class="device-add-container">
     <div class="skf-background pb-2 pt-2 ps-3 pe-3 page-title">Request Support</div>
-    <form class="row row ps-3 pe-3 mt-2" >
-        <div class="col-sm-6 mb-2">
+    <form class="row row ps-3 pe-3 mt-3" >
+        <div class="col-sm-12 mb-2">
 
             <label class="mb-2" for="">Device ID</label>
             
             <select name="" id="" class="form-select input_border_class" >
-               <option value="">123</option>
+              <option [value]="option.value" *ngFor="let option of deviceData"  >{{option.viewValue}}</option>
             </select>
         
         </div>
-        <div class="col-sm-6 mb-2">
+        <div class="col-sm-12 mb-2">
 
-            <label class="mb-2" for="">Support Request</label>
-            <input type="text" class="form-control input_border_class" >
+           <label class="mb-2 d-block" for="">Support Request</label>
+           <textarea name="" id="" class="w-100" rows="2"></textarea>
         
         </div>
         

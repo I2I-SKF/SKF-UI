@@ -14,6 +14,8 @@ import {MatSidenavModule} from '@angular/material/sidenav';
 import { ReportsComponent } from './reports/reports.component';
 import { HttpClientModule } from '@angular/common/http';
 import { DispensesModule } from './dispenses/dispenses.module';
+import { MatDialogModule } from '@angular/material/dialog';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -36,6 +38,9 @@ import { DispensesModule } from './dispenses/dispenses.module';
     MatSidenavModule,
     HttpClientModule,
     DispensesModule,
+    MatDialogModule,
+    ReactiveFormsModule
+    
     
   
     

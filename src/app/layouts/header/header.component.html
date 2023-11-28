@@ -57,10 +57,10 @@
         />
       </div> -->
       <div>
-        <select  style="width: 100px;" class="transparent-select" name="" id="">
+        <select (change)="onNavOptionChange($event)" style="width: 100px;" class="transparent-select" name="" id="">
           <option value="someone" selected hidden>John D</option>
           <option value="change Password">Change Password</option>
-          <option value="logout">Log out</option>
+          <option  value="logout"  >Log out</option>
         </select>
         
       </div>

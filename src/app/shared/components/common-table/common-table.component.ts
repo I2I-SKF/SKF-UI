@@ -57,6 +57,10 @@ export class CommonTableComponent implements OnInit, OnChanges {
    
    
   ];
+  @Input() isSearchVisible = false ;
+  @Input() isfilterVisible = false ;
+
+
 
   ngOnInit(): void {
     
@@ -67,6 +71,15 @@ export class CommonTableComponent implements OnInit, OnChanges {
     console.log(changes);
 
     this.dataSource = new MatTableDataSource(this.data);
+
+    this.dataSource.sortingDataAccessor = (item:any, property:any) => {
+      switch (property) {
+        case 'Start Time': return new Date(item['Start Time']);
+        case 'End Time': return new Date(item['End Time']);
+        default: return item[property];
+      }
+    };
+
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
 
@@ -75,6 +88,8 @@ export class CommonTableComponent implements OnInit, OnChanges {
   }
 
   ngAfterViewInit() {
+
+   
    
   }
 

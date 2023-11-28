@@ -6,6 +6,7 @@ import { RequestSupportComponent } from './request-support/request-support.compo
 import { MatDialogModule } from '@angular/material/dialog';
 import { SupportComponent } from './support.component';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -16,7 +17,8 @@ import { SharedModule } from 'src/app/shared/shared.module';
   imports: [
     CommonModule,
     SupportRoutingModule,
-    MatDialogModule,SharedModule
+    MatDialogModule,SharedModule,
+    ReactiveFormsModule
   ]
 })
 export class SupportModule { }

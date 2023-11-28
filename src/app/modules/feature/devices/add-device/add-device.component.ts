@@ -1,19 +1,27 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { BreadcrumbService } from 'src/app/shared/services/breadcrumb.service';
 import * as moment from 'moment-timezone';
 import { ApiService } from 'src/app/shared/services/api.service';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+
 
 @Component({
   selector: 'app-add-device',
   templateUrl: './add-device.component.html',
-  styleUrls: ['./add-device.component.scss']
+  styleUrls: ['./add-device.component.scss'],
+
+
+
 })
 export class AddDeviceComponent implements OnInit{
 deviceForm:FormGroup;
 timeszones:any;
 devices:any = [];
-constructor(private fb:FormBuilder,private breadcrumb:BreadcrumbService, private apis: ApiService){
+
+constructor(private active_modal: NgbActiveModal,private fb:FormBuilder, private apis: ApiService
+  ){
+    
+
   this.deviceForm = this.fb.group({
     hardware:['',Validators.required],
     timezone:['',Validators.required],
@@ -31,6 +39,12 @@ ngOnInit(): void {
   this.getDevices();
   
 
+}
+
+closeModal(){
+  
+ this.active_modal.close();
+  
 }
 
 getDevices() {
@@ -67,5 +81,8 @@ getTimezonesWithOffsets(): { name: string; offset: string }[] {
 }
 convertToTimezone(date: Date, timezone: string): Date {
   return moment(date).tz(timezone).toDate();
+}
+cancelButton(){
+
 }
 }

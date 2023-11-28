@@ -1,6 +1,6 @@
 <div class="d-flex justify-content-between"  style="margin-bottom: 15px;" >
     <span class="header-1" >Users</span>
-    <button class="btn action-button-1"  (click)="addUser()" >Add User</button>
+    <button class="action-button-1"  (click)="addUser()" >Add User</button>
 </div>
 <div style="margin-bottom: 15px;" >
     <app-common-table  [actions]="{type:'dd',data : []}" [columns]="displayed_columns" [data]="data" ></app-common-table>
@@ -8,5 +8,5 @@
 
 <div class="d-flex justify-content-end"    >
    
-    <button class="btn action-button-1" >Download List</button>
+    <button class="action-button-1" >Download List</button>
 </div>

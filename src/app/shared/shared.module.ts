@@ -21,6 +21,9 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { ButtonComponent } from './components/button/button.component';
 import { HttpClientModule } from '@angular/common/http';
 import { MatSortModule } from '@angular/material/sort';
+import { TankLevelMonitorComponent } from './components/tank-level-monitor/tank-level-monitor.component';
+import { NgbProgressbarModule } from '@ng-bootstrap/ng-bootstrap';
+import { CommonActionPopupComponent } from './components/common-action-popup/common-action-popup.component';
 @NgModule({
   declarations: [
     ChartComponent,
@@ -33,6 +36,8 @@ import { MatSortModule } from '@angular/material/sort';
     BreadcrumbComponent,
     FilterBarComponent,
     ButtonComponent,
+    TankLevelMonitorComponent,
+    CommonActionPopupComponent,
   ],
   imports: [
     CommonModule,
@@ -46,7 +51,9 @@ import { MatSortModule } from '@angular/material/sort';
     RouterModule,
     ReactiveFormsModule,
     HttpClientModule,
-    MatSortModule
+    MatSortModule,
+    NgbProgressbarModule
+    
   ],
   exports:[CommonDialogComponent,ChartComponent,NavigationDropdownComponent,CommonCardComponent,SiteDetailsCardsComponent,CommonTableComponent,CommonToasterComponent,BreadcrumbComponent,FilterBarComponent,ButtonComponent]
 })

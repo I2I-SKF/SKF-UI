@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-request-support',
@@ -8,16 +9,19 @@ import { MatDialogRef } from '@angular/material/dialog';
 })
 export class RequestSupportComponent implements OnInit {
 
-  constructor(private modalRef:MatDialogRef<RequestSupportComponent>){
+  constructor(private active_modal:NgbActiveModal){
 
     
   }
+
+  deviceData:any = [ { viewValue: 'Device 1, Pune', value: '00001UZ1XYETP' },
+  { viewValue: 'Device 2, St. Louis', value: '00001S81KOXLA' },]
   
   ngOnInit(): void {
     
   }
   closeModal(){
-    this.modalRef.close("");
+    this.active_modal.close();
   }
 
   

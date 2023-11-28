@@ -10,7 +10,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
-
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
@@ -24,8 +24,18 @@ import { MatSortModule } from '@angular/material/sort';
     SharedModule,
     ReactiveFormsModule,
     MatTableModule,
+    
     MatPaginatorModule,
-    MatSortModule
-  ]
+    MatSortModule,
+    MatDialogModule,
+
+    
+
+  
+
+
+  ],
+ 
+
 })
 export class DevicesModule { }

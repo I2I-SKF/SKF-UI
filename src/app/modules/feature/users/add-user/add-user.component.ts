@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
-import { NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { NgbActiveModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-add-user',
@@ -9,13 +9,13 @@ import { NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 })
 export class AddUserComponent {
 
-  constructor(private modalRef:MatDialogRef<AddUserComponent>){
+  constructor(private active_modal: NgbActiveModal){
 
   }
   rowClick(){
 
   }
   closeModal(){
-    this.modalRef.close("");
+    this.active_modal.close();
   }
 }

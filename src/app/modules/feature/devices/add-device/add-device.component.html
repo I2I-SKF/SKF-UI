@@ -1,48 +1,9 @@
-<!-- <div class="device-add-container" >
-    <form [formGroup]="deviceForm" >
-        <div class="row">
-            <div class="font-size-lg mb-2"  >
-                Add Device
-                
-            </div>
-            <div class="col-sm-6">
-                <label class="font-size-sm mb-2 mt-2" for="">Select Device</label>
-                <select class="form-select" formControlName="hardware" name="" id="">
-                    <option value="">Select device</option>
-                </select>
-            </div>
-            <div class="col-sm-6 ">
-                <label class="mb-2 mt-2" for="">Device Name</label>
-                <input class="form-control"  type="text" placeholder="Device Name">
-            </div>
-            <div class="col-sm-6 ">
-                <label class="mb-2 mt-2" for="">Location</label>
-                <input class="form-control"  type="text" placeholder="Location">
-            </div>
-            <div class="col-sm-6 ">
-                <label class="mb-2 mt-2" for="">Manager Name</label>
-                <input class="form-control"  type="text" placeholder="Manager Name">
-            </div>
-            <div class="col-sm-6 ">
-                <label class="mb-2 mt-2" for="">Manager Phone no.</label>
-                <input class="form-control"  type="text" placeholder="Phone No">
-            </div>
-            
-            
-            <div class="col-sm-12 d-flex justify-content-start mt-4  gap-2"  >
-                <button class="btn action-button-1" >Add</button>
-                <button class="btn action-button-2" >Cancel</button>
-            </div>
-        </div>
-       
 
-    </form>
-</div> -->
 
 <div class="device-add-container">
   <div class="skf-background pb-2 pt-2 ps-3 pe-3 page-title">Add Device</div>
 
-  <form class="ps-3 pe-3"  [formGroup]="deviceForm">
+  <form class="ps-3 pe-3 mt-3"  [formGroup]="deviceForm">
     <div class="row">
       <div class="col-sm-6">
         <label class="font-size-sm mb-2 mt-2" for="">Select Device</label>
@@ -55,6 +16,12 @@
         <input class="form-control" type="text" placeholder="Device Name" />
       </div>
       <div class="col-sm-6">
+        <label class="font-size-sm mb-2 mt-2" for="">Select Country</label>
+        <select  class="form-select" formControlName="hardware" name="" id="">
+          <option value="">Select Country</option>
+        </select>
+      </div>
+      <div class="col-sm-6">
         <label class="font-size-sm mb-2 mt-2" for="">Select Timezone</label>
         <select  class="form-select" formControlName="timezone" name="" id="">
           <option value="">Select Timezone</option>
@@ -64,21 +31,26 @@
         </select>
       </div>
       <div class="col-sm-6">
+        <label class="font-size-sm mb-2 mt-2" for="">Select State</label>
+        <select  class="form-select" formControlName="hardware" name="" id="">
+          <option value="">Select State</option>
+        </select>
+      </div>
+      <div class="col-sm-6">
         <label class="mb-2 mt-2" for="">Location</label>
         <input class="form-control" type="text" placeholder="Location" />
       </div>
       <div class="col-sm-6">
-        <label class="mb-2 mt-2" for="">Manager Name</label>
-        <input class="form-control" type="text" placeholder="Manager Name" />
+        <label class="mb-2 mt-2" for="">Select Manager</label>
+        <select  class="form-select"  name="" id="">
+          <option value="">Select Manager</option>
+        </select>
       </div>
-      <div class="col-sm-6">
-        <label class="mb-2 mt-2" for="">Manager Phone no.</label>
-        <input class="form-control" type="text" placeholder="Phone No" />
-      </div>
+    
 
       <div class="col-sm-12 d-flex justify-content-end mt-4 mb-4 gap-2">
         <button class=" action-button-1">Add</button>
-        <button class=" action-button-2">Cancel</button>
+        <button class=" action-button-2" (click)="closeModal()" >Cancel</button>
       </div>
     </div>
   </form>

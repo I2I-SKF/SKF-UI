@@ -258,12 +258,12 @@ export const CHART_CONFIGURATIONS: { [key: string]: any } = {
   },
   HOURLY_DISPENSES:{
     chart: {
-      type: 'column',
+      type: 'spline',
     },
     title: {
       text: 'Hourly Dispenses',
       style: {
-        fontSize: '14px' // Set the desired font size for the chart title
+        fontSize: '12px' // Set the desired font size for the chart title
     }
     },
    
@@ -327,29 +327,7 @@ export const CHART_CONFIGURATIONS: { [key: string]: any } = {
         ],
        
       },
-      {
-        name: 'Fluid 3',
-        data:[
-          [1661817600000, 79.8],
-          [1661821200000, 87.2],
-          [1661824800000, 62.5],
-          [1661828400000, 54.3],
-          [1661832000000, 70.1],
-          [1661835600000, 75.6],
-        ],
-      
-      },
-      {
-        name: 'Fluid 4',
-        data:  [
-          [1661817600000, 56.7],
-          [1661821200000, 61.2],
-          [1661824800000, 88.4],
-          [1661828400000, 76.9],
-          [1661832000000, 63.5],
-          [1661835600000, 70.8],
-        ],
-      },
+     
     ],
   }
 };

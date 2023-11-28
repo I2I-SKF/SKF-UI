@@ -2,6 +2,8 @@ import { Dialog } from '@angular/cdk/dialog';
 import { Component, OnInit } from '@angular/core';
 import { BreadcrumbService } from 'src/app/shared/services/breadcrumb.service';
 import { RequestSupportComponent } from './request-support/request-support.component';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'app-support',
@@ -64,8 +66,14 @@ export class SupportComponent implements OnInit {
     },
   ] 
 
+  dispensesForm:any;
+  devices_data = [
+    { viewValue: 'Device 1, Pune', value: '00001UZ1XYETP' },
+    { viewValue: 'Device 2, St. Louis', value: '00001S81KOXLA' },
+  ];
 
-  constructor(private breadcrumbService:BreadcrumbService,private dialog:Dialog){
+
+  constructor(private breadcrumbService:BreadcrumbService,private ngbmodal:NgbModal,private fb:FormBuilder){
 
   }
   ngOnInit():void{
@@ -81,14 +89,40 @@ export class SupportComponent implements OnInit {
       },
      
     ]);
+    let date = new Date();
+    this.dispensesForm = this.fb.group({
+      devices: [this.devices_data[0].value],
+      start_date: [this.formatDate(date)],
+      end_date: [this.formatDate(date)],
+     
+      
+    });
   }
 
   rowClick(row:any){
     console.log(row);
   }
   requestSupport(){
-      this.dialog.open(RequestSupportComponent,{
-        
-      })
+      this.ngbmodal.open(RequestSupportComponent,{centered:true})
+  }
+  private formatDate(date: Date): string {
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    console.log(`${year}-${month}-${day}`);
+    return `${year}-${month}-${day}`;
+  }
+
+  onDeviceChange(event:any){
+
+  }
+  startDateChange(event:any){
+
+  }
+  endDateChange(event:any){
+
+  }
+  getData(){
+
   }
 }

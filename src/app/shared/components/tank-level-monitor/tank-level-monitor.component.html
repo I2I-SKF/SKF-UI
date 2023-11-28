@@ -1,0 +1,10 @@
+
+    <div class="row m-0" *ngFor="let tank_data of tank_data">
+        <div class="col-sm-3">{{tank_data.tank_name}}</div>
+        <div class="col-sm-9">
+            <ngb-progressbar class="mb-3" type="success" [value]="tank_data.tank_level" [striped]="true" />
+        </div>
+    </div>
+  
+
+

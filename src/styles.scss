@@ -1,3 +1,38 @@
+
+// Custom Theming for Angular Material
+// For more information: https://material.angular.io/guide/theming
+@use '@angular/material' as mat;
+// Plus imports for other components in your app.
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@include mat.core();
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://material.io/design/color/
+$skf-edge-primary: mat.define-palette(mat.$indigo-palette);
+$skf-edge-accent: mat.define-palette(mat.$pink-palette, A200, A100, A400);
+
+// The warn palette is optional (defaults to red).
+$skf-edge-warn: mat.define-palette(mat.$red-palette);
+
+// Create the theme object. A theme consists of configurations for individual
+// theming systems such as "color" or "typography".
+$skf-edge-theme: mat.define-light-theme((
+  color: (
+    primary: $skf-edge-primary,
+    accent: $skf-edge-accent,
+    warn: $skf-edge-warn,
+  )
+));
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+@include mat.all-component-themes($skf-edge-theme);
+
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
 @import "bootstrap/scss/bootstrap";
 @import "variables";
@@ -115,10 +150,7 @@ font-size:$font-xxxxl ;
    background-color: $grey-100;
    color: $grey-500;
  }
-.action-button-3{
-  @include action-btn-3;
 
-}
 .action-button-4{
   @include action-btn-3;
 
@@ -150,6 +182,29 @@ font-size:$font-xxxxl ;
   color: $primary-600;
   font-size: $font-sm;
   cursor: pointer;
+}
+
+
+.action-button-3{
+  background-color: $grey-200;
+  color: $black;
+  padding: 4px 8px;
+  border: 1px solid $grey-500;
+  border-radius: 3px;
+ }
+
+
+ .action-button-3:hover{
+  background-color:$grey-500;
+  color: $white;
+}
+.action-button-3:active{
+  background-color: $grey-500;
+  color: $white;
+}
+.action-button-3:disabled{
+  background-color: $grey-100;
+  color: $grey-500;
 }
 
 
@@ -281,3 +336,5 @@ input::-webkit-inner-spin-button {
 input[type=number] {
   -moz-appearance: textfield;
 }
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

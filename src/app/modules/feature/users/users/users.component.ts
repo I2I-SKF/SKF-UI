@@ -1,7 +1,8 @@
-import { Dialog } from '@angular/cdk/dialog';
+
 import { Component } from '@angular/core';
 import { BreadcrumbService } from 'src/app/shared/services/breadcrumb.service';
 import { AddUserComponent } from '../add-user/add-user.component';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-users',
@@ -122,13 +123,14 @@ export class UsersComponent {
       "Delete User"
     ]},
   ]
-  constructor(private breadcrumbs:BreadcrumbService,private dialog:Dialog){
+  constructor(private breadcrumbs:BreadcrumbService,private ngb_modal:NgbModal){
+
 
     
   }
   
   addUser(){
-   this.dialog.open(AddUserComponent)
+   this.ngb_modal.open(AddUserComponent,{centered:true})
   }
   ngOnInit(): void {
     this.breadcrumbs.setBreadcrumb([

@@ -11,6 +11,8 @@ import { MatTableDataSource } from '@angular/material/table';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatSort } from '@angular/material/sort';
 import { ApiService } from 'src/app/shared/services/api.service';
+import { CommonActionPopupComponent } from 'src/app/shared/components/common-action-popup/common-action-popup.component';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 @Component({
   selector: 'app-device',
   templateUrl: './device.component.html',
@@ -25,7 +27,8 @@ export class DeviceComponent implements OnInit {
     private dialog: Dialog,
     private breadcrumbService: BreadcrumbService,
     private fb: FormBuilder,
-    private apis: ApiService
+    private apis: ApiService,
+    private ngb_modal:NgbModal
   ) {
     this.dispense_status_form = this.fb.group({
       device_status: ['all'],
@@ -453,7 +456,7 @@ export class DeviceComponent implements OnInit {
     let selected_option = event.target.value;
 
     if (selected_option == 0 || selected_option == '0') {
-      this.openDialog();
+      this.open(AddDeviceComponent)
     }
   }
   ngOnInit(): void {
@@ -478,16 +481,16 @@ export class DeviceComponent implements OnInit {
     this.dataSource.sort = this.sort;
   }
 
-  openDialog(): void {
-    const dialogRef = this.dialog.open(AddDeviceComponent, {
-      data: {
-        title: 'Modal Title',
-      },
-    });
-  }
+
+  open(content:any) {
+		this.ngb_modal.open(content, { ariaLabelledBy: 'modal-basic-title',centered:true }).result.then(	
+		);
+	}
+
 
   addDevice() {
-    this.openDialog();
+   
+    this.open(AddDeviceComponent);
   }
 
   onSearch(data: any) {}

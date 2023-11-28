@@ -57,27 +57,11 @@
           class="form-control input_border_class"
         />
       </div>
-      <!-- <div class="col-sm-2 mb-2">
-        <label for="">Dispense Status</label>
-        <select
-          (change)="onDispenseStatusChange($event)"
-          formControlName="dispense_status"
-          class="form-select input_border_class"
-          name=""
-          id=""
-        >
-          <option
-            [value]="dispense.value"
-            *ngFor="let dispense of dispense_statuses"
-          >
-            {{ dispense.viewValue }}
-          </option>
-        </select>
-      </div> -->
+     
       <div class="col-sm-2 mb-2 ms-auto" style="align-self: end;">
         <button
           (click)="getCloudData()"
-          class="btn action-button-1 ms-auto"
+          class="action-button-1 ms-auto"
           style="height: 35px"
         >
           Fetch Data
@@ -89,7 +73,9 @@
 </div>
 <div style="margin-bottom: 15px">
   <app-common-table
-   
+  [isfilterVisible]="true"
+  [isSearchVisible]="true"
+    
     (statusChange)="onDispenseStatusChange($event)"
     (searched)="catchSearchEvents($event)"
     (rowClick)="rowClick($event)"
@@ -101,7 +87,7 @@
 
 <div class="d-flex justify-content-end align-items-center">
   <span class="me-auto"> Last Synced at {{ last_sync_time }} </span>
-  <button class="btn action-button-1">Download List</button>
+  <button class="action-button-1">Download List</button>
 </div>
 
 

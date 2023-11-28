@@ -5,7 +5,7 @@
 
 <div class="d-flex justify-content-between"  style="margin-bottom: 15px;" >
     <span class="header-1" >Sites</span>
-    <button class="btn action-button-1"  (click)="addDevice()" >Add Site</button>
+    <button class="action-button-1"  (click)="addDevice()" >Add Site</button>
 </div>
 <div style="margin-bottom: 15px;" >
     <app-common-table (rowClick)="rowClick($event)" [actions]="{type:'dd',data : []}" [columns]="displayed_columns" [data]="data" ></app-common-table>
@@ -13,5 +13,5 @@
 
 <div class="d-flex justify-content-end"    >
    
-    <button class="btn action-button-1" >Download List</button>
+    <button class="action-button-1" >Download List</button>
 </div>

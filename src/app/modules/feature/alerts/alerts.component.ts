@@ -1,4 +1,5 @@
 import { Component,OnInit } from '@angular/core';
+import { FormBuilder } from '@angular/forms';
 import { BreadcrumbService } from 'src/app/shared/services/breadcrumb.service';
 
 @Component({
@@ -13,6 +14,12 @@ export class AlertsComponent implements OnInit {
    "Location",
    "Alert Type",
    "Description"
+  ];
+  dispensesForm:any;
+  
+  devices_data = [
+    { viewValue: 'Device 1, Pune', value: '00001UZ1XYETP' },
+    { viewValue: 'Device 2, St. Louis', value: '00001S81KOXLA' },
   ];
 
   data = [
@@ -88,7 +95,7 @@ export class AlertsComponent implements OnInit {
   },
   ]
 
-  constructor(private breadcrumbs:BreadcrumbService){
+  constructor(private breadcrumbs:BreadcrumbService,private fb:FormBuilder){
 
   }
 
@@ -104,5 +111,34 @@ export class AlertsComponent implements OnInit {
       },
      
     ]);
+    let date = new Date();
+    this.dispensesForm = this.fb.group({
+      devices: [this.devices_data[0].value],
+      start_date: [this.formatDate(date)],
+      end_date: [this.formatDate(date)],
+     
+      
+    });
+  }
+
+  private formatDate(date: Date): string {
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    console.log(`${year}-${month}-${day}`);
+    return `${year}-${month}-${day}`;
+  }
+  onDeviceChange(data:any){
+
+  }
+  startDateChange(data:any){
+
+  }
+  endDateChange(data:any){
+
+  }
+
+  getData(){
+
   }
 }

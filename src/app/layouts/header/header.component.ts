@@ -47,6 +47,15 @@ export class HeaderComponent {
     this.toggleSideBar.emit(this.toggleSideBar)
   }
 
+  logout(){
+    this.router.navigate(['/auth/login'])
+  }
+  onNavOptionChange(event:any){
+    let data = event.target.value
+    if(data == 'logout'){
+      this.logout();
+    }
+  }
  
 
 }
