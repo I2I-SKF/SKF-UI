@@ -1,30 +1,94 @@
 import { HttpClient } from '@angular/common/http';
-import { Component,OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { NgbActiveModal, NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
+import { CommonAlertComponentComponent } from 'src/app/shared/components/common-alert-component/common-alert-component.component';
+import { CommonAlertComponent } from 'src/app/shared/components/common-alert/common-alert.component';
+import { ApiService } from 'src/app/shared/services/api.service';
+import { LocalStorageService } from 'src/app/shared/services/local-storage.service';
+export interface CustomModalOptions extends NgbModalOptions {
+  data?: any;
+}
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnInit {
-
-  constructor(private http:HttpClient,private router:Router){
-
-  }
+  loginform: any;
+  constructor(
+    private router: Router,
+    private apis: ApiService,
+    private fb: FormBuilder,
   
-  ngOnInit(){
-   
-      
-
+    private local_storage:LocalStorageService,
     
+    private ngbModal:NgbModal
+
+  ) {
+    this.loginform = this.fb.group({
+      customer_id: ['', Validators.required],
+      user_id: ['', Validators.required],
+      password: ['', Validators.required],
+    });
   }
-  
-  
+
+  ngOnInit() {}
+
   login(){
-    this.router.navigate(['/feature/dashboard'])
+    var jsondata = {
+    
+      "client_code":this.loginform.get('customer_id').value,
+      "app_name": "lfc-admin-client",
+      "function_name": "System-sign-in",
+      "username":this.loginform.get('user_id').value,
+      "password": this.loginform.get('password').value
+
+    }
+
+
+    this.apis.login(jsondata).subscribe((res: any) => {
+      
+      if(res.Type == 'Success'){
+
+
+              let session_token = res.session_token;
+              let session_user = `${res.User_ID}`;
+              let user_name = res.Username;
+             
+
+              this.local_storage.setToLocalStorage('session_token',session_token);
+              // this.localStorage.setToLocalStorage('session_token','EgBYylQQlOWXlrTCCNfJAEiumMtbiVkkyutntWbNIQNcbTvEbqUsaxkcDlcbcitZoTDbRaQwUHvfrnVqtIhXAsAwZZrJtxrrhKwe');
+              this.local_storage.setToLocalStorage('session_user',session_user);
+              this.local_storage.setToLocalStorage('user_name',user_name);
+
+
+        console.log(res);
+        this.local_storage.setToLocalStorage('user_name',user_name)
+        this.router.navigate(["/home"])
+      }
+      else{
+       let  modal_ref = this.ngbModal.open(CommonAlertComponentComponent,{centered:true})
+
+     
+       modal_ref.componentInstance.alertData = {
+        alert_title: 'Oops',
+        alert_body:res.Msg ,
+  
+
+        alert_actions: [
+          {
+            button_name: 'Close',
+            type: 1,
+            button_value: 1,
+          },
+        ],
+      };
+      }
+
+    })
+
   }
-
- 
-
 }

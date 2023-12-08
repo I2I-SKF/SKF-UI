@@ -41,6 +41,18 @@ export class DispensesComponent {
   last_sync_time: any = null;
   extractedData: any[] = [];
   backup_for_filter:any = [];
+
+  transaction_data = [
+    {
+      value:10,viewValue:10
+    },
+    {
+      value:50,viewValue:50
+    },
+    {
+      value:100,viewValue:100
+    },
+  ]
   displayed_columns = [
     'Device',
     'Site Name',
@@ -188,9 +200,10 @@ export class DispensesComponent {
     this.dispensesForm = this.fb.group({
       devices: [this.devices_data[0].value],
       sites: ['all'],
-      start_date: [this.formatDate(date)],
-      end_date: [this.formatDate(date)],
+      start_date: [],
+      end_date: [],
       dispense_status: ['all'],
+      transactions: [10],
       
     });
 
@@ -211,7 +224,9 @@ export class DispensesComponent {
     console.log(`${year}-${month}-${day}`);
     return `${year}-${month}-${day}`;
   }
+  onTransactionChange(data:any){
 
+  }
   addDevice() {
     // this.openDialog();
   }
@@ -335,8 +350,8 @@ export class DispensesComponent {
     let selected_device = data.target.value;
     let today = new Date();
     
-    this.dispensesForm.get('start_date').setValue(this.formatDate(today));
-    this.dispensesForm.get('end_date').setValue(this.formatDate(today));
+    // this.dispensesForm.get('start_date').setValue(this.formatDate(today));
+    // this.dispensesForm.get('end_date').setValue(this.formatDate(today));
     this.getCloudData(true);
   }
   resetEverything() {
@@ -399,21 +414,26 @@ export class DispensesComponent {
 
     console.log('inside cloud fetch');
 
-    let data = {
+    let data:any = {
       device_id: this.dispensesForm.get('devices').value,
       from_time: this.dispensesForm.get('start_date').value,
       to_time: this.dispensesForm.get('end_date').value,
     };
+    if(this.dispensesForm.get('end_date').value == null || this.dispensesForm.get('start_date').value == null  ){
+      data = {
+        device_id: this.dispensesForm.get('devices').value,
+      }
+    }
 
     let date_check= this.formatDate(new Date());
 
-    if(isOnload || (date_check == data.from_time && date_check == data.to_time)){
-       data = {
-        device_id: this.dispensesForm.get('devices').value,
-        from_time: this.convertToUTCDate(),
-        to_time: new Date().toISOString(),
-      };
-    }
+    // if(isOnload || (date_check == data.from_time && date_check == data.to_time)){
+    //    data = {
+    //     device_id: this.dispensesForm.get('devices').value,
+    //     from_time: this.convertToUTCDate(),
+    //     to_time: new Date().toISOString(),
+    //   };
+    // }
 
     this.api.getDataFromCloud(data).subscribe({
       next: (res) => {

@@ -20,6 +20,20 @@
             </option>
           </select>
         </div>
+        <div class="col-sm-2 mb-2">
+          <label for="">Last Request</label>
+          <select
+            (change)="onRequestChange($event)"
+            formControlName="request"
+            class="form-select input_border_class"
+            name=""
+            id=""
+          >
+            <option [value]="request.value" *ngFor="let request of request_data">
+              {{ request.viewValue }}
+            </option>
+          </select>
+        </div>
   
         
         <div class="col-sm-2 mb-2">

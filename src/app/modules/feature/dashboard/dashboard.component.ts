@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { CommonDialogComponent } from 'src/app/shared/components/common-dialog/common-dialog.component';
 import { CHART, CHART_CONFIGURATIONS } from 'src/app/shared/constants/charts';
@@ -32,15 +32,9 @@ export class DashboardComponent implements OnInit {
       },
      
     ]);
-    this.checkTestAPI();
   }
 
-  checkTestAPI(){
-    this.httpclient.get(	"https://dummy.restapiexample.com/api/v1/employees" , { observe: 'response' }).subscribe(res=>{
-      console.log("response form test api",res.headers);
-      
-    })
-  }
+ 
 
   openDialog(): void {
     const dialogRef = this.dialog.open(CommonDialogComponent, {
@@ -49,6 +43,8 @@ export class DashboardComponent implements OnInit {
       },
     });
   }
+
+ 
 
   updateRevenueChart() {
     this.chart.updateChart(CHART.REVENUE_CHART, [

@@ -22,6 +22,14 @@ export class SupportComponent implements OnInit {
     "Resolution",
     "Date Closed"
   ]
+  request_data = [
+    {
+      value:3,viewValue:3
+    },
+    {
+      value:6,viewValue:6
+    },
+  ]
 
   table_data:any[] = [
     {
@@ -92,9 +100,9 @@ export class SupportComponent implements OnInit {
     let date = new Date();
     this.dispensesForm = this.fb.group({
       devices: [this.devices_data[0].value],
-      start_date: [this.formatDate(date)],
-      end_date: [this.formatDate(date)],
-     
+      start_date: [],
+      end_date: [],
+      request:[3]
       
     });
   }
@@ -123,6 +131,9 @@ export class SupportComponent implements OnInit {
 
   }
   getData(){
+
+  }
+  onRequestChange(data:any){
 
   }
 }

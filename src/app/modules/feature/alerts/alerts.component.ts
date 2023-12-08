@@ -94,6 +94,10 @@ export class AlertsComponent implements OnInit {
    "Description":""
   },
   ]
+  alert_data = [
+    {value:3,viewValue:3},
+    {value:6,viewValue:6}
+  ]
 
   constructor(private breadcrumbs:BreadcrumbService,private fb:FormBuilder){
 
@@ -114,8 +118,9 @@ export class AlertsComponent implements OnInit {
     let date = new Date();
     this.dispensesForm = this.fb.group({
       devices: [this.devices_data[0].value],
-      start_date: [this.formatDate(date)],
-      end_date: [this.formatDate(date)],
+      start_date: [],
+      end_date: [],
+      alert: [3],
      
       
     });
@@ -139,6 +144,10 @@ export class AlertsComponent implements OnInit {
   }
 
   getData(){
+
+  }
+
+  onAlertChange(data:any){
 
   }
 }

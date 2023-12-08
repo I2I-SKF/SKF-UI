@@ -32,11 +32,9 @@ export class UsersComponent {
     "Status":"Active",
     "Last Log In":"15/09/23 8:30",
     "Action":[
-      "Select",
-      "Edit User",
-      "Suspend User",
-      "Reactivate User",
-      "Delete User"
+      "Closed",
+      "Reopen",
+      "Resolved"
     ]},
     {"User ID":"U12346",
     "User Role":"User",

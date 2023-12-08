@@ -5,6 +5,7 @@ import { DispensesRoutingModule } from './dispenses-routing.module';
 import { DispensesComponent } from './dispenses/dispenses.component';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { ReactiveFormsModule } from '@angular/forms';
+import {MatRadioModule} from '@angular/material/radio';
 
 
 @NgModule({
@@ -15,7 +16,9 @@ import { ReactiveFormsModule } from '@angular/forms';
     CommonModule,
     DispensesRoutingModule,
     SharedModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatRadioModule
+    
   ]
 })
 export class DispensesModule { }

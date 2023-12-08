@@ -59,6 +59,7 @@ export class CommonTableComponent implements OnInit, OnChanges {
   ];
   @Input() isSearchVisible = false ;
   @Input() isfilterVisible = false ;
+  @Input() isDispenseData = false ;
 
 
 
@@ -79,9 +80,22 @@ export class CommonTableComponent implements OnInit, OnChanges {
         default: return item[property];
       }
     };
-
+    
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
+
+    if(this.isDispenseData){
+      console.log('inside dispense check');
+      
+      this.dataSource.sort.direction = 'desc'; 
+      this.dataSource.sort.active = 'Transaction No';
+    }
+    
+
+
+
+
+  
 
     
     

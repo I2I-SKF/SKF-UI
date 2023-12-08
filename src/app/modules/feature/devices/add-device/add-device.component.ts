@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import * as moment from 'moment-timezone';
 import { ApiService } from 'src/app/shared/services/api.service';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-
+import { patternValidator } from '../../../../shared/validators/pattern.validators';
 
 @Component({
   selector: 'app-add-device',
@@ -14,7 +14,7 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 })
 export class AddDeviceComponent implements OnInit{
-deviceForm:FormGroup;
+deviceForm:any;
 timeszones:any;
 devices:any = [];
 
@@ -22,21 +22,26 @@ constructor(private active_modal: NgbActiveModal,private fb:FormBuilder, private
   ){
     
 
-  this.deviceForm = this.fb.group({
-    hardware:['',Validators.required],
-    timezone:['',Validators.required],
-    location:['',Validators.required],
-    dispense_sites:['',Validators.required],
-    pin:['',Validators.required],
-    remote_access:['',Validators.required],
-    lfc:['',Validators.required],
-  })
+ 
 }
 ngOnInit(): void {
+  this.deviceForm = this.fb.group({
+    hardware:['',[Validators.required]],
+    device:['',[Validators.required]],
+    country:['',[Validators.required]],
+    state:['',[Validators.required]],
+    timezone:['',Validators.required],
+    device_manager:['',Validators.required],
+    link_child:[''],
+    parent_device:[''],
+    location:['',[Validators.required,patternValidator(/^[a-zA-Z]+$/,'Only alphabets are allowed.')]],
+   
+  })
   console.log('device details initialized ...');
   this.timeszones = this.getTimezonesWithOffsets();
 
   this.getDevices();
+ 
   
 
 }

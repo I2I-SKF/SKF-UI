@@ -39,6 +39,26 @@
           </option>
         </select>
       </div>
+      <!-- <div class="col-sm-2 mb-2">
+        <mat-radio-group  aria-label="Select an option">
+          <mat-radio-button [color]="'primary'" value="1">Last 10 Transactions</mat-radio-button>
+          <mat-radio-button [color]="'primary'" value="2">Date Range </mat-radio-button>
+        </mat-radio-group>
+      </div> -->
+      <div class="col-sm-2 mb-2">
+        <label for="">Last Transactions</label>
+        <select
+          (change)="onTransactionChange($event)"
+          formControlName="transactions"
+          class="form-select input_border_class"
+          name=""
+          id=""
+        >
+          <option [value]="transaction.value" *ngFor="let transaction of transaction_data">
+            {{ transaction.viewValue }}
+          </option>
+        </select>
+      </div>
       <div class="col-sm-2 mb-2">
         <label for="">Start Date</label>
         <input
@@ -57,8 +77,8 @@
           class="form-control input_border_class"
         />
       </div>
-     
-      <div class="col-sm-2 mb-2 ms-auto" style="align-self: end;">
+
+      <div class="col-sm-2 mb-2 ms-auto" style="align-self: end">
         <button
           (click)="getCloudData()"
           class="action-button-1 ms-auto"
@@ -68,14 +88,13 @@
         </button>
       </div>
     </div>
-    
   </form>
 </div>
 <div style="margin-bottom: 15px">
   <app-common-table
-  [isfilterVisible]="true"
-  [isSearchVisible]="true"
-    
+    [isDispenseData]="true"
+    [isfilterVisible]="true"
+    [isSearchVisible]="true"
     (statusChange)="onDispenseStatusChange($event)"
     (searched)="catchSearchEvents($event)"
     (rowClick)="rowClick($event)"
@@ -86,9 +105,5 @@
 </div>
 
 <div class="d-flex justify-content-end align-items-center">
-  <span class="me-auto"> Last Synced at {{ last_sync_time }} </span>
-  <button class="action-button-1">Download List</button>
+  <button class="ms-auto action-button-1">Download List</button>
 </div>
-
-
-

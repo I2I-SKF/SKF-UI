@@ -276,6 +276,13 @@ font-size:$font-xxxxl ;
   input,select,option,label{
     font-size: $font-sm;
     color: $black; 
+   
+    
+  }
+  input,select,option{
+    font-size: $font-sm;
+    color: $black; 
+    height: 35px;
     
   }
 

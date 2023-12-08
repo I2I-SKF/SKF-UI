@@ -1,0 +1,3 @@
+<div class="mt-2 mb-2" *ngIf="Control.errors && (Control.dirty || Control.touched)">
+    <div class="validation-error" *ngFor="let error of getErrorMessages()">{{ error }}</div>
+</div>

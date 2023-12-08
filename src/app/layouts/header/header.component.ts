@@ -1,20 +1,22 @@
-import { Component, EventEmitter, HostListener, Input, Output, ViewEncapsulation } from '@angular/core';
+import { Component, EventEmitter, HostListener, Input, OnInit, Output, ViewEncapsulation } from '@angular/core';
 import {NAVIGATION} from '../constants/navigation'
 import { Router } from '@angular/router';
+import { LocalStorageService } from 'src/app/shared/services/local-storage.service';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
   encapsulation : ViewEncapsulation.None,
 })
-export class HeaderComponent {
+export class HeaderComponent  implements OnInit {
 
-  constructor(private router:Router){
+  constructor(private router:Router,private local_storage:LocalStorageService){
 
   }
   @Input() isSidebarOpen = false;
   @Output() toggleSideBar:any =  new EventEmitter<any>();
   userPermissions = ['user'];
+  username:any = null;
   options:any =[
     {value:'all_sites',viewValue:'All Sites'},
     {value:'Sitea',viewValue:'Site A'},
@@ -34,6 +36,10 @@ export class HeaderComponent {
 
   get filteredNavigationLinks() {
     return NAVIGATION.filter((link:any) => this.userPermissions.includes(link.requiredPermission));
+  }
+
+  ngOnInit(){
+    this.username = this.local_storage.getFromLocalStorage('user_name')
   }
   siteOptionChanged(event:any){
       console.log(event);

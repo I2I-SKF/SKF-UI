@@ -6,44 +6,64 @@
   <form class="ps-3 pe-3 mt-3"  [formGroup]="deviceForm">
     <div class="row">
       <div class="col-sm-6">
-        <label class="font-size-sm mb-2 mt-2" for="">Select Device</label>
-        <select  class="form-select" formControlName="hardware" name="" id="">
-          <option value="">Select device</option>
+        <label class="font-size-sm mb-2 mt-2" for="">Enroll Device</label>
+        <select  class="form-select" formControlName="hardware" id="">
+          <option value="">Select</option>
         </select>
+        <app-common-error  [formControl]="deviceForm.get('hardware')"></app-common-error>
       </div>
       <div class="col-sm-6">
         <label class="mb-2 mt-2" for="">Device Name</label>
-        <input class="form-control" type="text" placeholder="Device Name" />
+        <input class="form-control" formControlName="device" type="text" placeholder="Device Name" />
+        <app-common-error  [formControl]="deviceForm.get('device')"></app-common-error>
       </div>
       <div class="col-sm-6">
-        <label class="font-size-sm mb-2 mt-2" for="">Select Country</label>
-        <select  class="form-select" formControlName="hardware" name="" id="">
+        <label class="font-size-sm mb-2 mt-2" for=""> Country</label>
+        <select  class="form-select" formControlName="country" id="">
           <option value="">Select Country</option>
         </select>
+        <app-common-error  [formControl]="deviceForm.get('country')"></app-common-error>
+      </div>
+     
+      <div class="col-sm-6">
+        <label class="font-size-sm mb-2 mt-2" for=""> State</label>
+        <select  class="form-select" formControlName="state" id="">
+          <option value="">Select State</option>
+
+        </select>
+        <app-common-error  [formControl]="deviceForm.get('state')"></app-common-error>
       </div>
       <div class="col-sm-6">
-        <label class="font-size-sm mb-2 mt-2" for="">Select Timezone</label>
-        <select  class="form-select" formControlName="timezone" name="" id="">
+        <label class="mb-2 mt-2" for="">Location</label>
+        <input class="form-control" formControlName="location" type="text" placeholder="Location" />
+        <app-common-error  [formControl]="deviceForm.get('location')"></app-common-error>
+
+      </div>
+      <div class="col-sm-6">
+        <label class="font-size-sm mb-2 mt-2" for=""> Timezone</label>
+        <select  class="form-select" formControlName="timezone" id="">
           <option value="">Select Timezone</option>
           <option *ngFor="let timezone of timeszones" [value]="timezone.name">
             {{ timezone.name }} (UTC{{ timezone.offset }})
           </option>
         </select>
+        <app-common-error  [formControl]="deviceForm.get('timezone')"></app-common-error>
       </div>
-      <div class="col-sm-6">
-        <label class="font-size-sm mb-2 mt-2" for="">Select State</label>
-        <select  class="form-select" formControlName="hardware" name="" id="">
-          <option value="">Select State</option>
+      <div class="col-sm-12">
+        <label class="mb-2 mt-2" for="">Assign Device Manager</label>
+        <select  class="form-select" formControlName="device_manager"  id="">
+          <option value="">Select</option>
         </select>
+        <app-common-error  [formControl]="deviceForm.get('device_manager')"></app-common-error>
       </div>
-      <div class="col-sm-6">
-        <label class="mb-2 mt-2" for="">Location</label>
-        <input class="form-control" type="text" placeholder="Location" />
+      <div class="mt-2 col-sm-6 d-flex align-items-center" >
+        <input class="me-2"  type="checkbox" formControlName="link_child"  placeholder="" />
+        <label   for="" >Link as a mobile device</label>
       </div>
-      <div class="col-sm-6">
-        <label class="mb-2 mt-2" for="">Select Manager</label>
-        <select  class="form-select"  name="" id="">
-          <option value="">Select Manager</option>
+      <div class="col-sm-12"  >
+        <label class="mb-2 mt-2" for="">Parent Device</label>
+        <select   class="form-select" formControlName="parent_device"  id="">
+          <option value="">Select </option>
         </select>
       </div>
     

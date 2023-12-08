@@ -8,6 +8,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { PasswordVerifyComponent } from './password-verify/password-verify.component';
 import { RouterModule } from '@angular/router';
 import { PasswordResetComponent } from './password-reset/password-reset.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -20,7 +22,9 @@ import { PasswordResetComponent } from './password-reset/password-reset.componen
     AuthRoutingModule,
     HttpClientModule,
     MatButtonModule,
-    RouterModule
+    RouterModule,
+    ReactiveFormsModule,
+    SharedModule
   ]
 })
 export class AuthModule { }

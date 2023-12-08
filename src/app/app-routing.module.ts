@@ -13,6 +13,24 @@ const routes: Routes = [
       
   },
   {
+    path: 'VerifyToken',
+    
+    loadChildren: () =>
+      import('./modules/check-token/check-token.module').then((m) => m.CheckTokenModule),
+    
+  
+    
+  },
+  {
+    path: 'set-password',
+   
+    loadChildren: () =>
+      import('./modules/create-password/create-password.module').then((m) => m.CreatePasswordModule),
+  
+  
+    
+  },
+  {
     path: '',
     component:FeatureComponent,
     loadChildren: () =>
@@ -23,6 +41,7 @@ const routes: Routes = [
   
     
   },
+ 
  
   {
     path: '**',

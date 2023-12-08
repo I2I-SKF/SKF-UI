@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { HighchartsChartModule } from 'highcharts-angular';
 import { ChartComponent } from './components/chart/chart.component';
 import { NavigationDropdownComponent } from './components/navigation-dropdown/navigation-dropdown.component';
-import {MatButtonModule} from '@angular/material/button';
+import { MatButtonModule} from '@angular/material/button';
 import { CommonCardComponent } from './components/common-card/common-card.component';
 import { SiteDetailsCardsComponent } from './components/site-details-cards/site-details-cards.component';
 import { CommonTableComponent } from './components/common-table/common-table.component';
@@ -24,6 +24,10 @@ import { MatSortModule } from '@angular/material/sort';
 import { TankLevelMonitorComponent } from './components/tank-level-monitor/tank-level-monitor.component';
 import { NgbProgressbarModule } from '@ng-bootstrap/ng-bootstrap';
 import { CommonActionPopupComponent } from './components/common-action-popup/common-action-popup.component';
+import { CommonAlertComponent } from './components/common-alert/common-alert.component';
+import { CommonErrorComponent } from './components/common-error/common-error.component';
+import { CommonValidationErrorComponent } from './components/common-validation-error/common-validation-error.component';
+import { CommonAlertComponentComponent } from './components/common-alert-component/common-alert-component.component';
 @NgModule({
   declarations: [
     ChartComponent,
@@ -38,6 +42,10 @@ import { CommonActionPopupComponent } from './components/common-action-popup/com
     ButtonComponent,
     TankLevelMonitorComponent,
     CommonActionPopupComponent,
+    CommonAlertComponent,
+    CommonErrorComponent,
+    CommonValidationErrorComponent,
+    CommonAlertComponentComponent
   ],
   imports: [
     CommonModule,
@@ -52,9 +60,9 @@ import { CommonActionPopupComponent } from './components/common-action-popup/com
     ReactiveFormsModule,
     HttpClientModule,
     MatSortModule,
-    NgbProgressbarModule
+    NgbProgressbarModule,
     
   ],
-  exports:[CommonDialogComponent,ChartComponent,NavigationDropdownComponent,CommonCardComponent,SiteDetailsCardsComponent,CommonTableComponent,CommonToasterComponent,BreadcrumbComponent,FilterBarComponent,ButtonComponent]
+  exports:[CommonAlertComponentComponent,CommonValidationErrorComponent,CommonErrorComponent,CommonDialogComponent,ChartComponent,NavigationDropdownComponent,CommonCardComponent,SiteDetailsCardsComponent,CommonTableComponent,CommonToasterComponent,BreadcrumbComponent,FilterBarComponent,ButtonComponent]
 })
 export class SharedModule { }

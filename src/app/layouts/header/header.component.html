@@ -58,7 +58,7 @@
       </div> -->
       <div>
         <select (change)="onNavOptionChange($event)" style="width: 100px;" class="transparent-select" name="" id="">
-          <option value="someone" selected hidden>John D</option>
+          <option value="someone" selected hidden>{{username? username : 'User name'}}</option>
           <option value="change Password">Change Password</option>
           <option  value="logout"  >Log out</option>
         </select>

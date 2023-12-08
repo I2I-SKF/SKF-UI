@@ -17,6 +17,7 @@ import { MatDialogRef } from '@angular/material/dialog';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { LoaderInterceptor } from './core/interceptors/loader-interceptor';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
+import { AuthInterceptor } from './core/interceptors/auth-interceptor';
 
 
 @NgModule({
@@ -59,8 +60,12 @@ import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
       multi: true
     },
    
-    
-      
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true,
+    }
+      ,
      
       {
         provide: HTTP_INTERCEPTORS,

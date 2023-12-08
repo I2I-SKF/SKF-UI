@@ -23,6 +23,20 @@
             </option>
           </select>
         </div>
+        <div class="col-sm-2 mb-2">
+          <label for="">Last Alert</label>
+          <select
+            (change)="onAlertChange($event)"
+            formControlName="alert"
+            class="form-select input_border_class"
+            name=""
+            id=""
+          >
+            <option [value]="alert.value" *ngFor="let alert  of alert_data">
+              {{ alert.viewValue }}
+            </option>
+          </select>
+        </div>
   
         
         <div class="col-sm-2 mb-2">
