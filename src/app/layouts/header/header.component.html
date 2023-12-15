@@ -1,30 +1,33 @@
-<nav class="nav_background ">
+<nav class="nav_background">
   <ul
-    class="d-flex p-0 align-items-center w-100 m-0 gap-4"
-    style="list-style: none;"
+    class="nav_ol_styles d-flex p-0  w-100 m-0 gap-4"
+    style="list-style: none"
   >
-    <li class="me-2">
+    <li class="me-2 logo-container">
       <span class="">
         <img
-          class=""
-          style="height: 20px; width:auto"
-          src="../../../assets/imges/skf-logo-white.svg"
+          class="header-logo"
+          src="../../../assets/imges/Alemite-logo-colour.svg"
           alt=""
         />
       </span>
     </li>
-    <li style="color: white;" class="me-auto">
-      <div style="font-size: 18px">LFC Cloud  </div>
+    <li style="color: white" class="company-name me-auto">
+      <div style="font-size: 18px">LFC Cloud</div>
     </li>
 
     <ng-container *ngIf="!isSidebarOpen">
-      <li *ngFor="let link of filteredNavigationLinks" class="nav-item me-2">
+      <li
+      [routerLinkActive]="'active_route'"
+      [routerLink]="link.link"
+        *ngFor="let link of filteredNavigationLinks"
+        class="nav-item  me-2"
+      >
         <a
-          [routerLinkActive]="'active_route'"
-          [routerLink]="link.link"
+         
           class="gap-1 link-color"
         >
-        <!-- <span> <img class="icon-regular" [ngClass]="link.class" [src]="link.icon" alt="" /> </span> -->
+          <!-- <span> <img class="icon-regular" [ngClass]="link.class" [src]="link.icon" alt="" /> </span> -->
           <span class="header-link-text"> {{ link.name }}</span>
         </a>
       </li>
@@ -44,10 +47,9 @@
           <option value="fr">FR</option>
           <option value="sp">SP</option>
         </select>
-       
       </div>
     </li>
-   
+
     <li *ngIf="!isSidebarOpen" class="d-flex align-items-center">
       <!-- <div>
         <img
@@ -57,12 +59,19 @@
         />
       </div> -->
       <div>
-        <select (change)="onNavOptionChange($event)" style="width: 100px;" class="transparent-select" name="" id="">
-          <option value="someone" selected hidden>{{username? username : 'User name'}}</option>
+        <select
+          (change)="onNavOptionChange($event)"
+          style="width: 100px"
+          class="transparent-select"
+          name=""
+          id=""
+        >
+          <option value="someone" selected hidden>
+            {{ username ? username : "User name" }}
+          </option>
           <option value="change Password">Change Password</option>
-          <option  value="logout"  >Log out</option>
+          <option value="logout">Log out</option>
         </select>
-        
       </div>
     </li>
     <li

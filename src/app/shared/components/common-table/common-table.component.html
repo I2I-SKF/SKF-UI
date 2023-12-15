@@ -34,7 +34,7 @@
           aria-label="Example text with button addon"
           aria-describedby="button-addon1"
         />
-        <button
+        <!-- <button
           (click)="onClickSearch(searchedValue.value)"
           class="btn search-button"
           type="button"
@@ -45,7 +45,7 @@
             src="../../../../assets/imges/icons/basic_magnifier.svg"
             alt=""
           />
-        </button>
+        </button> -->
       </div>
     </div>
   </form>
@@ -69,7 +69,7 @@
            
           "
         >
-          <span class="font-size-xs" (click)="onRowClick($event, row)">
+          <span class="table-data-color font-size-xs" (click)="onRowClick($event, row)">
             {{ row[column] }}
           </span>
         </ng-container>
@@ -148,4 +148,4 @@
 >
   No Records Found
 </div>
-<mat-paginator  [pageSizeOptions]="[5, 10, 25, 100]" [pageSize]="10"></mat-paginator>
+<mat-paginator style="border-bottom: 1px solid #383838;"  [pageSizeOptions]="[5, 10, 25, 100]" [pageSize]="10"></mat-paginator>

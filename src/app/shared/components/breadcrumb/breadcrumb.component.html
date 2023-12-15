@@ -9,11 +9,11 @@
        
       </ng-container>
       <ng-container *ngIf="!last && !first" >
-        <span class="cursor-pointer breadcrumb-item" [routerLink]="breadcrumb.link" >  {{ breadcrumb.name }}  </span> <img *ngIf="breadcrumbs.length > 1" style="height: 30px; transform: rotateZ(90deg);" src="../../../../assets/imges/icons/angle-up.svg" alt="">
+        <span class="cursor-pointer breadcrumb-item" [routerLink]="breadcrumb.link" >  {{ breadcrumb.name }}  </span> <img *ngIf="breadcrumbs.length  > 1" class="skf_breadcrumb" style="height: 30px; transform: rotateZ(90deg);" src="../../../../assets/imges/icons/angle-up.svg" alt=""> <span *ngIf="breadcrumbs.length  > 1"  class="ms-2 me-2 alemite_breadcrumb" > /</span>
        
       </ng-container>
       <ng-container *ngIf="first"   >
-        <span   [routerLink]="breadcrumb.link" >  <span class="" [ngClass]="{'breadcrumb-item' :breadcrumbs.length > 1 && first  }"  >Home</span>  <img *ngIf="breadcrumbs.length > 1" style="height: 30px; transform: rotateZ(90deg);" src="../../../../assets/imges/icons/angle-up.svg" alt="">  </span>
+        <span   [routerLink]="breadcrumb.link" >  <span class="" [ngClass]="{'breadcrumb-item' :breadcrumbs.length > 1 && first  }"  >Home</span>  <img *ngIf="breadcrumbs.length > 1" class="skf_breadcrumb" style="height: 30px; transform: rotateZ(90deg);" src="../../../../assets/imges/icons/angle-up.svg" alt=""> <span *ngIf="breadcrumbs.length  > 1"  class="ms-2 me-2 alemite_breadcrumb" > /</span>  </span>
       </ng-container>
       
      

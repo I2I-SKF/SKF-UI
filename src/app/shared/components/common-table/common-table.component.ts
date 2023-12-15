@@ -2,7 +2,7 @@ import { Component,ViewChild, EventEmitter, Input, OnInit, Output,OnChanges,Simp
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import {MatPaginator} from '@angular/material/paginator';
-import { MatSort } from '@angular/material/sort';
+import { MatSort, MatSortable } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 @Component({
@@ -82,14 +82,10 @@ export class CommonTableComponent implements OnInit, OnChanges {
     };
     
     this.dataSource.paginator = this.paginator;
+    this.sort.sort(({ id: 'Transaction No', start: 'desc'}) as MatSortable);
     this.dataSource.sort = this.sort;
-
-    if(this.isDispenseData){
-      console.log('inside dispense check');
-      
-      this.dataSource.sort.direction = 'desc'; 
-      this.dataSource.sort.active = 'Transaction No';
-    }
+    
+   
     
 
 

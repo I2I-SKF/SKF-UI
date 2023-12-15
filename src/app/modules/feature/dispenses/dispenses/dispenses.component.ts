@@ -289,8 +289,8 @@ export class DispensesComponent {
           ),
           'Fluid Name': this.checkIfKeyExists(record.tankFluidDescription),
           'Initiated By': this.checkIfKeyExists(record.initiatedBy),
-          Ordered: this.checkIfKeyExists(record.quantityRequested),
-          Dispensed: this.checkIfKeyExists(record.quantityDispensed),
+          Ordered: `${this.checkIfKeyExists(record.quantityRequested)} (${this.checkIfKeyExists(record.volumeUnitAbbrev)})` ,
+          Dispensed: `${this.checkIfKeyExists(record.quantityDispensed)} (${this.checkIfKeyExists(record.volumeUnitAbbrev)})`,
           'End Time': this.checkIfKeyExists(record.dispenseStartedLocal)  ,
           'dispense_status_id':`${record.statusId}`
         };
@@ -321,8 +321,8 @@ export class DispensesComponent {
             ),
             'Fluid Name': this.checkIfKeyExists(record.tankFluidDescription),
             'Initiated By': this.checkIfKeyExists(record.initiatedBy),
-            Ordered: this.checkIfKeyExists(record.quantityRequested),
-            Dispensed: this.checkIfKeyExists(record.quantityDispensed),
+            Ordered: `${this.checkIfKeyExists(record.quantityRequested)} (${this.checkIfKeyExists(record.volumeUnitAbbrev)})` ,
+            Dispensed: `${this.checkIfKeyExists(record.quantityDispensed)} (${this.checkIfKeyExists(record.volumeUnitAbbrev)})`,
             'End Time': this.checkIfKeyExists(record.dispenseStartedLocal) ,
 
             'dispense_status_id':`${record.statusId}`

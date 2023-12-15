@@ -12,7 +12,7 @@
 
 <div class="d-flex justify-content-between"  style="margin-bottom: 15px;" >
     <span class="header-1" >Edge Devices</span>
-    <button class="action-button-1" (click)="addDevice()"  >Add Device</button>
+    <button class="action-button-1" (click)="addDevice()"  >Enroll Device</button>
 </div>
 
 
@@ -41,7 +41,7 @@
            
           </div>
           <div class="col-sm-4 d-flex align-items-center ">
-            <label class="ms-2" for="">Search</label>
+            <label  class="ms-2 alemite_label" for="">Search</label>
             <div
               class="input-group ms-2"
               style="width: unset; height: 38px; align-self: end"
@@ -60,9 +60,10 @@
                 class="btn search-button"
                 type="button"
                 id="button-addon1"
+                style="height: 35px;"
               >
                 <img
-                  style="height: 20px"
+                  style="height: 100%"
                   src="../../../../assets/imges/icons/basic_magnifier.svg"
                   alt=""
                 />
@@ -102,7 +103,7 @@
       >
         No Records Found
       </div>
-      <mat-paginator  [pageSizeOptions]="[5, 10, 25, 100]" [pageSize]="10"></mat-paginator>
+      <mat-paginator style="border-bottom: 1px solid #383838;" [pageSizeOptions]="[5, 10, 25, 100]" [pageSize]="10"></mat-paginator>
       
 </div>
 

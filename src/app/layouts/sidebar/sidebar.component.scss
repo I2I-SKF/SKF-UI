@@ -1,21 +1,2 @@
-@import '../../../variables';
-.sidebar{
-    background-color: $primary-600;   
-    height: 100%;
-    min-width: 300px;
-}
-mat-list-item{
-    transition: all 250ms ease-in-out;
-   
-}
-mat-list-item:hover {
-    background-color: $blue-dark;
-    color: yellow;
-}
-
-.active-link,.active-link span{
-    background-color: rgb(53, 53, 170);
-    color: yellow;
-}
 
 

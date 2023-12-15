@@ -1,22 +1,18 @@
-
 <div>
-  
-
-
   <mat-drawer-container class="w-100" autosize>
     <mat-drawer #drawer mode="over">
-        <app-sidebar (linkedClicked)="drawer.toggle()" ></app-sidebar>    
+      <app-sidebar (linkedClicked)="drawer.toggle()"></app-sidebar>
     </mat-drawer>
 
     <div>
-        <app-header
+      <app-header
         (toggleSideBar)="drawer.toggle()"
         [isSidebarOpen]="sidebarVisible"
       ></app-header>
-       <div class="content-wrapper">
+      <div class="content-wrapper">
         <app-breadcrumb></app-breadcrumb>
         <router-outlet></router-outlet>
-      </div> 
+      </div>
     </div>
   </mat-drawer-container>
 
