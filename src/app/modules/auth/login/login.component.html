@@ -8,25 +8,28 @@
     <!-- <div class="header-1 mb-3 page-title-color">LFC Cloud</div> -->
     <form class="row" [formGroup]="loginform" >
       <div class="col-sm-12 mb-2">
-        <input type="text" formControlName="customer_id" class="form-control input_border_class" placeholder="Customer Code" />
+        <label class="mb-2"  for="">Customer Code</label>
+        <input type="text" formControlName="customer_id" class="form-control input_border_class" placeholder="" />
       </div>
       <div class="col-sm-12 mb-2">
-        <input type="text" formControlName="user_id" class="form-control input_border_class" placeholder="User ID" />
+        <label  class="mb-2"  for="">User ID</label>
+        <input type="text" formControlName="user_id" class="form-control input_border_class" placeholder="" />
       </div>
       <div class="col-sm-12 mb-3">
-        <input type="password" formControlName="password" class="form-control input_border_class" placeholder="Password" />
+        <label  class="mb-2"  for="">Password</label>
+        <input type="password" formControlName="password" class="form-control input_border_class" placeholder="" />
       </div>
       <div class="col-sm-12 mb-3" >
-        <button (click)="login()" class="action-button-1" >
+        <button [disabled]="loginform.invalid" (click)="login()" class="action-button-1" >
             Login</button>
       </div>
       <div class="col-sm-12 mb-1" >
-        <span [routerLink]="'/auth/mail-verification'" class="hyperlink cursor-pointer" >
+        <span [routerLink]="'/mail-verification'" class="hyperlink cursor-pointer" >
             Forgot Password? </span>
       </div>
 
       <div  class="mt-3 text-center buildno" >
-        291123.9
+        151223.10
       </div>
     </form>
   </div>

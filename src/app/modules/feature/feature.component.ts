@@ -40,6 +40,18 @@ export class FeatureComponent implements OnInit {
 
   }
   ngOnInit(): void {
+    this.viewportWidth = window.innerWidth;
+    console.log(this.viewportWidth);
+    
+    if(this.viewportWidth >= 1018){
+      this.sidebarVisible = false;
+    }
+    else{
+      this.sidebarVisible = true;
+    }
+    localStorage.setItem('iSV',JSON.stringify(this.sidebarVisible));
+
+
   const customBreadcrumbs = [{name:'Home',link:'/home'}];
   this.breadcrumbService.setBreadcrumb(customBreadcrumbs)
   

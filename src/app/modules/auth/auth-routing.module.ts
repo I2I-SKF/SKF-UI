@@ -6,8 +6,16 @@ import { PasswordResetComponent } from './password-reset/password-reset.componen
 
 const routes: Routes = [
   {
+    path:'',
+    // component:LoginComponent,
+    redirectTo:'/login',
+    pathMatch:'full'
+  },
+  {
     path:'login',
     component:LoginComponent,
+   
+    pathMatch:'full'
   },
   {
     path:'mail-verification',

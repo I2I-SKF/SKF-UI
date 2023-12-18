@@ -188,7 +188,7 @@ export class DispensesComponent {
     this.breadcrumbService.setBreadcrumb([
       {
         name: 'Home',
-        link: '/home',
+        link: '/feature/home',
       },
       {
         name: 'Dispenses',

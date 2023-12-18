@@ -505,3 +505,12 @@ select{
 select{
     font-size: $font-sm;
 }
+
+
+.alert_title{
+  font-size:$font-sm;
+  // font-weight: 600;
+  background-color: $primary-600;
+  color: $white;
+  padding: 10px;
+}

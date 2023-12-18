@@ -107,11 +107,11 @@ export class AlertsComponent implements OnInit {
     this.breadcrumbs.setBreadcrumb([
       {
         name:'Home',
-        link:'/home'
+        link:'/feature/home'
       },
       {
         name:'Alerts',
-        link:'/alerts'
+        link:''
       },
      
     ]);

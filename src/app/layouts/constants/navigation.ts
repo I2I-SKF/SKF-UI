@@ -2,14 +2,14 @@ export const NAVIGATION = [
   {
     icon: '../../../assets/imges/icons/home.svg',
     name: 'Home',
-    link: '/home',
+    link: '/feature/home',
     requiredPermission: 'user',
     class:null
   },
   {
     icon: '../../../assets/imges/icons/edge-device-4.svg',
     name: 'Devices',
-    link: '/devices',
+    link: '/feature/devices',
     requiredPermission: 'user',
     class:'me-1'
   },
@@ -23,14 +23,14 @@ export const NAVIGATION = [
   {
     icon: '../../../assets/imges/icons/drop.svg',
     name: 'Dispenses',
-    link: '/dispenses',
+    link: '/feature/dispenses',
     requiredPermission: 'user',
     class:'invert_img'
   },
   {
     icon: '../../../assets/imges/icons/bell.svg',
     name: 'Alerts',
-    link: '/alerts',
+    link: '/feature/alerts',
     requiredPermission: 'user',
   },
 
@@ -44,13 +44,13 @@ export const NAVIGATION = [
   {
     icon: '../../../assets/imges/icons/users.svg',
     name: 'Users',
-    link: '/users',
+    link: '/feature/users',
     requiredPermission: 'user',
   },
   {
     icon: '../../../assets/imges/icons/users.svg',
     name: 'Support',
-    link: '/support',
+    link: '/feature/support',
     requiredPermission: 'user',
   },
   // {

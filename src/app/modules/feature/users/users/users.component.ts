@@ -134,12 +134,12 @@ export class UsersComponent {
     this.breadcrumbs.setBreadcrumb([
       {
         name:'Home',
-        link:'/home'
+        link:'/feature/home'
       },
      
       {
         name:'Users',
-        link:'/users'
+        link:''
       },
      
     ]);

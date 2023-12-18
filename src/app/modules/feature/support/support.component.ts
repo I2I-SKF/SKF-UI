@@ -88,7 +88,7 @@ export class SupportComponent implements OnInit {
     this.breadcrumbService.setBreadcrumb([
       {
         name:'Home',
-        link:'/home'
+        link:'/feature/home'
       },
      
       {

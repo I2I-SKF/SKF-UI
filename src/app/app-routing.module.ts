@@ -6,7 +6,7 @@ import { FeatureComponent } from './modules/feature/feature.component';
 
 const routes: Routes = [
   {
-    path: 'auth',
+    path: '',
     loadChildren: () =>
     import('./modules/auth/auth.module').then((m) => m.AuthModule),
     
@@ -31,14 +31,11 @@ const routes: Routes = [
     
   },
   {
-    path: '',
+    path: 'feature',
     component:FeatureComponent,
     loadChildren: () =>
       import('./modules/feature/feature.module').then((m) => m.FeatureModule),
     canActivateChild: [authGuard],
-    
-    
-  
     
   },
  

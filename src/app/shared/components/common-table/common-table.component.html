@@ -1,12 +1,12 @@
-<div class="w-100" style="overflow-x: auto">
-  <form [formGroup]="dispense_status_form" class="header-color row d-flex align-items-center " [style]="isfilterVisible || isSearchVisible ? 'height: 50px':'' ">
-    <div *ngIf="isfilterVisible" class="col-sm-4 d-flex align-items-center ms-2 ">
+<div class="w-100" >
+  <form [formGroup]="dispense_status_form" class="header-color row m-0" [style]="isfilterVisible || isSearchVisible ? 'min-height: 50px':'' ">
+    <div *ngIf="isfilterVisible" class="col-sm-4">
       
-        <span style="text-wrap: nowrap;" for="">Dispense Status </span>
+        <label class="intable_labels"  style="text-wrap: nowrap;" for="">Dispense Status </label>
         <select
           (change)="onDispenseStatusChange($event)"
           formControlName="dispense_status"
-          class="form-select input_border_class ms-2"
+          class="form-select input_border_class"
           name=""
           id=""
         >
@@ -19,10 +19,10 @@
         </select>
      
     </div>
-    <div *ngIf="isSearchVisible"  class="col-sm-4 d-flex align-items-center ">
-      <span  for="">Search</span>
+    <div *ngIf="isSearchVisible"  class="col-sm-4 ">
+      <label class="intable_labels"  for="">Search</label>
       <div
-        class="input-group col-sm-3 ms-2"
+        class="input-group  "
         style="width: unset; height: 38px; align-self: end"
       >
         <input
@@ -34,118 +34,110 @@
           aria-label="Example text with button addon"
           aria-describedby="button-addon1"
         />
-        <!-- <button
-          (click)="onClickSearch(searchedValue.value)"
-          class="btn search-button"
-          type="button"
-          id="button-addon1"
-        >
-          <img
-            style="height: 20px"
-            src="../../../../assets/imges/icons/basic_magnifier.svg"
-            alt=""
-          />
-        </button> -->
+      
       </div>
     </div>
   </form>
-  <table mat-table [dataSource]="dataSource" matSort class="table table-striped">
-    <ng-container
-      *ngFor="let column of columns; let columnIndex = index"
-      [matColumnDef]="column"
-    >
-      <th   mat-sort-header mat-header-cell *matHeaderCellDef>{{ column }}</th>
-      <td
-      
-        [ngClass]="{ tag_cancelled: row['Connection'] == 'Offline' }"
-        mat-cell
-        *matCellDef="let row; let rowIndex = index"
+  <div style="overflow-x: auto;">
+    <table mat-table [dataSource]="dataSource" matSort class="table table-striped">
+      <ng-container
+        *ngFor="let column of columns; let columnIndex = index"
+        [matColumnDef]="column"
       >
-        <ng-container
-          *ngIf="
-            column !== 'Action' &&
-            column !== 'Pin' &&
-            column !== 'System Health' 
-           
-          "
+        <th   mat-sort-header mat-header-cell *matHeaderCellDef>{{ column }}</th>
+        <td
+        
+          [ngClass]="{ tag_cancelled: row['Connection'] == 'Offline' }"
+          mat-cell
+          *matCellDef="let row; let rowIndex = index"
         >
-          <span class="table-data-color font-size-xs" (click)="onRowClick($event, row)">
-            {{ row[column] }}
-          </span>
-        </ng-container>
-        <ng-container *ngIf="column == 'Pin'">
-          <span>
-            <span
-              class="font-size-xs cursor-pointer"
-              [popoverTitle]="'PIN'"
-              [autoClose]="'outside'"
-              [ngbPopover]="row[column]"
-            >
-              Show
-            </span>
-          </span>
-        </ng-container>
-        <ng-container *ngIf="column == 'System Health'">
-          <span>
-            <span
-              class="font-size-xs cursor-pointer"
-              [popoverTitle]="'System Health'"
-              [autoClose]="'outside'"
-              [ngbPopover]="row['system_health_details']"
-            >
+          <ng-container
+            *ngIf="
+              column !== 'Action' &&
+              column !== 'Pin' &&
+              column !== 'System Health' 
+             
+            "
+          >
+            <span class="table-data-color font-size-xs" (click)="onRowClick($event, row)">
               {{ row[column] }}
             </span>
-          </span>
-        </ng-container>
-       
-
-        <ng-container *ngIf="column == 'Action'">
-          <ng-container *ngIf="actions.type == 'btn'">
-            <!-- <button
-              class="btn  d-flex align-items-center"
-              *ngFor="let button of actions.data"
-              (click)="onButtonClicked($event,row, button)"
-
-            >
-              {{ button }}
-            </button> -->
-            <ng-container *ngFor="let button of actions.data">
+          </ng-container>
+          <ng-container *ngIf="column == 'Pin'">
+            <span>
               <span
-                style="
-                  color: rgb(128, 136, 149);
-                  font-size: 16px;
-                  vertical-align: middle;
-                "
-                (click)="onButtonClicked($event, row, button)"
-                class="material-icons"
+                class="font-size-xs cursor-pointer"
+                [popoverTitle]="'PIN'"
+                [autoClose]="'outside'"
+                [ngbPopover]="row[column]"
               >
-                settings
+                Show
               </span>
+            </span>
+          </ng-container>
+          <ng-container *ngIf="column == 'System Health'">
+            <span>
+              <span
+                class="font-size-xs cursor-pointer"
+                [popoverTitle]="'System Health'"
+                [autoClose]="'outside'"
+                [ngbPopover]="row['system_health_details']"
+              >
+                {{ row[column] }}
+              </span>
+            </span>
+          </ng-container>
+         
+  
+          <ng-container *ngIf="column == 'Action'">
+            <ng-container *ngIf="actions.type == 'btn'">
+              <!-- <button
+                class="btn  d-flex align-items-center"
+                *ngFor="let button of actions.data"
+                (click)="onButtonClicked($event,row, button)"
+  
+              >
+                {{ button }}
+              </button> -->
+              <ng-container *ngFor="let button of actions.data">
+                <span
+                  style="
+                    color: rgb(128, 136, 149);
+                    font-size: 16px;
+                    vertical-align: middle;
+                  "
+                  (click)="onButtonClicked($event, row, button)"
+                  class="material-icons"
+                >
+                  settings
+                </span>
+              </ng-container>
+            </ng-container>
+            <ng-container *ngIf="actions?.type == 'dd'">
+              <select
+                style="min-width: 100px"
+                class="action-select"
+                (change)="onSelectionChange($event, row)"
+              >
+                <option value="option" *ngFor="let option of row?.['Action']">
+                  {{ option }}
+                </option>
+              </select>
             </ng-container>
           </ng-container>
-          <ng-container *ngIf="actions?.type == 'dd'">
-            <select
-              style="min-width: 100px"
-              class="action-select"
-              (change)="onSelectionChange($event, row)"
-            >
-              <option value="option" *ngFor="let option of row?.['Action']">
-                {{ option }}
-              </option>
-            </select>
-          </ng-container>
-        </ng-container>
-      </td>
-    </ng-container>
-
-    <tr class="header-color" mat-header-row *matHeaderRowDef="columns"></tr>
-    <tr class="body_row" mat-row *matRowDef="let row; columns: columns"></tr>
-  </table>
-</div>
-<div
-  *ngIf="data?.length == 0"
-  class="header-color d-flex align-items-end justify-content-center p-2 fw-bold"
->
-  No Records Found
+        </td>
+      </ng-container>
+  
+      <tr class="header-color" mat-header-row *matHeaderRowDef="columns"></tr>
+      <tr class="body_row" mat-row *matRowDef="let row; columns: columns"></tr>
+    </table>
+  </div>
+  <div
+    *ngIf="data?.length == 0"
+    class="header-color d-flex align-items-end justify-content-center p-2 fw-bold"
+  >
+    No Records Found
+  </div>
 </div>
 <mat-paginator style="border-bottom: 1px solid #383838;"  [pageSizeOptions]="[5, 10, 25, 100]" [pageSize]="10"></mat-paginator>
+

@@ -113,6 +113,11 @@ font-size:$font-xxxxl ;
   background-color:$primary-darker;
   color: $white;
 }
+.action-button-1:disabled{
+  background-color: $grey-100;
+  color: $grey-500;
+  border: none;
+}
 
 .action-button-3:hover{
   background-color: $primary-color;
@@ -603,4 +608,15 @@ mat-list-item:hover {
     
 }
 
+}
+
+
+
+
+.alert_title{
+  font-size:$font-sm;
+  // font-weight: 600;
+  background-color: $primary-color;
+  color: $white;
+  padding: 10px;
 }

@@ -123,7 +123,7 @@ export class CreatePasswordComponent implements OnInit {
      
 
        
-        this.router.navigate(["/auth/login"])
+        this.router.navigate(["/login"])
 
       }
 

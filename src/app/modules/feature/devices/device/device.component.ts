@@ -463,12 +463,12 @@ export class DeviceComponent implements OnInit {
     this.breadcrumbService.setBreadcrumb([
       {
         name: 'Home',
-        link: '/home',
+        link: '/feature/home',
       },
 
       {
         name: 'Devices',
-        link: '/devices',
+        link: '/feature/devices',
       },
     ]);
 

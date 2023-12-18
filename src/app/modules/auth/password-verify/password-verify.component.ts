@@ -23,7 +23,7 @@ export class PasswordVerifyComponent {
 
   ngOnInit(): void {
     this.token_verification_link = `${window.location.href.split("/")[0]}//${window.location.href.split("/")[2]}`;
-    this.login_url = `${window.location.href.split("/")[0]}//${window.location.href.split("/")[2]}/auth/login`;
+    this.login_url = `${window.location.href.split("/")[0]}//${window.location.href.split("/")[2]}/login`;
     console.log(this.token_verification_link,this.login_url);
   }
   onSubmit(){

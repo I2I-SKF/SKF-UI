@@ -67,7 +67,7 @@ export class LoginComponent implements OnInit {
 
         console.log(res);
         this.local_storage.setToLocalStorage('user_name',user_name)
-        this.router.navigate(["/home"])
+        this.router.navigate(["/feature/home"])
       }
       else{
        let  modal_ref = this.ngbModal.open(CommonAlertComponentComponent,{centered:true})

@@ -54,7 +54,7 @@ export class HeaderComponent  implements OnInit {
   }
 
   logout(){
-    this.router.navigate(['/auth/login'])
+    this.router.navigate(['/login'])
   }
   onNavOptionChange(event:any){
     let data = event.target.value
