@@ -133,6 +133,7 @@ export class CommonTableComponent implements OnInit, OnChanges {
   @Output() statusChange = new EventEmitter();
   @Output() selectChange = new EventEmitter<any>();
   @Output() rowClick = new EventEmitter<any>();
+  @Output() commentHistory = new EventEmitter<any>();
 
   onButtonClicked(event:any,row: any, button: string) {
     this.buttonClicked.emit({ row, button });
@@ -158,6 +159,12 @@ export class CommonTableComponent implements OnInit, OnChanges {
   }
   onDispenseStatusChange(data:any){
     this.statusChange.emit(data);
+  }
+
+  onCommentHistory(rowData:any){
+    console.log(rowData);
+    
+      this.commentHistory.emit(rowData);
   }
   
 }

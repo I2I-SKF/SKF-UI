@@ -41,14 +41,19 @@
           alt=""
         /> -->
       </div>
-      <div>
-        <select class="transparent-select" name="" id="">
-          <option value="en">EN</option>
-          <option value="fr">FR</option>
-          <option value="sp">SP</option>
-        </select>
-      </div>
+
+      <select class="transparent-select" name="" id="">
+        <option value="">EN</option>
+        <option value="">FR</option>
+        <option value="">SP</option>
+      </select>
+     
+
+      
+     
     </li>
+
+    
 
     <li *ngIf="!isSidebarOpen" class="d-flex align-items-center">
       <!-- <div>
@@ -69,10 +74,21 @@
           <option value="someone" selected hidden>
             {{ username ? username : "User name" }}
           </option>
-          <option value="change Password">Change Password</option>
+          
           <option value="logout">Log out</option>
         </select>
       </div>
+      
+      
+      <!-- <div ngbDropdown class="d-inline-block">
+        <button type="button" class="" style="background-color: transparent;border: none;color: white;" id="dropdownBasic1" ngbDropdownToggle>
+          {{ username ? username : "User name" }}
+        </button>
+        <div  ngbDropdownMenu aria-labelledby="dropdownBasic1">
+          <button    (click)="onNavOptionChange($event)" ngbDropdownItem>Log out</button>
+         
+        </div>
+      </div> -->
     </li>
     <li
       *ngIf="isSidebarOpen"

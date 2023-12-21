@@ -4,6 +4,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { CommonAlertComponentComponent } from 'src/app/shared/components/common-alert-component/common-alert-component.component';
 import { ApiService } from 'src/app/shared/services/api.service';
 import { patternValidator } from 'src/app/shared/validators/pattern.validators';
+import { APPLICATION_MSGS } from '../../../shared/constants/MSG'
 
 @Component({
   selector: 'app-password-verify',
@@ -87,8 +88,8 @@ export class PasswordVerifyComponent {
         console.log(res);
         let modal_ref = this.ngbModal.open(CommonAlertComponentComponent,{centered:true});
         modal_ref.componentInstance.alertData = {
-          alert_title: 'Success!',
-          alert_body: res.Msg ? res.Msg : "Something Went Wrong.",
+          alert_title:APPLICATION_MSGS.REQUEST_SUBMITTED ,
+          alert_body: res.Msg ? APPLICATION_MSGS.REQUEST_SUBMITTED : "Something Went Wrong.",
     
   
           alert_actions: [

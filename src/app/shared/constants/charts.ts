@@ -53,6 +53,7 @@ export const CHART_CONFIGURATIONS: { [key: string]: any } = {
         fontSize: '10px', // Set the desired font size for legend text
       },
     },
+    
 
     series: [
       {
@@ -265,6 +266,9 @@ export const CHART_CONFIGURATIONS: { [key: string]: any } = {
       style: {
         fontSize: '12px' // Set the desired font size for the chart title
     }
+    },
+    credits:{
+      enabled:false
     },
    
     xAxis: {

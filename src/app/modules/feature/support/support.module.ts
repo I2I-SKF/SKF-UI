@@ -7,12 +7,14 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { SupportComponent } from './support.component';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { ReactiveFormsModule } from '@angular/forms';
+import { CommentHistoryComponent } from './comment-history/comment-history.component';
 
 
 @NgModule({
   declarations: [
     RequestSupportComponent,
-    SupportComponent
+    SupportComponent,
+    CommentHistoryComponent
   ],
   imports: [
     CommonModule,

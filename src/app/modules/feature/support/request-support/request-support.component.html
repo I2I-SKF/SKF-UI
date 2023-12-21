@@ -4,12 +4,12 @@
 
 <div class="device-add-container">
     <div class="skf-background pb-2 pt-2 ps-3 pe-3 page-title">Request Support</div>
-    <form class="row row ps-3 pe-3 mt-3" >
+    <form class="row row ps-3 pe-3 mt-3" [formGroup]="request_support_form" >
         <div class="col-sm-12 mb-2">
 
             <label class="mb-2" for="">Device ID</label>
             
-            <select name="" id="" class="form-select input_border_class" >
+            <select name="" formControlName="device" id="" class="form-select input_border_class" >
               <option [value]="option.value" *ngFor="let option of deviceData"  >{{option.viewValue}}</option>
             </select>
         
@@ -17,7 +17,7 @@
         <div class="col-sm-12 mb-2">
 
            <label class="mb-2 d-block" for="">Support Request</label>
-           <textarea name="" id="" class="w-100" rows="2"></textarea>
+           <textarea formControlName="support_request" name="" id="" class="w-100" rows="2"></textarea>
         
         </div>
         
@@ -26,14 +26,14 @@
         <div class="col-sm-12 mb-2 d-flex align-items-center">
 
             
-            <input id="rs-checkbox"  type="checkbox" class="form-check input_border_class" >
+            <input formControlName="remote_access" id="rs-checkbox"  type="checkbox" class="form-check input_border_class" >
             <label for="rs-checkbox" class="ms-2">
                 Allow Remote Access
             </label>
         
         </div>
         <div class="col-sm-12 d-flex justify-content-end mb-2 mt-2 mb-2">
-            <button class="action-button-1  " >Make Request</button>
+            <button type="button" class="action-button-1" (click)="createTicket()" >Make Request</button>
             <button type="button" class="action-button-2 ms-2" (click)="closeModal()"  >Cancel</button>
         </div>
        

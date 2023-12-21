@@ -28,6 +28,12 @@ export const NAVIGATION = [
     class:'invert_img'
   },
   {
+    icon: '../../../assets/imges/icons/users.svg',
+    name: 'Tanks',
+    link: '/feature/tanks',
+    requiredPermission: 'user',
+  },
+  {
     icon: '../../../assets/imges/icons/bell.svg',
     name: 'Alerts',
     link: '/feature/alerts',
@@ -53,6 +59,7 @@ export const NAVIGATION = [
     link: '/feature/support',
     requiredPermission: 'user',
   },
+
   // {
   //   icon: 'paid',
   //   name: 'Customer',

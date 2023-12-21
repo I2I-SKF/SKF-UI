@@ -1,75 +1,87 @@
 
 
 <div class="device-add-container">
-  <div class="skf-background pb-2 pt-2 ps-3 pe-3 page-title">Add Device</div>
+  <div class="skf-background pb-2 pt-2 ps-3 pe-3 page-title">Activate An Edge Device</div>
+
+
 
   <form class="ps-3 pe-3 mt-3"  [formGroup]="deviceForm">
     <div class="row">
+      <div class="col-sm-12 mb-2">
+        <label  class="">
+          To activate a registered edge device in your account, 
+      please fill in the information below.
+        </label>
+      </div>
       <div class="col-sm-6">
-        <label class="font-size-sm mb-2 mt-2" for="">Enroll Device</label>
-        <select  class="form-select" formControlName="hardware" id="">
-          <option value="">Select</option>
+        <label class="font-size-sm mb-2 mt-2" for="">Registered Device</label>
+        <select (change)="onDeviceSelect($event)" class="form-select" formControlName="enroll_device" id="">
+          <option [value]="option.device_id" *ngFor="let option of device_parent_data">{{option['Device Name']}}</option>
         </select>
-        <app-common-error  [formControl]="deviceForm.get('hardware')"></app-common-error>
+        <app-common-error  [form_control_name]="deviceForm.get('enroll_device')"></app-common-error>
       </div>
       <div class="col-sm-6">
         <label class="mb-2 mt-2" for="">Device Name</label>
-        <input class="form-control" formControlName="device" type="text" placeholder="Device Name" />
-        <app-common-error  [formControl]="deviceForm.get('device')"></app-common-error>
+        <input class="form-control" formControlName="device_name" type="text" placeholder="Device Name" />
+        <app-common-error  [form_control_name]="deviceForm.get('device_name')"></app-common-error>
       </div>
       <div class="col-sm-6">
         <label class="font-size-sm mb-2 mt-2" for=""> Country</label>
-        <select  class="form-select" formControlName="country" id="">
-          <option value="">Select Country</option>
+        <select (change)="onCountrySelect($event)"  class="form-select" formControlName="country" id="">
+          
+          <option [value]="country.value" *ngFor="let country of countryList">{{country.viewValue}}</option>
         </select>
-        <app-common-error  [formControl]="deviceForm.get('country')"></app-common-error>
+        <app-common-error  [form_control_name]="deviceForm.get('country')"></app-common-error>
       </div>
      
       <div class="col-sm-6">
         <label class="font-size-sm mb-2 mt-2" for=""> State</label>
         <select  class="form-select" formControlName="state" id="">
-          <option value="">Select State</option>
-
+          <option [value]="state.value" *ngFor="let state of StatesList" >{{state.viewValue}} </option>
         </select>
-        <app-common-error  [formControl]="deviceForm.get('state')"></app-common-error>
+        <app-common-error  [form_control_name]="deviceForm.get('state')"></app-common-error>
       </div>
       <div class="col-sm-6">
         <label class="mb-2 mt-2" for="">Location</label>
         <input class="form-control" formControlName="location" type="text" placeholder="Location" />
-        <app-common-error  [formControl]="deviceForm.get('location')"></app-common-error>
+        <app-common-error  [form_control_name]="deviceForm.get('location')"></app-common-error>
 
       </div>
       <div class="col-sm-6">
         <label class="font-size-sm mb-2 mt-2" for=""> Timezone</label>
         <select  class="form-select" formControlName="timezone" id="">
-          <option value="">Select Timezone</option>
-          <option *ngFor="let timezone of timeszones" [value]="timezone.name">
-            {{ timezone.name }} (UTC{{ timezone.offset }})
+          
+          <option *ngFor="let timezone of timezoneList" [value]="timezone.value">
+            {{ timezone.viewValue }} 
           </option>
         </select>
-        <app-common-error  [formControl]="deviceForm.get('timezone')"></app-common-error>
+        <app-common-error  [form_control_name]="deviceForm.get('timezone')"></app-common-error>
       </div>
       <div class="col-sm-12">
         <label class="mb-2 mt-2" for="">Assign Device Manager</label>
         <select  class="form-select" formControlName="device_manager"  id="">
-          <option value="">Select</option>
+          <option [value]="option.value" *ngFor="let option of deviceManager">{{option.viewValue}}</option>
         </select>
-        <app-common-error  [formControl]="deviceForm.get('device_manager')"></app-common-error>
+        <app-common-error  [form_control_name]="deviceForm.get('device_manager')"></app-common-error>
       </div>
       <div class="mt-2 col-sm-6 d-flex align-items-center" >
         <input class="me-2"  type="checkbox" formControlName="link_child"  placeholder="" />
-        <label   for="" >Link as a mobile device</label>
+        <label   for="" >Link as a child device</label>
       </div>
-      <div class="col-sm-12"  >
+      <div class="col-sm-12" *ngIf="deviceForm.get('link_child').value" >
         <label class="mb-2 mt-2" for="">Parent Device</label>
         <select   class="form-select" formControlName="parent_device"  id="">
-          <option value="">Select </option>
+          <option [value]="option.device_id" *ngFor="let option of child_device_data">{{option['Device Name']}}</option>
         </select>
+      </div>
+      <div *ngIf="isEditModeOn" class="mt-2 col-sm-6 d-flex align-items-center" >
+        <input class="me-2"  type="checkbox" formControlName="status"  placeholder="" />
+        <label   for="" >Deactivate</label>
       </div>
     
 
       <div class="col-sm-12 d-flex justify-content-end mt-4 mb-4 gap-2">
-        <button class=" action-button-1">Add</button>
+        <button class=" action-button-1" (click)="updateDevice()">Activate</button>
         <button class=" action-button-2" (click)="closeModal()" >Cancel</button>
       </div>
     </div>

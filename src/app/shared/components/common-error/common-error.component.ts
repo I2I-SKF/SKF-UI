@@ -7,14 +7,14 @@ import { FormControl } from '@angular/forms';
   styleUrls: ['./common-error.component.scss']
 })
 export class CommonErrorComponent {
-  @Input() formControl!: FormControl ;
+  @Input() form_control_name!: FormControl ;
 
   getErrorMessages(): string[] {
     const errorMessages: string[] = [];
 
-    if (this.formControl?.errors) {
-      for (const key of Object.keys(this.formControl.errors)) {
-        const message = this.getError(key, this.formControl.errors[key]);
+    if (this.form_control_name?.errors) {
+      for (const key of Object.keys(this.form_control_name.errors)) {
+        const message = this.getError(key, this.form_control_name.errors[key]);
         errorMessages.push(message);
       }
     }

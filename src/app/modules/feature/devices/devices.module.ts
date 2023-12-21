@@ -11,12 +11,14 @@ import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { MatDialogModule } from '@angular/material/dialog';
+import { DeviceActionsComponent } from './device-actions/device-actions.component';
 
 @NgModule({
   declarations: [
     DeviceComponent,
     DeviceDetailsComponent,
-    AddDeviceComponent
+    AddDeviceComponent,
+    DeviceActionsComponent
   ],
   imports: [
     CommonModule,

@@ -8,6 +8,7 @@ import { SiteDetailsComponent } from './sites/site-details/site-details.componen
 import { SitesComponent } from './sites/sites/sites.component';
 import { ReportsComponent } from './reports/reports.component';
 import { SupportComponent } from './support/support.component';
+import { TankComponent } from './tank/tank.component';
 
 const routes: Routes = [
   {
@@ -37,6 +38,13 @@ const routes: Routes = [
   {
     path: 'reports',
     component:ReportsComponent
+    
+   
+    
+  },
+  {
+    path: 'tanks',
+    component:TankComponent
     
    
     

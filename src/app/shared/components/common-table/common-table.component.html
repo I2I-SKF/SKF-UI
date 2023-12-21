@@ -1,43 +1,5 @@
 <div class="w-100" >
-  <form [formGroup]="dispense_status_form" class="header-color row m-0" [style]="isfilterVisible || isSearchVisible ? 'min-height: 50px':'' ">
-    <div *ngIf="isfilterVisible" class="col-sm-4">
-      
-        <label class="intable_labels"  style="text-wrap: nowrap;" for="">Dispense Status </label>
-        <select
-          (change)="onDispenseStatusChange($event)"
-          formControlName="dispense_status"
-          class="form-select input_border_class"
-          name=""
-          id=""
-        >
-          <option
-            [value]="dispense.value"
-            *ngFor="let dispense of dispense_statuses"
-          >
-            {{ dispense.viewValue }}
-          </option>
-        </select>
-     
-    </div>
-    <div *ngIf="isSearchVisible"  class="col-sm-4 ">
-      <label class="intable_labels"  for="">Search</label>
-      <div
-        class="input-group  "
-        style="width: unset; height: 38px; align-self: end"
-      >
-        <input
-          (keyup)="onSearch($event)"
-          #searchedValue
-          type="text"
-          class="form-control search-box"
-          placeholder="Transaction Number"
-          aria-label="Example text with button addon"
-          aria-describedby="button-addon1"
-        />
-      
-      </div>
-    </div>
-  </form>
+
   <div style="overflow-x: auto;">
     <table mat-table [dataSource]="dataSource" matSort class="table table-striped">
       <ng-container
@@ -55,7 +17,8 @@
             *ngIf="
               column !== 'Action' &&
               column !== 'Pin' &&
-              column !== 'System Health' 
+              column !== 'System Health' &&
+              column !== 'Comment History'
              
             "
           >
@@ -87,6 +50,11 @@
               </span>
             </span>
           </ng-container>
+          <ng-container *ngIf="column == 'Comment History'" >
+            <span  class="link-primary" title="click to see comment history for this ticket." (click)="onCommentHistory(row)">
+             View
+            </span>
+        </ng-container>
          
   
           <ng-container *ngIf="column == 'Action'">

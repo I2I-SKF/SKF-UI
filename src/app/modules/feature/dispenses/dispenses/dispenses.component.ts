@@ -41,6 +41,7 @@ export class DispensesComponent {
   last_sync_time: any = null;
   extractedData: any[] = [];
   backup_for_filter:any = [];
+  dispense_status_form:any = [];
 
   transaction_data = [
     {
@@ -67,47 +68,7 @@ export class DispensesComponent {
     'End Time',
   ];
 
-  data = [
-    {
-      Device: 'Device 1, Pune',
-      'Site Name': 'Site A',
-      'Transaction No': 171,
-      'Start Time': '11/17/2023 3:32:28 PM',
-      'Dispense Status': 'Complete',
-      'Controller Response': 'Successful',
-      'Fluid Name': 'Mobile 1',
-      'Initiated By': 'System Administrator',
-      Ordered: '1 Quarts',
-      Dispensed: '1 Quarts',
-      'End Time': 1,
-    },
-    {
-      Device: 'Device 1, Pune',
-      'Site Name': 'Site A',
-      'Transaction No': 171,
-      'Start Time': '11/17/2023 3:32:28 PM',
-      'Dispense Status': 'Complete',
-      'Controller Response': 'Successful',
-      'Fluid Name': 'Mobile 1',
-      'Initiated By': 'System Administrator',
-      Ordered: '1 Quarts',
-      Dispensed: '1 Quarts',
-      'End Time': 1,
-    },
-    {
-      Device: 'Device 1, Pune',
-      'Site Name': 'Site A',
-      'Transaction No': 171,
-      'Start Time': '11/17/2023 3:32:28 PM',
-      'Dispense Status': 'Complete',
-      'Controller Response': 'Successful',
-      'Fluid Name': 'Mobile 1',
-      'Initiated By': 'System Administrator',
-      Ordered: '1 Quarts',
-      Dispensed: '1 Quarts',
-      'End Time': 1,
-    },
-  ];
+  data = [];
   formControls = [
     {
       name: 'dispenses',
@@ -183,7 +144,22 @@ export class DispensesComponent {
 
     // this.router.navigate(['/devices/device-details']);
   }
+  searched:any;
+  onSearch(data:any){
+    
+    
+    if(data.target.value != '' ){
+      this.catchSearchEvents(data.target.value);
+    }
+    else{
+      if(data.target.value == ''){
+        
+        this.catchSearchEvents(null)
+        this.dispense_status_form.get('dispense_status')?.setValue('all'); 
+      }
+    }
 
+  }
   ngOnInit(): void {
     this.breadcrumbService.setBreadcrumb([
       {
@@ -199,11 +175,20 @@ export class DispensesComponent {
     let date = new Date();
     this.dispensesForm = this.fb.group({
       devices: [this.devices_data[0].value],
+      dispense_form_radio:['last_transaction'],
+      start_date: [],
+      end_date: [],
+      // dispense_status: ['all'],
+      // transactions: [10],
+      
+    });
+    this.dispense_status_form = this.fb.group({
+      devices: [this.devices_data[0].value],
       sites: ['all'],
       start_date: [],
       end_date: [],
       dispense_status: ['all'],
-      transactions: [10],
+    
       
     });
 
@@ -239,7 +224,7 @@ export class DispensesComponent {
 
   catchSearchEvents(data:any){
 
-    this.dispensesForm.get('dispense_status').setValue('all')
+    this.dispense_status_form.get('dispense_status').setValue('all')
 
     this.onDispenseStatusChange({target:{value:'all'}});
 
@@ -251,9 +236,9 @@ export class DispensesComponent {
       this.searchFilterBackup = this.dispense_data;
     }
 
-    if(data?.data){
+    if(data){
       let filtered_data = this.dispense_data.filter((record:any)=>{
-        return record['Transaction No'] == parseInt(data.data)
+        return record['Transaction No'] == parseInt(data)
       });
       this.dispense_data = filtered_data;
 
@@ -301,7 +286,7 @@ export class DispensesComponent {
   }
 
   createDispenseLogForAll() {
-    this.dispensesForm.get('sites').setValue('all');
+    this.dispense_status_form.get('sites').setValue('all');
     let dispense_data: any = [];
     this.sites_data.forEach((site: any) => {
       if (site.value != 'all') {

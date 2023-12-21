@@ -4,6 +4,9 @@ import { BreadcrumbService } from 'src/app/shared/services/breadcrumb.service';
 import { RequestSupportComponent } from './request-support/request-support.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormBuilder } from '@angular/forms';
+import { ApiService } from 'src/app/shared/services/api.service';
+import { LocalStorageService } from 'src/app/shared/services/local-storage.service';
+import { CommentHistoryComponent } from './comment-history/comment-history.component';
 
 @Component({
   selector: 'app-support',
@@ -13,14 +16,18 @@ import { FormBuilder } from '@angular/forms';
 export class SupportComponent implements OnInit {
 
   displayed_columns:any[] = [
-    "Ticket ID",
-    "Device ID",
-    "Date Created",
-    "Support Request",
-    "Remote Access",
-    "Status",
-    "Resolution",
-    "Date Closed"
+    'Ticket ID',
+    'Status',
+   
+    'Open Days',
+   
+    'Device ID',
+    'Request Details',
+    'Remote Access',
+    'Resolution',
+    'Date',
+    'Comment History',
+    // 'Action',
   ]
   request_data = [
     {
@@ -31,48 +38,8 @@ export class SupportComponent implements OnInit {
     },
   ]
 
-  table_data:any[] = [
-    {
-      "Ticket ID":1,
-      "Device ID":"AA1001",
-    "Date Created":"27/10/23",
-    "Support Request":"Some Text Here",
-    "Remote Access":"No",
-    "Status":"Pending",
-    "Date Closed":"-",
-    "Resolution":"Some Text here",
-    },
-    {
-      "Ticket ID":2,
-      "Device ID":"BB1002",
-    "Date Created":"25/10/23",
-    "Support Request":"Some Text Here",
-    "Remote Access":"Yes",
-    "Status":"In Progress",
-    "Date Closed":"-",
-    "Resolution":"Some Text here",
-    },
-    {
-      "Ticket ID":3,
-      "Device ID":"CC1003",
-    "Date Created":"23/10/23",
-    "Support Request":"Some Text Here",
-    "Remote Access":"Yes",
-    "Status":"Resolved",
-    "Date Closed":"-",
-    "Resolution":"Some Text here",
-    },
-    {
-      "Ticket ID":4,
-      "Device ID":"DD1004",
-    "Date Created":"22/10/23",
-    "Support Request":"Some Text Here",
-    "Remote Access":"Yes",
-    "Status":"Closed",
-    "Date Closed":"23/10/23",
-    "Resolution":"Some Text here",
-    },
-  ] 
+  ticketStatuses:any = [];
+  table_data:any[] = [] 
 
   dispensesForm:any;
   devices_data = [
@@ -81,7 +48,7 @@ export class SupportComponent implements OnInit {
   ];
 
 
-  constructor(private breadcrumbService:BreadcrumbService,private ngbmodal:NgbModal,private fb:FormBuilder){
+  constructor(private breadcrumbService:BreadcrumbService,private ngbmodal:NgbModal,private fb:FormBuilder,private apis:ApiService,private local_storage:LocalStorageService){
 
   }
   ngOnInit():void{
@@ -105,6 +72,8 @@ export class SupportComponent implements OnInit {
       request:[3]
       
     });
+    this.getSupportData();
+    this.getTicketStatusList();
   }
 
   rowClick(row:any){
@@ -136,4 +105,124 @@ export class SupportComponent implements OnInit {
   onRequestChange(data:any){
 
   }
+  getSupportData(){
+
+    let session_token = this.local_storage.getFromLocalStorage('session_token');
+    let session_user = this.local_storage.getFromLocalStorage('session_user');
+    let client_code = this.local_storage.getFromLocalStorage('client_code');
+    if(session_token && session_user){
+      let request = {
+        "app_name": "lfc-admin-client",
+        "function_name": "Get-Ticket-List",
+        "session_token": session_token,
+        "session_user": session_user,
+        "client_code": client_code,
+      }
+  
+      this.apis.manageTicket(request).subscribe({
+        next:(res)=>{ 
+          this.apis.manageTicket(request).subscribe({
+            next: (res: any) => {
+              this.table_data = [];
+              this.table_data = res.user_list.map((user_list: any) => {
+                return {
+                  'Ticket ID': user_list.ticket_id,
+                  Status: user_list.status_name,
+                   "Comment History": user_list.comment_history ? JSON.parse(user_list.comment_history) : null ,
+                  'Open Days': this.calculateDays(user_list.requested_ts),
+                  'Client Name': user_list.client_name,
+                  'Device ID': user_list.device_name,
+                  'Request Details': user_list.request_details,
+                  'Remote Access': user_list.remote_access_url,
+                  Resolution: user_list.resolution ? user_list.resolution : 'NA',
+                  Date:
+                    user_list.status_name == 'Closed' ? user_list.status_ts : '-',
+                  // Action: ['Select','Pending', 'Resolved', 'Re-opened','Closed'],
+                  Action: this.getActions(user_list.status_name),
+                };
+              });
+              
+            },
+            error: (res: any) => {
+              console.log('error occurred while fetching support requests.');
+            },
+          });
+  
+        },
+        error:()=>{
+          console.log('error occurred while fetching support data..');
+          
+        }
+      })
+    }
+   
+  }
+
+  calculateDays(dateTimeString: any) {
+    const inputDateTime: any = new Date(dateTimeString);
+
+    const currentDate: any = new Date();
+
+    const timeDifference = currentDate - inputDateTime;
+
+    const daysDifference = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+
+    return daysDifference;
+  }
+ 
+  
+  getActions(status: string) {
+    if (status == 'Pending') {
+      return ['select', 'Resolved'];
+    } else if (status == 'Resolved') {
+      return ['select', 'Re-opened', 'Closed'];
+    } else if (status == 'Re-opened') {
+      return ['select', 'Resolved'];
+    } else {
+      return ['select'];
+    }
+  }
+
+  
+  catchCommentHistory(data:any){
+    console.log(data.comments);
+    let comment_history_modal_ref  = this.ngbmodal.open(CommentHistoryComponent,{centered:true})
+    comment_history_modal_ref.componentInstance.comment_data = data['Comment History'];
+    comment_history_modal_ref.componentInstance.status_data = this.ticketStatuses;
+  }
+
+  getTicketStatusList() {
+    let session_token = this.local_storage.getFromLocalStorage('session_token');
+    let session_user = this.local_storage.getFromLocalStorage('session_user');
+    let client_Code = this.local_storage.getFromLocalStorage('client_code');
+
+    if (session_token && session_user) {
+      let request = {
+        app_name: 'lfc-admin-client',
+        function_name: 'Get-Status-List',
+        session_token: session_token,
+        session_user: parseInt(session_user),
+        "client_code": client_Code,
+
+      };
+
+      this.apis.manageTicket(request).subscribe({
+        next: (res) => {
+          if ((res.Type = 'Success')) {
+            this.ticketStatuses = res.Status_List.map((record: any) => {
+              return {
+                id: record.status_id,
+                status: record.status_name,
+              };
+            });
+            console.log(this.ticketStatuses);
+           
+          }
+        
+        },
+        error: (err) => {},
+      });
+    }
+  }
+   
 }

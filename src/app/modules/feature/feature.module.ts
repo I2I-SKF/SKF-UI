@@ -16,6 +16,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { DispensesModule } from './dispenses/dispenses.module';
 import { MatDialogModule } from '@angular/material/dialog';
 import { ReactiveFormsModule } from '@angular/forms';
+import { TankComponent } from './tank/tank.component';
+import { NgbProgressbarModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 @NgModule({
@@ -25,6 +27,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     AlertsComponent,
     CommonSiteDetailComponent,
     ReportsComponent,
+    TankComponent,
 
   ],
   imports: [
@@ -39,7 +42,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     HttpClientModule,
     DispensesModule,
     MatDialogModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgbProgressbarModule
     
     
   

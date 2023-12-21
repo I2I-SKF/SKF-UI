@@ -115,6 +115,8 @@ $section-subtitle:$font-md;
     background-color: $primary-color;
     font-size: $font-sm;
     // font-weight: 600;
+    height: 30px;
+    text-wrap: wrap;
 
 }
 @mixin action-btn-2{

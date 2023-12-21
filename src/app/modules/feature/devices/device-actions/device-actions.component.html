@@ -1,0 +1,235 @@
+<div class="d-flex justify-content-between" style="margin-bottom: 15px">
+  <span class="header-1">
+    {{ rowData?.name ? rowData?.name : "Unknown" }}
+  </span>
+  <button class="action-button-1">Delete Device</button>
+</div>
+
+<app-common-card>
+  <div class="row" style="height: auto">
+    <div class="col-sm-3">
+      <div>Device ID: 121BJHBHB1221</div>
+      <div>
+        Device Status:
+        {{
+          rowData?.creation_status_name
+            ? rowData?.creation_status_name
+            : "Unknown"
+        }}
+      </div>
+
+      <div>
+        Connection Status:
+        {{
+          rowData?.connection_status_name == "Connected" ? "Online" : "Offline"
+        }}
+        <div
+          style="height: 10px; width: 10px; display: inline-block"
+          [class]="
+            rowData?.connection_status_name == 'Connected'
+              ? 'rounded bg-success'
+              : 'rounded bg-danger'
+          "
+        ></div>
+      </div>
+    </div>
+    <div class="ms-auto col-sm-3 d-flex">
+      <button
+        class="action-button-1 ms-auto align-self-end justify-content-end"
+      >
+        Check Connection
+      </button>
+    </div>
+    <div class="col-sm-12">
+      <hr />
+      <form class="row" [formGroup]="deviceForm">
+        <div class="col-sm-4">
+          <label class="mb-2 mt-2" for="">Device Name</label>
+          <input
+            class="form-control"
+            formControlName="device_name"
+            type="text"
+            placeholder="Device Name"
+          />
+          <app-common-error
+            [form_control_name]="deviceForm.get('device_name')"
+          ></app-common-error>
+        </div>
+        <div class="col-sm-4">
+          <label class="font-size-sm mb-2 mt-2" for=""> Country</label>
+          <select
+            (change)="onCountrySelect($event)"
+            class="form-select"
+            formControlName="country"
+            id=""
+          >
+            <option [value]="country.value" *ngFor="let country of countryList">
+              {{ country.viewValue }}
+            </option>
+          </select>
+          <app-common-error
+            [form_control_name]="deviceForm.get('country')"
+          ></app-common-error>
+        </div>
+
+        <div class="col-sm-4">
+          <label class="font-size-sm mb-2 mt-2" for=""> State</label>
+          <select class="form-select" formControlName="state" id="">
+            <option [value]="state.value" *ngFor="let state of StatesList">
+              {{ state.viewValue }}
+            </option>
+          </select>
+          <app-common-error
+            [form_control_name]="deviceForm.get('state')"
+          ></app-common-error>
+        </div>
+        <div class="col-sm-4">
+          <label class="mb-2 mt-2" for="">Location</label>
+          <input
+            class="form-control"
+            formControlName="location"
+            type="text"
+            placeholder="Location"
+          />
+          <app-common-error
+            [form_control_name]="deviceForm.get('location')"
+          ></app-common-error>
+        </div>
+        <div class="col-sm-4">
+          <label class="font-size-sm mb-2 mt-2" for=""> Timezone</label>
+          <select class="form-select" formControlName="timezone" id="">
+            <option
+              *ngFor="let timezone of timezoneList"
+              [value]="timezone.value"
+            >
+              {{ timezone.viewValue }}
+            </option>
+          </select>
+          <app-common-error
+            [form_control_name]="deviceForm.get('timezone')"
+          ></app-common-error>
+        </div>
+        <div class="col-sm-4">
+          <label class="mb-2 mt-2" for="">Assign Device Manager</label>
+          <select class="form-select" formControlName="device_manager" id="">
+            <option [value]="option.value" *ngFor="let option of deviceManager">
+              {{ option.viewValue }}
+            </option>
+          </select>
+          <app-common-error
+            [form_control_name]="deviceForm.get('device_manager')"
+          ></app-common-error>
+        </div>
+        <div class="mt-2 col-sm-4 d-flex align-items-center">
+          <input
+            class="me-2"
+            type="checkbox"
+            formControlName="link_child"
+            placeholder=""
+            id="link_child"
+            (change)="onParentLink($event)"
+          />
+          <label for="link_child">Link as a child device</label>
+        </div>
+        <!-- <div class="mt-2 col-sm-8 d-flex align-items-center">
+          <input
+            class="me-2"
+            type="checkbox"
+            formControlName="status"
+            placeholder=""
+          />
+          <label for="">Deactivate Device</label>
+        </div> -->
+        <div class="col-sm-4" >
+          <label class="mb-2 mt-2" for="">Parent Device</label>
+          <select  class="form-select" formControlName="parent_device" id="">
+            <option
+              [value]="option.device_id"
+              *ngFor="let option of parent_device_data"
+            >
+              {{ option["Device Name"] }}
+            </option>
+          </select>
+        </div>
+
+        <div class="col-sm-4 d-flex">
+          <button class="action-button-1 align-self-end ms-auto" (click)="updateDevice()">
+            Submit
+          </button>
+        </div>
+
+
+        <div class="col-sm-12">
+            <hr>
+            <div class="section_title mb-4">
+                Control Device
+            </div>
+        </div>
+
+
+
+
+        <div class="col-sm-12 col-xl-2 col-lg-4">
+            <app-common-card>
+              <div style="min-height: 150px">
+                <button class="mb-3 action-button-1">Take Backup</button>
+                <div>
+                  <div>Backup Requested</div>
+                  <div>mm/dd/yyyy hh:mm</div>
+                </div>
+              </div>
+            </app-common-card>
+          </div>
+          <div class="col-sm-12 col-xl-2 col-lg-4">
+            <app-common-card>
+              <div style="min-height: 150px">
+                <button class="mb-3 action-button-1">Download Backup</button>
+                <div>
+                  Available Backup
+                  <div>mm/dd/yyyy hh:mm</div>
+                </div>
+              </div>
+            </app-common-card>
+          </div>
+          <div class="col-sm-12 col-xl-2 col-lg-4">
+            <app-common-card>
+              <div style="min-height: 150px">
+                <button class="mb-3 action-button-1">Update Agent</button>
+        
+                <div>Latest Version :</div>
+                <div>version Edge:</div>
+              </div>
+            </app-common-card>
+          </div>
+          <div class="col-sm-12 col-xl-2 col-lg-4">
+            <app-common-card>
+              <div style="min-height: 150px">
+                <button class="mb-3 action-button-1">Update QDA</button>
+        
+                <div>Latest Version :</div>
+                <div>version Edge:</div>
+              </div>
+            </app-common-card>
+          </div>
+          <div class="col-sm-12 col-xl-2 col-lg-4">
+            <app-common-card>
+              <div style="min-height: 150px">
+                <button class="mb-3 action-button-1">Update Enterprise</button>
+        
+                <div>Latest Version :</div>
+                <div>version Edge:</div>
+              </div>
+            </app-common-card>
+          </div>
+          <div class="col-sm-12 col-xl-2 col-lg-4">
+            <app-common-card>
+              <div style="min-height: 150px">
+                <button class="mb-3 action-button-1">Lock Device</button>
+              </div>
+            </app-common-card>
+          </div>
+      </form>
+    </div>
+  </div>
+</app-common-card>
+

@@ -13,6 +13,9 @@ import { MatSort } from '@angular/material/sort';
 import { ApiService } from 'src/app/shared/services/api.service';
 import { CommonActionPopupComponent } from 'src/app/shared/components/common-action-popup/common-action-popup.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { LocalStorageService } from 'src/app/shared/services/local-storage.service';
+import { DeviceActionsComponent } from '../device-actions/device-actions.component';
+import { DevicesService } from '../devices.service';
 @Component({
   selector: 'app-device',
   templateUrl: './device.component.html',
@@ -28,7 +31,9 @@ export class DeviceComponent implements OnInit {
     private breadcrumbService: BreadcrumbService,
     private fb: FormBuilder,
     private apis: ApiService,
-    private ngb_modal:NgbModal
+    private ngb_modal: NgbModal,
+    private local_storage: LocalStorageService,
+    private device_service:DevicesService
   ) {
     this.dispense_status_form = this.fb.group({
       device_status: ['all'],
@@ -39,19 +44,10 @@ export class DeviceComponent implements OnInit {
 
   dispense_statuses: any = [
     { value: 'all', viewValue: 'All' },
-    { value: 'online', viewValue: 'Online' },
-    { value: 'offline', viewValue: 'Offline' },
+    { value: 'Activated', viewValue: 'Activated' },
+    { value: 'Registered', viewValue: 'Registered' },
   ];
-  table_actions = [
-    { value: null, viewValue: 'Select Action' },
-    { value: 0, viewValue: 'Edit Device' },
-    { value: 1, viewValue: 'Take Backup' },
-    { value: 2, viewValue: 'Download Backup' },
-    { value: 4, viewValue: 'Update Enterprise' },
-    { value: 5, viewValue: 'Update Agent' },
-    { value: 6, viewValue: 'Lock Device' },
-    { value: 7, viewValue: 'Delete Device' },
-  ];
+ 
 
   extractedData: any[] = [];
   displayed_columns = [
@@ -67,327 +63,9 @@ export class DeviceComponent implements OnInit {
     'Agent Version',
     'Action',
   ];
-  dataSource: any =  new MatTableDataSource([]);
-  data: any = [
-    {
-      'Device ID': '12AB34',
-      'Device Name': 'BIOS1234567890',
-      'Device Location': 'New York, USA',
-      Status: 'Online',
-      Pin: '1223',
-      Connection: 'Online',
-      'System Health': 'Normal',
-
-      system_health_details: `
-        Sys. Temp. (F) : 75,
-        Network (%) : 80,
-        Memory (GB) : 8,
-        Storage (%) : 50,
-        `,
-      'Remote Access': 'Allowed',
-      'Data Backup': 'mm/dd/yy',
-      'Config Backup': 'mm/dd/yy',
-      LFC: 1.23,
-      Update: 'Yes',
-      Action: this.table_actions,
-    },
-    {
-      'Device ID': '56CD78',
-      'Device Name': 'BIOS0987654321',
-      'Device Location': 'Los Angeles, USA',
-      Status: 'Online',
-      Pin: '1223',
-      Connection: 'Online',
-      'System Health': 'Normal',
-
-      system_health_details: `
-          Sys. Temp. (F): 80,
-          Network (%): 70,
-          Memory (GB): 16,
-          Storage (%): 64,
-         `,
-      'Remote Access': 'Restricted',
-      'Data Backup': 'mm/dd/yy',
-      'Config Backup': 'mm/dd/yy',
-      LFC: 1.24,
-      Update: 'Yes',
-      Action: this.table_actions,
-    },
-    {
-      'Device ID': '90EF12',
-      'Device Name': 'BIOS1122334455',
-      'Device Location': 'Chicago, USA',
-      Status: 'Online',
-      Pin: '1223',
-      Connection: 'Online',
-      'System Health': 'Normal',
-
-      system_health_details: `
-          Sys. Temp. (F): 72,
-          Network (%): 60,
-          Memory (GB): 8,
-          Storage (%): 48,
-        `,
-      'Remote Access': 'Allowed',
-      'Data Backup': 'mm/dd/yy',
-      'Config Backup': 'mm/dd/yy',
-      LFC: 1.25,
-      Update: 'Yes',
-      Action: this.table_actions,
-    },
-    {
-      'Device ID': '34GH56',
-      'Device Name': 'BIOS5566778899',
-      'Device Location': 'Toronto, Canada',
-      Status: 'Online',
-      Pin: '1223',
-      Connection: 'Online',
-      'System Health': 'Normal',
-
-      system_health_details: `
-          Sys. Temp. (F): 70,
-        Network (%): 75,
-        Memory (GB): 16,
-        Storage (%): 80,
-         `,
-      'Remote Access': 'Restricted',
-      'Data Backup': 'mm/dd/yy',
-      'Config Backup': 'mm/dd/yy',
-      LFC: 1.26,
-      Update: 'No',
-      Action: [
-        'Select Action',
-        'Activate Device',
-        'Change Device PIN',
-        'Update LFC',
-        'Update Services',
-        'Allow Remote Access',
-        'Restrict Remote Access',
-        'View Logs',
-        'Test Connection',
-        'Modify Configurations',
-        'Deactivate Device',
-        'Replace Device',
-        'Delete Device',
-      ],
-    },
-    {
-      'Device ID': '78IJ90',
-      'Device Name': 'BIOS9988776655',
-      'Device Location': 'Vancouver, Canada',
-      Status: 'Online',
-      Pin: '1223',
-      Connection: 'Online',
-      'System Health': 'Normal',
-
-      system_health_details: `
-          Sys. Temp. (F): 68,
-          Network (%): 90,
-          Memory (GB): 8,
-          Storage (%): 40,
-         `,
-      'Remote Access': 'Allowed',
-      'Data Backup': 'mm/dd/yy',
-      'Config Backup': 'mm/dd/yy',
-      LFC: 1.23,
-      Update: 'Yes',
-      Action: [
-        'Select Action',
-        'Activate Device',
-        'Change Device PIN',
-        'Update LFC',
-        'Update Services',
-        'Allow Remote Access',
-        'Restrict Remote Access',
-        'View Logs',
-        'Test Connection',
-        'Modify Configurations',
-        'Deactivate Device',
-        'Replace Device',
-        'Delete Device',
-      ],
-    },
-    {
-      'Device ID': '12KL34',
-      'Device Name': 'BIOS4433221100',
-      'Device Location': 'Miami, USA',
-      Status: 'Online',
-      Pin: '1223',
-      Connection: 'Offline',
-      'System Health': 'Warning',
-
-      system_health_details: ` 
-           Sys. Temp. (F): 77,
-        Network (%): 85,
-        Memory (GB): 16,
-        Storage (%): 64,
-        `,
-      'Remote Access': 'Restricted',
-      'Data Backup': 'mm/dd/yy',
-      'Config Backup': 'mm/dd/yy',
-      LFC: 1.24,
-      Update: 'Yes',
-      Action: [
-        'Select Action',
-        'Activate Device',
-        'Change Device PIN',
-        'Update LFC',
-        'Update Services',
-        'Allow Remote Access',
-        'Restrict Remote Access',
-        'View Logs',
-        'Test Connection',
-        'Modify Configurations',
-        'Deactivate Device',
-        'Replace Device',
-        'Delete Device',
-      ],
-    },
-    {
-      'Device ID': '56MN78',
-      'Device Name': 'BIOS6677889900',
-      'Device Location': 'Dallas, USA',
-      Status: 'Online',
-      Pin: '1223',
-      Connection: 'Online',
-      'System Health': 'Normal',
-
-      system_health_details: `
-          Sys. Temp. (F): 79,
-          Network (%): 65,
-          Memory (GB): 8,
-          Storage (%): 50,
-         `,
-      'Remote Access': 'Allowed',
-      'Data Backup': 'mm/dd/yy',
-      'Config Backup': 'mm/dd/yy',
-      LFC: 1.25,
-      Update: 'Yes',
-      Action: [
-        'Select Action',
-        'Activate Device',
-        'Change Device PIN',
-        'Update LFC',
-        'Update Services',
-        'Allow Remote Access',
-        'Restrict Remote Access',
-        'View Logs',
-        'Test Connection',
-        'Modify Configurations',
-        'Deactivate Device',
-        'Replace Device',
-        'Delete Device',
-      ],
-    },
-    {
-      'Device ID': '90OP12',
-      'Device Name': 'BIOS8899001122',
-      'Device Location': 'Montreal, Canada',
-      Status: 'Online',
-      Pin: '1223',
-      Connection: 'Online',
-      'System Health': 'Normal',
-
-      system_health_details: `
-          Sys. Temp. (F): 73,
-          Network (%): 70,
-          Memory (GB): 16,
-          Storage (%): 64,
-        `,
-      'Remote Access': 'Restricted',
-      'Data Backup': 'mm/dd/yy',
-      'Config Backup': 'mm/dd/yy',
-      LFC: 1.26,
-      Update: 'No',
-      Action: [
-        'Select Action',
-        'Activate Device',
-        'Change Device PIN',
-        'Update LFC',
-        'Update Services',
-        'Allow Remote Access',
-        'Restrict Remote Access',
-        'View Logs',
-        'Test Connection',
-        'Modify Configurations',
-        'Deactivate Device',
-        'Replace Device',
-        'Delete Device',
-      ],
-    },
-    {
-      'Device ID': '34QR56',
-      'Device Name': 'BIOS1234432112',
-      'Device Location': 'San Diego, USA',
-      Status: 'Online',
-      Pin: '1223',
-      Connection: 'Offline',
-      'System Health': 'Critical',
-
-      system_health_details: `
-          Sys. Temp. (F): 76,
-          Network (%): 80,
-          Memory (GB): 8,
-          Storage (%): 60,
-         `,
-      'Remote Access': 'Allowed',
-      'Data Backup': 'mm/dd/yy',
-      'Config Backup': 'mm/dd/yy',
-      LFC: 1.23,
-      Update: 'Yes',
-      Action: [
-        'Select Action',
-        'Activate Device',
-        'Change Device PIN',
-        'Update LFC',
-        'Update Services',
-        'Allow Remote Access',
-        'Restrict Remote Access',
-        'View Logs',
-        'Test Connection',
-        'Modify Configurations',
-        'Deactivate Device',
-        'Replace Device',
-        'Delete Device',
-      ],
-    },
-    {
-      'Device ID': '78ST90',
-      'Device Name': 'BIOS5566223344',
-      'Device Location': 'Ottawa, Canada',
-      Status: 'Online',
-      Pin: '1223',
-      Connection: 'Online',
-      'System Health': 'Normal',
-
-      system_health_details: `
-          Sys. Temp. (F): 74,
-          Network (%): 75,
-          Memory (GB): 16,
-          Storage (%): 64,
-        `,
-      'Remote Access': 'Restricted',
-      'Data Backup': 'mm/dd/yy',
-      'Config Backup': 'mm/dd/yy',
-      LFC: 1.24,
-      Update: 'Yes',
-      Action: [
-        'Select Action',
-        'Activate Device',
-        'Change Device PIN',
-        'Update LFC',
-        'Update Services',
-        'Allow Remote Access',
-        'Restrict Remote Access',
-        'View Logs',
-        'Test Connection',
-        'Modify Configurations',
-        'Deactivate Device',
-        'Replace Device',
-        'Delete Device',
-      ],
-    },
-  ];
+  dataSource: any = new MatTableDataSource([]);
+  data: any = [];
+  status_wise_filter_data: any = [];
   formControls = [
     {
       name: 'devices',
@@ -451,14 +129,62 @@ export class DeviceComponent implements OnInit {
     this.router.navigate(['/devices/device-details']);
   }
 
-  onTableDDSelection(event: any, data: any) {
-    console.log(event, data);
-    let selected_option = event.target.value;
-
-    if (selected_option == 0 || selected_option == '0') {
-      this.open(AddDeviceComponent)
-    }
+  getStatusList() {
+    let client_code = this.local_storage.getFromLocalStorage('client_code');
+    let session_token = this.local_storage.getFromLocalStorage('session_token');
+    let session_user = this.local_storage.getFromLocalStorage('session_user');
+    let request = {
+      app_name: 'lfc-admin-client',
+      function_name: 'Get-Status-List',
+      clientid: client_code,
+      session_token: session_token,
+      session_user: session_user,
+     
+    };
+    this.apis.getDeviceDataFromCloud(request).subscribe({
+      next: (res) => {
+        this.dispense_statuses = res.Status_List.map((status: any) => {
+          return {
+            value: status.status_name,
+            viewValue: status.status_name,
+            id:status.status_id
+          };
+        });
+        this.dispense_statuses.unshift({
+          value:'all',
+          viewValue:'All'
+        })
+      },
+      error: (err) => {},
+    });
   }
+
+  onTableDDSelection(event: any, data: any) {
+   
+  
+  }
+
+  onEditButtonClick(){
+    let modal_ref = this.ngb_modal.open(AddDeviceComponent, {
+      centered: true,
+    });
+    modal_ref.componentInstance.isEditModeOn = true;
+    modal_ref.componentInstance.statuses = this.dispense_statuses;
+  }
+
+  onActionClick(row:any){
+    let modal_ref = this.ngb_modal.open(DeviceActionsComponent, {
+      centered: true,
+      size:'md'
+    });
+    modal_ref.componentInstance.rowData = row;
+    modal_ref.componentInstance.statuses = this.dispense_statuses;
+  }
+
+
+
+
+
   ngOnInit(): void {
     this.breadcrumbService.setBreadcrumb([
       {
@@ -473,59 +199,106 @@ export class DeviceComponent implements OnInit {
     ]);
 
     this.getDevices();
-
-   
+    this.getStatusList();
   }
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
   }
 
-
-  open(content:any) {
-		this.ngb_modal.open(content, { ariaLabelledBy: 'modal-basic-title',centered:true }).result.then(	
-		);
-	}
-
-
   addDevice() {
-   
-    this.open(AddDeviceComponent);
+    let modal_ref = this.ngb_modal.open(AddDeviceComponent, { centered: true });
+    modal_ref.componentInstance.device_data = this.data;
+    console.log(this.data);
+  }
+  setRowData(data:any){
+
+    this.device_service.setSharedData(data);
+
   }
 
-  onSearch(data: any) {}
+  onSearch(search_value: any) {
+
+   let  search_query = search_value.target.value;
+
+    this.dispense_status_form.get('device_status')?.setValue('all')
+    if (this.status_wise_filter_data.length > 0) {
+      this.data = this.status_wise_filter_data;
+    } else {
+      this.status_wise_filter_data = this.data;
+    }
+
+
+    if(search_query!=''){
+
+      let data = this.data.filter((record:any)=>record['Device ID'].includes(search_query));
+      this.data = data;
+
+    }
+    else{
+      this.status_wise_filter_data = this.data;
+    }
+
+
+
+    this.dataSource.data = this.data;
+  }
   onClickSearch(data: any) {}
-  onDispenseStatusChange(data: any) {}
+  onDispenseStatusChange(data: any) {
+    let selected_status = data.target.value;
+    if (this.status_wise_filter_data.length > 0) {
+      this.data = this.status_wise_filter_data;
+    } else {
+      this.status_wise_filter_data = this.data;
+    }
+
+    if (selected_status != 'all') {
+      let data = this.data.filter(
+        (record: any) => record.Status == selected_status
+      );
+      this.data = data;
+    }
+
+    this.dataSource.data = this.data;
+  }
 
   getDevices() {
+    let client_code = this.local_storage.getFromLocalStorage('client_code');
+    let session_token = this.local_storage.getFromLocalStorage('session_token');
+    let session_user = this.local_storage.getFromLocalStorage('session_user');
+
     let payload = {
+      app_name: 'lfc-admin-client',
       function_name: 'Get-Device-List',
-      clientid: '1',
+      clientid: client_code,
+      session_token: session_token,
+      session_user: session_user,
     };
 
     this.apis.getDeviceDataFromCloud(payload).subscribe({
       next: (res) => {
-        
-        this.data = res.device_list.map((record:any)=>{
+        this.data = res.device_list.map((record: any) => {
           return {
-            'Device ID':this.checkIfKeyExists(record.did),
-            'Status':this.checkIfKeyExists(record.status),
-            'Device Name':this.checkIfKeyExists(record.name),
-            'Device Location':this.checkIfKeyExists(record.location),
-            'Device Manager':this.checkIfKeyExists(record.manager),
-            'Sites':this.checkIfKeyExists(record.sites),
-            'Controllers':this.checkIfKeyExists(record.controllers),
-            'Latest Backup':this.checkIfKeyExists(record.latest_backup),
-            'Enterprise Version':this.checkIfKeyExists(record.enterprise_version),
-            'Agent Version':this.checkIfKeyExists(record.agent_version),
-            'Action':this.table_actions,
-          }
-        })
+            'Device ID': this.checkIfKeyExists(record.thing_name),
+            Status: this.checkIfKeyExists(record.creation_status_name),
+            'Device Name': this.checkIfKeyExists(record.name),
+            'Device Location': this.checkIfKeyExists(record.location),
+            'Device Manager': this.checkIfKeyExists(record.manager_name),
+            Sites: this.checkIfKeyExists(record.sites),
+            Controllers: this.checkIfKeyExists(record.controllers),
+            'Latest Backup': this.checkIfKeyExists(record.latest_backup_path),
+            'Enterprise Version': this.checkIfKeyExists(
+              record.enterprise_version
+            ),
+            'Agent Version': this.checkIfKeyExists(record.agent_version),
+            api_data:record,
+            device_id: record.device_id,
+          };
+        });
 
         this.dataSource = new MatTableDataSource(this.data);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
-
       },
       error: (error) => {
         console.log('error occurred while fetching device data', error);

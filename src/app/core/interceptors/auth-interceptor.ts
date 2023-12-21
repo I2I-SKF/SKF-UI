@@ -10,7 +10,7 @@ import {
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { Router } from '@angular/router';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { CommonAlertComponentComponent } from 'src/app/shared/components/common-alert-component/common-alert-component.component';
 
 @Injectable()
@@ -27,7 +27,8 @@ export class AuthInterceptor implements HttpInterceptor {
                 if(event?.body?.Code == 'SessionExpired'){
                     
                     localStorage.clear();
-
+                   
+                    
                     let modal_ref= this.ngbModal.open(CommonAlertComponentComponent,{centered:true})
                     modal_ref.componentInstance.alertData = {
                         alert_title: 'Session Alert',

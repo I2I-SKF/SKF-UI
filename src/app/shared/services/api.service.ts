@@ -39,6 +39,9 @@ export class ApiService {
 
     validate_email = `https://xllpctl01j.execute-api.us-east-1.amazonaws.com/DEV`;
 
+    manage_ticket = `https://l8o5w6ebm8.execute-api.us-east-1.amazonaws.com/DEV`;
+
+    manage_user = `https://qlft9ivp7f.execute-api.us-east-1.amazonaws.com/DEV`
 
 
     error_obj = new BehaviorSubject(null);
@@ -78,6 +81,21 @@ export class ApiService {
   validateEmail(payload:any):Observable<any>{
     return this.http.post(this.validate_email,payload);
   }
+
+
+
+
+
+  manageTicket(payload:any):Observable<any>{
+    return this.http.post(this.manage_ticket,payload);
+  }
+
+
+  manageUser(payload:any):Observable<any>{
+    return this.http.post(this.manage_user,payload);
+  }
+
+
 
 
 

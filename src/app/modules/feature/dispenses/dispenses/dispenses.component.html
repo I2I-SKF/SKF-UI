@@ -25,48 +25,54 @@
         </select>
       </div>
 
-      <div class="col-sm-2 mb-2">
-        <label for="">Site</label>
-        <select
-          (change)="onSiteChange($event)"
-          formControlName="sites"
-          class="form-select input_border_class"
-          name=""
-          id=""
-        >
-          <option [value]="device.value" *ngFor="let device of sites_data">
-            {{ device.viewValue }}
-          </option>
-        </select>
-      </div>
+      
       <!-- <div class="col-sm-2 mb-2">
         <mat-radio-group  aria-label="Select an option">
           <mat-radio-button [color]="'primary'" value="1">Last 10 Transactions</mat-radio-button>
           <mat-radio-button [color]="'primary'" value="2">Date Range </mat-radio-button>
         </mat-radio-group>
       </div> -->
-      <div class="col-sm-2 mb-2">
-        <label for="">Last Transactions</label>
-        <select
-          (change)="onTransactionChange($event)"
-          formControlName="transactions"
-          class="form-select input_border_class"
-          name=""
-          id=""
-        >
-          <option [value]="transaction.value" *ngFor="let transaction of transaction_data">
-            {{ transaction.viewValue }}
-          </option>
-        </select>
+      
+      <div class="col-sm-2 mb-2 d-flex  ">
+        
+          <input value="last_transaction" formControlName="dispense_form_radio" class="dispense_radio align-self-end me-2" type="radio" name="dispense_form_radio">
+
+        
+        <div style="flex-basis: 100%;">
+          <label for="">Last Transactions</label>
+          <select
+            (change)="onTransactionChange($event)"
+            formControlName="transactions"
+            class="form-select input_border_class"
+            name=""
+            id=""
+          >
+            <option
+              [value]="transaction.value"
+              *ngFor="let transaction of transaction_data"
+            >
+              {{ transaction.viewValue }}
+            </option>
+          </select>
+        </div>
+        
       </div>
-      <div class="col-sm-2 mb-2">
-        <label for="">Start Date</label>
-        <input
-          formControlName="start_date"
-          (change)="startDateChange($event)"
-          type="date"
-          class="form-control input_border_class"
-        />
+      
+      <div class="col-sm-2 mb-2 d-flex">
+        
+
+          <input value="dates" formControlName="dispense_form_radio" class="dispense_radio align-self-end me-2" type="radio" name="dispense_form_radio">
+      
+        <div>
+          <label for="">Start Date</label>
+          <input
+            formControlName="start_date"
+            (change)="startDateChange($event)"
+            type="date"
+            class="form-control input_border_class"
+          />
+        </div>
+       
       </div>
       <div class="col-sm-2 mb-2">
         <label for="">End Date</label>
@@ -84,19 +90,75 @@
           class="action-button-1 ms-auto"
           style="height: 35px"
         >
-          Fetch Data
+          Get Latest Logs
         </button>
       </div>
     </div>
   </form>
 </div>
 <div style="margin-bottom: 15px">
+  <form
+    [formGroup]="dispense_status_form"
+    class="header-color row m-0 pt-1 pb-2"
+  >
+  <div class="col-sm-3 mb-2">
+    <label class="intable_labels" for="">Site</label>
+    <select
+      (change)="onSiteChange($event)"
+      formControlName="sites"
+      class="form-select input_border_class"
+      name=""
+      id=""
+    >
+      <option [value]="device.value" *ngFor="let device of sites_data">
+        {{ device.viewValue }}
+      </option>
+    </select>
+  </div>
+    <div class="col-sm-3">
+      <label class="intable_labels" style="text-wrap: nowrap" for=""
+        >Dispense Status
+      </label>
+      <select
+        (change)="onDispenseStatusChange($event)"
+        formControlName="dispense_status"
+        class="form-select input_border_class"
+        name=""
+        id=""
+      >
+        <option
+          [value]="dispense.value"
+          *ngFor="let dispense of dispense_statuses"
+        >
+          {{ dispense.viewValue }}
+        </option>
+      </select>
+    </div>
+    <div class="col-sm-3">
+      <label class="intable_labels" for="">Search</label>
+      <div
+        class="input-group"
+        style="width: unset; height: 38px; align-self: end"
+      >
+        <input
+          (keyup)="onSearch($event)"
+          #searchedValue
+          type="text"
+          class="form-control search-box"
+          placeholder="Transaction Number"
+          aria-label="Example text with button addon"
+          aria-describedby="button-addon1"
+        />
+      </div>
+    </div>
+    
+      
+    
+  </form>
+
   <app-common-table
-    [isDispenseData]="true"
-    [isfilterVisible]="true"
-    [isSearchVisible]="true"
-    (statusChange)="onDispenseStatusChange($event)"
-    (searched)="catchSearchEvents($event)"
+   
+  
     (rowClick)="rowClick($event)"
     [actions]="{ type: 'dd', data: [] }"
     [columns]="displayed_columns"
@@ -105,5 +167,5 @@
 </div>
 
 <div class="d-flex justify-content-end align-items-center">
-  <button class="ms-auto action-button-1">Download List</button>
+  <button class="ms-auto action-button-1">Download Logs</button>
 </div>
