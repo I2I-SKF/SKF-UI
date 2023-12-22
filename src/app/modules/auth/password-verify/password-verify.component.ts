@@ -5,6 +5,7 @@ import { CommonAlertComponentComponent } from 'src/app/shared/components/common-
 import { ApiService } from 'src/app/shared/services/api.service';
 import { patternValidator } from 'src/app/shared/validators/pattern.validators';
 import { APPLICATION_MSGS } from '../../../shared/constants/MSG'
+import { VALIDATION_PATTERNS } from 'src/app/shared/validators/validators/pattern.validator';
 
 @Component({
   selector: 'app-password-verify',
@@ -18,7 +19,7 @@ export class PasswordVerifyComponent {
   constructor(private fb:FormBuilder,private apis:ApiService,private ngbModal:NgbModal){
     this.mail_verification_form = this.fb.group({
       mail:['',[Validators.required,patternValidator(/^(?!\.)[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,'Please Enter a valid email.')]],
-  
+      client_id:['',[Validators.required,patternValidator(VALIDATION_PATTERNS.SPACE_TRAILING_LEADING.PATTERN,VALIDATION_PATTERNS.SINGLE_STRING_WITHOUT_TRAILING_LEADING_SPACES.VALIDATION_MSG)]]
     })
   }
 
@@ -32,7 +33,9 @@ export class PasswordVerifyComponent {
       "app_name": 'lfc-admin-client',
       "token_verification_link": this.token_verification_link,
       "function_name": "Reset-Password",
-      "user_email" : this.mail_verification_form.get('mail').value
+      "user_email" : this.mail_verification_form.get('mail').value,
+      'client_code':  this.mail_verification_form.get('client_id').value,
+
     }
     this.apis.validateEmail(request).subscribe({
       next:(res)=>{
@@ -89,7 +92,7 @@ export class PasswordVerifyComponent {
         let modal_ref = this.ngbModal.open(CommonAlertComponentComponent,{centered:true});
         modal_ref.componentInstance.alertData = {
           alert_title:APPLICATION_MSGS.REQUEST_SUBMITTED ,
-          alert_body: res.Msg ? APPLICATION_MSGS.REQUEST_SUBMITTED : "Something Went Wrong.",
+          alert_body: res.Msg ? APPLICATION_MSGS.MAIL_VERIFICATION : "Something Went Wrong.",
     
   
           alert_actions: [

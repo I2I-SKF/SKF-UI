@@ -89,7 +89,7 @@
             </ng-container>
 
             <div class="d-flex align-items-center" *ngIf="column == 'Action'">
-              <button class="action-button-4 me-2" (click)="onEditButtonClick()">Edit</button>
+             
               <button [routerLink]="'/feature/devices/device-actions'" (click)="setRowData(element['api_data'])" class="action-button-4 me-2" >Actions</button>
              
             </div>
@@ -103,9 +103,9 @@
   </div>
   <div
     *ngIf="dataSource.data.length == 0"
-    class="header-color d-flex align-items-end justify-content-center p-2 fw-bold"
+    class=" d-flex align-items-end justify-content-center p-2 fw-bold"
   >
-    No active edge device found in your account.
+  {{table_msg}}
   </div>
   <mat-paginator
     style="border-bottom: 1px solid #383838"

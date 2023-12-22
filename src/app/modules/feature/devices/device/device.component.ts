@@ -66,6 +66,7 @@ export class DeviceComponent implements OnInit {
   dataSource: any = new MatTableDataSource([]);
   data: any = [];
   status_wise_filter_data: any = [];
+  table_msg:any =null;
   formControls = [
     {
       name: 'devices',
@@ -164,13 +165,7 @@ export class DeviceComponent implements OnInit {
   
   }
 
-  onEditButtonClick(){
-    let modal_ref = this.ngb_modal.open(AddDeviceComponent, {
-      centered: true,
-    });
-    modal_ref.componentInstance.isEditModeOn = true;
-    modal_ref.componentInstance.statuses = this.dispense_statuses;
-  }
+
 
   onActionClick(row:any){
     let modal_ref = this.ngb_modal.open(DeviceActionsComponent, {
@@ -207,13 +202,27 @@ export class DeviceComponent implements OnInit {
   }
 
   addDevice() {
-    let modal_ref = this.ngb_modal.open(AddDeviceComponent, { centered: true });
-    modal_ref.componentInstance.device_data = this.data;
-    console.log(this.data);
+    // let modal_ref = this.ngb_modal.open(AddDeviceComponent, { centered: true });
+    // modal_ref.componentInstance.device_data = this.data;
+    // console.log(this.data);
+
+
+    this.device_service.setSharedData({
+      editMode:false,
+      data:this.data,
+    })
+
+    this.router.navigate(['/feature/devices/device-actions'])
+
+
+
   }
   setRowData(data:any){
 
-    this.device_service.setSharedData(data);
+    this.device_service.setSharedData({
+      editMode:true,
+      data:data
+    });
 
   }
 
@@ -277,6 +286,7 @@ export class DeviceComponent implements OnInit {
 
     this.apis.getDeviceDataFromCloud(payload).subscribe({
       next: (res) => {
+        this.table_msg = 'No active edge device found in your account';
         this.data = res.device_list.map((record: any) => {
           return {
             'Device ID': this.checkIfKeyExists(record.thing_name),
@@ -301,6 +311,9 @@ export class DeviceComponent implements OnInit {
         this.dataSource.sort = this.sort;
       },
       error: (error) => {
+        this.data = null;
+        this.table_msg = `Error while fetching data`;
+
         console.log('error occurred while fetching device data', error);
       },
     });

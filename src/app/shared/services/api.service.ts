@@ -41,7 +41,9 @@ export class ApiService {
 
     manage_ticket = `https://l8o5w6ebm8.execute-api.us-east-1.amazonaws.com/DEV`;
 
-    manage_user = `https://qlft9ivp7f.execute-api.us-east-1.amazonaws.com/DEV`
+    manage_user = `https://qlft9ivp7f.execute-api.us-east-1.amazonaws.com/DEV`;
+
+    command_device_url = `https://44a6atkan2.execute-api.us-east-1.amazonaws.com/DEV`;
 
 
     error_obj = new BehaviorSubject(null);
@@ -95,6 +97,9 @@ export class ApiService {
     return this.http.post(this.manage_user,payload);
   }
 
+  giveCommandToDevice(payload:any):Observable<any>{
+    return this.http.post(this.command_device_url,payload)
+  }
 
 
 

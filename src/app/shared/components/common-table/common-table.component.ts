@@ -38,6 +38,7 @@ export class CommonTableComponent implements OnInit, OnChanges {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @Input() actions = {type:'btn',data : ['edit','buttons']};
 
+
   @Input() columns: string[] = [
     'Site Name',
     'Stations',

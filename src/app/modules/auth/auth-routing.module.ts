@@ -18,7 +18,7 @@ const routes: Routes = [
     pathMatch:'full'
   },
   {
-    path:'mail-verification',
+    path:'request-reset-password',
     component:PasswordVerifyComponent,
   },
   {

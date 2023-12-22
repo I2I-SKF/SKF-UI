@@ -10,74 +10,92 @@ export class SiteDetailsCardsComponent {
 
   @Input() card_title:any;
 
-  alarms = [
+  device_alerts_data = [
     {
-      id:'A001',
-      type:'Low Tank Level',
-      time:'DD/MM/YYYY HH:MM' ,
-      description:'Alert message will be displayed here'
+      ID:'A001',
+      "Type":'Low Tank Level',
+      "Time":'DD/MM/YYYY HH:MM' ,
+      "Description":'Alert message will be displayed here'
     },
     {
-      id:'A002',
-      type:'Dispense Error',
-      time:'DD/MM/YYYY HH:MM' ,
-      description:'Alert message will be displayed here'
+      ID:'A002',
+      "Type":'Dispense Error',
+      "Time":'DD/MM/YYYY HH:MM' ,
+      "Description":'Alert message will be displayed here'
     },
     {
-      id:'A003',
-      type:'Device Offline',
-      time:'DD/MM/YYYY HH:MM' ,
-      description:'Alert message will be displayed here'
+      ID:'A003',
+      "Type":'Device Offline',
+      "Time":'DD/MM/YYYY HH:MM' ,
+      "Description":'Alert message will be displayed here'
     },
     {
-      id:'A004',
-      type:'Dispense Error',
-      time:'DD/MM/YYYY HH:MM' ,
-      description:'Alert message will be displayed here'
+      ID:'A004',
+      "Type":'Dispense Error',
+      "Time":'DD/MM/YYYY HH:MM' ,
+      "Description":'Alert message will be displayed here'
     },
     {
-      id:'A005',
-      type:'Low Tank Level',
-      time:'DD/MM/YYYY HH:MM' ,
-      description:'Alert message will be displayed here'
-    },
-  ]
-  tanks = [
-    {
-      tank_name:'Tank 1',
-      fluid_name:'Fluid 2',
-      capacity:'1000 L',
-      balance:'900 L',
-      level:90
-    },
-    {
-      tank_name:'Tank 2',
-      fluid_name:'Fluid 2',
-      capacity:'1000 L',
-      balance:'800 L',
-      level:80
-    },
-    {
-      tank_name:'Tank 3',
-      fluid_name:'Fluid 3',
-      capacity:'1000 L',
-      balance:'600 L',
-      level:60
-    },
-    {
-      tank_name:'Tank 4',
-      fluid_name:'Fluid 4',
-      capacity:'1000 L',
-      balance:'500 L',
-      level:50
-    },
-    {
-      tank_name:'Tank 5',
-      fluid_name:'Fluid 5',
-      capacity:'1000 L',
-      balance:'400 L',
-      level:40
+      ID:'A005',
+      "Type":'Low Tank Level',
+      "Time":'DD/MM/YYYY HH:MM' ,
+      "Description":'Alert message will be displayed here'
     },
   ]
+  tanks_level_data = [
+    {
+      "Tank Name":'Tank 1',
+      "Fluid Name":'Fluid 2',
+      "Capacity":'1000 L',
+      "Balance":'900 L',
+      "Level":90
+    },
+    {
+      "Tank Name":'Tank 2',
+      "Fluid Name":'Fluid 2',
+      "Capacity":'1000 L',
+      "Balance":'800 L',
+      "Level":80
+    },
+    {
+      "Tank Name":'Tank 3',
+      "Fluid Name":'Fluid 3',
+      "Capacity":'1000 L',
+      "Balance":'600 L',
+      "Level":60
+    },
+    {
+      "Tank Name":'Tank 4',
+      "Fluid Name":'Fluid 4',
+      "Capacity":'1000 L',
+      "Balance":'500 L',
+      "Level":50
+    },
+    {
+      "Tank Name":'Tank 5',
+      "Fluid Name":'Fluid 5',
+      "Capacity":'1000 L',
+      "Balance":'400 L',
+      "Level":40
+    },
+  ]
+
+
+  device_alerts_columns  = [
+    'ID',
+    'Type',
+    'Time',
+    'Description'
+  ]
+
+  tank_level_columns = [
+    'Tank Name',
+    'Fluid Name',
+    'Capacity',
+    'Balance',
+    'Level'
+  ]
+
+
 
 }

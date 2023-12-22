@@ -39,6 +39,15 @@ export const VALIDATION_PATTERNS = {
   ONLY_SPACES:{
     PATTERN:/^.*[^\s].*$/,
     VALIDATION_MSG:'Enter valid input.'
+  },
+  SPACE_TRAILING_LEADING:{
+    PATTERN:/^[^\s].*[^\s]$/,
+    VALIDATION_MSG:'Leading or trailing white spaces are not allowed'
+  },
+  SINGLE_STRING_WITHOUT_TRAILING_LEADING_SPACES:{
+    PATTERN:/^[^\s]+$/,
+    VALIDATION_MSG:'Leading, trailing or spaces in between are not allowed'
   }
+  
   
 }

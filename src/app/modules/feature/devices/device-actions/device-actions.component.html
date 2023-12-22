@@ -1,48 +1,80 @@
 <div class="d-flex justify-content-between" style="margin-bottom: 15px">
   <span class="header-1">
-    {{ rowData?.name ? rowData?.name : "Unknown" }}
+    {{
+      isEditModeOn
+        ? rowData?.name
+          ? rowData?.name
+          : "Unknown"
+        : "Activate An Edge Device"
+    }}
   </span>
-  <button class="action-button-1">Delete Device</button>
+  <button *ngIf="isEditModeOn" class="action-button-1">Delete Device</button>
 </div>
 
 <app-common-card>
   <div class="row" style="height: auto">
-    <div class="col-sm-3">
-      <div>Device ID: 121BJHBHB1221</div>
-      <div>
-        Device Status:
-        {{
-          rowData?.creation_status_name
-            ? rowData?.creation_status_name
-            : "Unknown"
-        }}
-      </div>
+    <ng-container *ngIf="isEditModeOn">
+      <div class="col-sm-6">
+        <div>Device ID: {{ rowData?.thing_name }}</div>
+        <div>
+          Device Status:
+          {{
+            rowData?.creation_status_name
+              ? rowData?.creation_status_name
+              : "Unknown"
+          }}
+        </div>
 
-      <div>
-        Connection Status:
-        {{
-          rowData?.connection_status_name == "Connected" ? "Online" : "Offline"
-        }}
-        <div
-          style="height: 10px; width: 10px; display: inline-block"
-          [class]="
-            rowData?.connection_status_name == 'Connected'
-              ? 'rounded bg-success'
-              : 'rounded bg-danger'
-          "
-        ></div>
+        <div>
+          Connection Status:
+          {{
+            rowData?.connection_status_name == "Connected"
+              ? "Online"
+              : "Offline"
+          }}
+          <div
+            style="height: 10px; width: 10px; display: inline-block"
+            [class]="
+              rowData?.connection_status_name == 'Connected'
+                ? 'rounded bg-success'
+                : 'rounded bg-danger'
+            "
+          ></div>
+        </div>
       </div>
-    </div>
-    <div class="ms-auto col-sm-3 d-flex">
-      <button
-        class="action-button-1 ms-auto align-self-end justify-content-end"
-      >
-        Check Connection
-      </button>
-    </div>
+      <div class="ms-auto col-sm-3 d-flex">
+        <button
+          class="action-button-1 ms-auto align-self-end justify-content-end"
+        >
+          Check Connection
+        </button>
+      </div>
+      <div class="col-sm-12">
+        <hr />
+      </div>
+    </ng-container>
+
     <div class="col-sm-12">
-      <hr />
       <form class="row" [formGroup]="deviceForm">
+        <div class="col-sm-12" *ngIf="isEditModeOn == false">
+          <label class="font-size-sm mb-2 mt-2" for="">Registered Device</label>
+          <select
+            (change)="onDeviceSelect($event)"
+            class="form-select"
+            formControlName="enroll_device"
+            id=""
+          >
+            <option
+              [value]="option.device_id"
+              *ngFor="let option of device_parent_data"
+            >
+              {{ option["Device Name"] }}
+            </option>
+          </select>
+          <app-common-error
+            [form_control_name]="deviceForm.get('enroll_device')"
+          ></app-common-error>
+        </div>
         <div class="col-sm-4">
           <label class="mb-2 mt-2" for="">Device Name</label>
           <input
@@ -120,16 +152,21 @@
             [form_control_name]="deviceForm.get('device_manager')"
           ></app-common-error>
         </div>
-        <div class="mt-2 col-sm-4 d-flex align-items-center">
-          <input
-            class="me-2"
-            type="checkbox"
-            formControlName="link_child"
-            placeholder=""
-            id="link_child"
-            (change)="onParentLink($event)"
-          />
-          <label for="link_child">Link as a child device</label>
+        <div class="mt-2 col-sm-4">
+          <div class="d-flex align-items-center">
+            <input
+              class="me-2"
+              type="checkbox"
+              formControlName="link_child"
+              placeholder=""
+              id="link_child"
+              (change)="onParentLink($event)"
+            />
+            <label for="link_child">Link as a child device</label>
+          </div>
+          <div *ngIf="isEditModeOn">
+            Linked To: {{ rowData?.parent_device_name }}
+          </div>
         </div>
         <!-- <div class="mt-2 col-sm-8 d-flex align-items-center">
           <input
@@ -140,36 +177,36 @@
           />
           <label for="">Deactivate Device</label>
         </div> -->
-        <div class="col-sm-4" >
+        <div class="col-sm-4">
           <label class="mb-2 mt-2" for="">Parent Device</label>
-          <select  class="form-select" formControlName="parent_device" id="">
+          <select class="form-select" formControlName="parent_device" id="">
+            <option value="" selected>Select</option>
             <option
-              [value]="option.device_id"
+              [value]="option.value"
               *ngFor="let option of parent_device_data"
             >
-              {{ option["Device Name"] }}
+              {{ option.viewValue }}
             </option>
           </select>
         </div>
 
         <div class="col-sm-4 d-flex">
-          <button class="action-button-1 align-self-end ms-auto" (click)="updateDevice()">
+          <button
+            type="button"
+            class="action-button-1 align-self-end ms-auto"
+            (click)="isEditModeOn ? updateDevice() : AddDevice()"
+          >
             Submit
           </button>
         </div>
 
+        <ng-container *ngIf="isEditModeOn">
+          <div class="col-sm-12">
+            <hr />
+            <div class="section_title mb-4">Control Device</div>
+          </div>
 
-        <div class="col-sm-12">
-            <hr>
-            <div class="section_title mb-4">
-                Control Device
-            </div>
-        </div>
-
-
-
-
-        <div class="col-sm-12 col-xl-2 col-lg-4">
+          <div class="col-sm-12 col-xl-2 col-lg-4">
             <app-common-card>
               <div style="min-height: 150px">
                 <button class="mb-3 action-button-1">Take Backup</button>
@@ -195,7 +232,7 @@
             <app-common-card>
               <div style="min-height: 150px">
                 <button class="mb-3 action-button-1">Update Agent</button>
-        
+
                 <div>Latest Version :</div>
                 <div>version Edge:</div>
               </div>
@@ -205,7 +242,7 @@
             <app-common-card>
               <div style="min-height: 150px">
                 <button class="mb-3 action-button-1">Update QDA</button>
-        
+
                 <div>Latest Version :</div>
                 <div>version Edge:</div>
               </div>
@@ -215,21 +252,15 @@
             <app-common-card>
               <div style="min-height: 150px">
                 <button class="mb-3 action-button-1">Update Enterprise</button>
-        
+
                 <div>Latest Version :</div>
                 <div>version Edge:</div>
               </div>
             </app-common-card>
           </div>
-          <div class="col-sm-12 col-xl-2 col-lg-4">
-            <app-common-card>
-              <div style="min-height: 150px">
-                <button class="mb-3 action-button-1">Lock Device</button>
-              </div>
-            </app-common-card>
-          </div>
+          
+        </ng-container>
       </form>
     </div>
   </div>
 </app-common-card>
-

@@ -8,23 +8,29 @@
     <!-- <div class="header-1 mb-3 page-title-color">LFC Cloud</div> -->
     <form class="row" [formGroup]="loginform" >
       <div class="col-sm-12 mb-2">
-        <label class="mb-2"  for="">Customer Code</label>
+        <label class="mb-2"  for="">Customer ID</label>
         <input type="text" formControlName="customer_id" class="form-control input_border_class" placeholder="" />
+
+        <app-common-error [form_control_name]="loginform.get('customer_id')"></app-common-error>
+        
       </div>
       <div class="col-sm-12 mb-2">
-        <label  class="mb-2"  for="">User ID</label>
-        <input type="text" formControlName="user_id" class="form-control input_border_class" placeholder="" />
+        <label  class="mb-2"  for="">Email ID</label>
+        <input type="email" formControlName="user_id" class="form-control input_border_class" placeholder="" />
+        <app-common-error [form_control_name]="loginform.get('user_id')"></app-common-error>
       </div>
       <div class="col-sm-12 mb-3">
         <label  class="mb-2"  for="">Password</label>
         <input type="password" formControlName="password" class="form-control input_border_class" placeholder="" />
+        <app-common-error [form_control_name]="loginform.get('password')"></app-common-error>
+
       </div>
       <div class="col-sm-12 mb-3" >
         <button [disabled]="loginform.invalid" (click)="login()" class="action-button-1" >
            Login</button>
       </div>
       <div class="col-sm-12 mb-1" >
-        <span [routerLink]="'/mail-verification'" class="hyperlink cursor-pointer" >
+        <span [routerLink]="'/request-reset-password'" class="hyperlink cursor-pointer" >
             Forgot Password? </span>
       </div>
 

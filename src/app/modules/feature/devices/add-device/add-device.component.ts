@@ -106,7 +106,7 @@ export class AddDeviceComponent implements OnInit, OnChanges {
         function_name: 'Get-Device-Managers',
         clientid: client_code,
         session_token:
-          session_token,
+        session_token,
         session_user: session_user,
        
       };

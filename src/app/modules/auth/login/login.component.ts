@@ -11,6 +11,8 @@ import { CommonAlertComponentComponent } from 'src/app/shared/components/common-
 import { CommonAlertComponent } from 'src/app/shared/components/common-alert/common-alert.component';
 import { ApiService } from 'src/app/shared/services/api.service';
 import { LocalStorageService } from 'src/app/shared/services/local-storage.service';
+import { patternValidator } from 'src/app/shared/validators/pattern.validators';
+import { VALIDATION_PATTERNS } from 'src/app/shared/validators/validators/pattern.validator';
 export interface CustomModalOptions extends NgbModalOptions {
   data?: any;
 }
@@ -32,8 +34,8 @@ export class LoginComponent implements OnInit {
     private ngbModal: NgbModal
   ) {
     this.loginform = this.fb.group({
-      customer_id: ['', Validators.required],
-      user_id: ['', Validators.required],
+      customer_id: ['', [Validators.required ,patternValidator(VALIDATION_PATTERNS.SPACE_TRAILING_LEADING.PATTERN,VALIDATION_PATTERNS.SINGLE_STRING_WITHOUT_TRAILING_LEADING_SPACES.VALIDATION_MSG)]],
+      user_id: ['', [Validators.required,patternValidator(VALIDATION_PATTERNS.EMAIL.PATTERN,VALIDATION_PATTERNS.EMAIL.VALIDATION_MSG)]],
       password: ['', Validators.required],
     });
   }

@@ -172,14 +172,14 @@ export class DispensesComponent {
       },
     ]);
 
-    let date = new Date();
+    
     this.dispensesForm = this.fb.group({
       devices: [this.devices_data[0].value],
       dispense_form_radio:['last_transaction'],
       start_date: [],
       end_date: [],
       // dispense_status: ['all'],
-      // transactions: [10],
+      transactions: [10],
       
     });
     this.dispense_status_form = this.fb.group({

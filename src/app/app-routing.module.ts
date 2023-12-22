@@ -27,8 +27,15 @@ const routes: Routes = [
     loadChildren: () =>
       import('./modules/create-password/create-password.module').then((m) => m.CreatePasswordModule),
   
+
+  },
+  {
+    path: 'reset-password',
+   
+    loadChildren: () =>
+      import('./modules/create-password/create-password.module').then((m) => m.CreatePasswordModule),
   
-    
+
   },
   {
     path: 'feature',

@@ -139,7 +139,7 @@ export class CreatePasswordComponent implements OnInit {
   }
 
   toggle(){
-    if(this.setPasswordForm.get('password')?.value !==null && this.setPasswordForm.get('password')?.value !== '' ){
+    if(this.setPasswordForm.get('password_confirm')?.value !==null && this.setPasswordForm.get('password_confirm')?.value !== '' ){
 
       this.isPasswordVisible = !this.isPasswordVisible;
     }
