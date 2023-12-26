@@ -12,7 +12,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 @Component({
   selector: 'app-device-actions',
   templateUrl: './device-actions.component.html',
-  styleUrls: ['./device-actions.component.scss']
+  styleUrls: ['./device-actions.component.scss'],
 })
 export class DeviceActionsComponent implements OnInit, OnDestroy {
   table_actions = [
@@ -22,25 +22,32 @@ export class DeviceActionsComponent implements OnInit, OnDestroy {
     { value: 5, viewValue: 'Update Agent' },
     { value: 6, viewValue: 'Update QDA' },
     { value: 7, viewValue: 'Lock Device' },
-    { value: 8, viewValue: 'Delete Device' ,isDisabled:true },
+    { value: 8, viewValue: 'Delete Device', isDisabled: true },
   ];
-  deviceForm:any ;
-  StatesList:any;
-  timezoneList:any;
-  deviceManager:any;
-  parent_device_data:any;
-  isEditModeOn=false;
-  device_parent_data:any;
-  device_data:any;
-  deviceRecentActions:any ={
-    agent_update:null,
-    enterprise_update:null,
-    qda_update:null,
-    last_backup:null
+  deviceForm: any | FormGroup;
+  StatesList: any;
+  timezoneList: any;
+  deviceManager: any;
+  parent_device_data: any;
+  isEditModeOn = false;
+  device_parent_data: any;
+  device_data: any;
+  deviceRecentActions: any = {
+    'UpdateAgent' :'Unknown',
+    'UpdateEnterprise' : 'Unknown',
+    'UpdateQDA': 'Unknown',
+    'TakeBackUp': 'Unknown',
   };
-  constructor(private ngb_modal:NgbModal,private router:Router,private breadcrumbService:BreadcrumbService,private device_service:DevicesService,private fb:FormBuilder,private local_storage:LocalStorageService,private apis:ApiService){
+  constructor(
+    private ngb_modal: NgbModal,
+    private router: Router,
+    private breadcrumbService: BreadcrumbService,
+    private device_service: DevicesService,
+    private fb: FormBuilder,
+    private local_storage: LocalStorageService,
+    private apis: ApiService
+  ) {
     this.deviceForm = this.fb.group({
-      
       enroll_device: [''],
       device_name: ['', [Validators.required]],
       country: ['', [Validators.required]],
@@ -49,25 +56,17 @@ export class DeviceActionsComponent implements OnInit, OnDestroy {
       device_manager: ['', Validators.required],
       link_child: [false],
       parent_device: [{ value: '', disabled: true }],
-      location: [
-        '',
-        [
-          Validators.required,
-          ,
-        ],
-      ],
-      
+      location: ['', [Validators.required, ,]],
     });
   }
 
-  rowDataSubscription:any = null;
-  countryList:any;
-  
-  dispense_data = []
-  @Input() rowData:any = null
+  rowDataSubscription: any = null;
+  countryList: any;
+
+  dispense_data = [];
+  @Input() rowData: any = null;
 
   ngOnInit(): void {
-    
     this.breadcrumbService.setBreadcrumb([
       {
         name: 'Home',
@@ -83,23 +82,19 @@ export class DeviceActionsComponent implements OnInit, OnDestroy {
         link: '',
       },
     ]);
-    
+
     this.rowDataSubscription = this.device_service.sharedData$.subscribe({
-      next:(res)=>{
+      next: (res) => {
         console.log(res);
-        
-        if(res==null){
-          this.router.navigate(['/feature/devices'])
-          return
+
+        if (res == null) {
+          this.router.navigate(['/feature/devices']);
+          return;
         }
 
-
-
-        if(res?.editMode){
+        if (res?.editMode) {
           this.rowData = res.data;
           this.isEditModeOn = true;
-          
-          
 
           this.deviceForm.patchValue({
             device_name: this.rowData.name,
@@ -107,72 +102,58 @@ export class DeviceActionsComponent implements OnInit, OnDestroy {
             state: this.rowData,
             timezone: this.rowData.timezone_id,
             device_manager: this.rowData.manager,
-            link_child: this.rowData.parent_device_id?true:false,
-            parent_device: this.rowData.parent_device_id,
-            location: this.rowData.location
-          })
+            link_child: this.rowData.parent_device_id ? true : false,
+            parent_device: '',
+            location: this.rowData.location,
+          });
 
-          this.getCountryList(this.rowData.country_id,this.rowData.state_id);
+          this.getCountryList(this.rowData.country_id, this.rowData.state_id);
           this.getDeviceActionHistory();
 
-          if(this.rowData.parent_device_id){
+          if (this.rowData.parent_device_id) {
             this.deviceForm.get('parent_device').enable();
           }
+        } else {
+          this.isEditModeOn = false;
 
+          this.device_data = res.data;
+          this.device_parent_data = this.device_data?.filter(
+            (record: any) => record.Status != 'Activated'
+          );
+
+          let control = this.deviceForm.get('enroll_device');
+          control.setValidators([Validators.required]);
+          control.updateValueAndValidity();
+          this.getCountryList();
+
+          this.deviceForm.get('parent_device').disable();
         }
-        else{
-            this.isEditModeOn = false;
-          
-            this.device_data = res.data
-            this.device_parent_data = this.device_data?.filter(
-              (record: any) => record.Status != 'Activated'
-            );
-
-
-            let control = this.deviceForm.get('enroll_device')
-            control.setValidators([Validators.required]);
-            control.updateValueAndValidity();
-            this.getCountryList();
-
-              this.deviceForm.get('parent_device').disable();
-            
-
-        }
-       
-        
-        
       },
-      error:(err)=>{
+      error: (err) => {
         console.log(err);
-        
-      }
-    })
+      },
+    });
 
-  
-
-   
-
-    this.getUserList() 
+    this.getUserList();
     this.getTimezoneList();
-    this.getParentDeviceList() 
-
-
-
+    this.getParentDeviceList();
   }
 
-
-  onParentLink(data:any){
-    if(this.deviceForm.get('link_child').value){
+  onParentLink(data: any) {
+    if (this.deviceForm.get('link_child').value) {
       this.deviceForm.get('parent_device').enable();
-    }
-    else{
+      this.deviceForm.get('parent_device').setValidators([Validators.required]);
+      this.deviceForm.get('parent_device').updateValueAndValidity();
+    } else {
+      this.deviceForm.get('parent_device').setValue('');
       this.deviceForm.get('parent_device').disable();
+      this.deviceForm.get('parent_device')?.clearValidators();
+      this.deviceForm.get('parent_device').updateValueAndValidity();
     }
   }
 
-  onDeviceSelect(data:any){
+  onDeviceSelect(data: any) {
     let selected_device = data.target.value;
-    
   }
   getTimezoneList() {
     let client_code = this.local_storage.getFromLocalStorage('client_code');
@@ -184,7 +165,6 @@ export class DeviceActionsComponent implements OnInit, OnDestroy {
       clientid: client_code,
       session_token: session_token,
       session_user: session_user,
-     
     };
     this.apis.getDeviceDataFromCloud(request).subscribe({
       next: (res) => {
@@ -203,80 +183,101 @@ export class DeviceActionsComponent implements OnInit, OnDestroy {
     let session_token = this.local_storage.getFromLocalStorage('session_token');
     let session_user = this.local_storage.getFromLocalStorage('session_user');
 
-    if(client_code && session_token && session_user){
+    if (client_code && session_token && session_user) {
       let request = {
         app_name: 'lfc-admin-client',
         function_name: 'Get-Device-Managers',
         clientid: client_code,
-        session_token:
-          session_token,
+        session_token: session_token,
         session_user: session_user,
-       
       };
       this.apis.getDeviceDataFromCloud(request).subscribe({
         next: (res) => {
-          console.log(res);
-          this.deviceManager = res.User_List.map((user:any)=>{
-            return {
-              value:user.user_id,
-              viewValue:user.user_name
-            }
-          })
+          if (res.Type == 'Success') {
+            console.log(res);
+            this.deviceManager = res.User_List.map((user: any) => {
+              return {
+                value: user.user_id,
+                viewValue: user.user_name,
+              };
+            });
+          } else {
+            let modal_ref = this.ngb_modal.open(CommonAlertComponentComponent, {
+              centered: true,
+            });
+
+            modal_ref.componentInstance.alertData = {
+              alert_title: 'Error',
+              alert_body: res.Msg ? res.Msg : 'Something went wrong',
+
+              alert_actions: [
+                {
+                  button_name: 'Close',
+                  type: 1,
+                  button_value: 1,
+                },
+              ],
+            };
+          }
         },
-        error: (err) => {
-          console.log(err);
-        },
+        error: (err) => {},
       });
     }
-
-
-   
   }
   getParentDeviceList() {
     let client_code = this.local_storage.getFromLocalStorage('client_code');
     let session_token = this.local_storage.getFromLocalStorage('session_token');
     let session_user = this.local_storage.getFromLocalStorage('session_user');
 
-    if(client_code && session_token && session_user){
+    if (client_code && session_token && session_user) {
       let request = {
         app_name: 'lfc-admin-client',
         function_name: 'Get-Parent-Device-List',
         clientid: client_code,
-        session_token:
-          session_token,
+        session_token: session_token,
         session_user: session_user,
-       
       };
       this.apis.getDeviceDataFromCloud(request).subscribe({
         next: (res) => {
           console.log(res);
-          if(res.device_list && res.device_list.length > 0){
-            this.parent_device_data = res.device_list.map((device:any)=>{
-              return {
-                value:device.device_id,
-                viewValue:device.name
-              }
-            })
-          }
+          if (res.Type == 'Success') {
+            if (res.device_list && res.device_list.length > 0) {
+              this.parent_device_data = res.device_list.map((device: any) => {
+                return {
+                  value: device.device_id,
+                  viewValue: device.name,
+                };
+              });
+            }
+          } else {
+            let modal_ref = this.ngb_modal.open(CommonAlertComponentComponent, {
+              centered: true,
+            });
 
-         
-        
+            modal_ref.componentInstance.alertData = {
+              alert_title: 'Error',
+              alert_body: res.Msg ? res.Msg : 'Something went wrong',
+
+              alert_actions: [
+                {
+                  button_name: 'Close',
+                  type: 1,
+                  button_value: 1,
+                },
+              ],
+            };
+          }
         },
-        error: (err) => {
-          console.log(err);
-        },
+        error: (err) => {},
       });
     }
-
-
-   
   }
   onCountrySelect(data: any) {
     let selected_country_id = data.target.value;
     this.getStateList(selected_country_id);
   }
 
-  getCountryList(selectedCountry=null,selectedState=null) {
+  getCountryList(selectedCountry = null, selectedState = null) {
     let client_code = this.local_storage.getFromLocalStorage('client_code');
     let session_token = this.local_storage.getFromLocalStorage('session_token');
     let session_user = this.local_storage.getFromLocalStorage('session_user');
@@ -289,26 +290,41 @@ export class DeviceActionsComponent implements OnInit, OnDestroy {
     };
     this.apis.getDeviceDataFromCloud(request).subscribe({
       next: (res) => {
-        this.countryList = res.Country_List.map((country: any) => {
-          return {
-            value: country.country_id,
-            viewValue: country.country_name,
+        if (res.Type == 'Success') {
+          this.countryList = res.Country_List.map((country: any) => {
+            return {
+              value: country.country_id,
+              viewValue: country.country_name,
+            };
+          });
+
+          if (selectedCountry) {
+            this.deviceForm.get('country').setValue(selectedCountry);
+            this.getStateList(selectedCountry, selectedState);
+          }
+        } else {
+          let modal_ref = this.ngb_modal.open(CommonAlertComponentComponent, {
+            centered: true,
+          });
+
+          modal_ref.componentInstance.alertData = {
+            alert_title: 'Error',
+            alert_body: res.Msg ? res.Msg : 'Something went wrong',
+
+            alert_actions: [
+              {
+                button_name: 'Close',
+                type: 1,
+                button_value: 1,
+              },
+            ],
           };
-        });
-
-        if(selectedCountry){
-          this.deviceForm.get('country').setValue(selectedCountry);
-          this.getStateList(selectedCountry,selectedState);
-        
         }
-        
-
-
       },
-      error: (err:any) => {},
+      error: (err: any) => {},
     });
   }
-  getStateList(countryId: any,selectedState=null) {
+  getStateList(countryId: any, selectedState = null) {
     let client_code = this.local_storage.getFromLocalStorage('client_code');
     let session_token = this.local_storage.getFromLocalStorage('session_token');
     let session_user = this.local_storage.getFromLocalStorage('session_user');
@@ -322,29 +338,61 @@ export class DeviceActionsComponent implements OnInit, OnDestroy {
     };
     this.apis.getDeviceDataFromCloud(request).subscribe({
       next: (res) => {
-        this.StatesList = res.State_List.map((state: any) => {
-          return {
-            value: state.state_id,
-            viewValue: state.state_name,
+        if ((res.Type = 'Success')) {
+          this.StatesList = res.State_List.map((state: any) => {
+            return {
+              value: state.state_id,
+              viewValue: state.state_name,
+            };
+          });
+
+          if (selectedState) {
+            this.deviceForm.get('state').setValue(selectedState);
+          }
+        } else {
+          let modal_ref = this.ngb_modal.open(CommonAlertComponentComponent, {
+            centered: true,
+          });
+
+          modal_ref.componentInstance.alertData = {
+            alert_title: 'Error',
+            alert_body: res.Msg ? res.Msg : 'Something went wrong',
+
+            alert_actions: [
+              {
+                button_name: 'Close',
+                type: 1,
+                button_value: 1,
+              },
+            ],
           };
+        }
+      },
+      error: (err) => {
+        let modal_ref = this.ngb_modal.open(CommonAlertComponentComponent, {
+          centered: true,
         });
 
-        if(selectedState){
-          this.deviceForm.get('state').setValue(selectedState);
-        }
-        
+        modal_ref.componentInstance.alertData = {
+          alert_title: 'Error',
+          alert_body: err.message ? err.message : 'Something went wrong',
 
-
-
+          alert_actions: [
+            {
+              button_name: 'Close',
+              type: 1,
+              button_value: 1,
+            },
+          ],
+        };
       },
-      error: (err) => {},
     });
   }
   ngOnDestroy(): void {
     this.rowDataSubscription.unsubscribe();
   }
 
-  AddDevice(){
+  AddDevice() {
     let client_code = this.local_storage.getFromLocalStorage('client_code');
     let session_token = this.local_storage.getFromLocalStorage('session_token');
     let session_user = this.local_storage.getFromLocalStorage('session_user');
@@ -360,30 +408,33 @@ export class DeviceActionsComponent implements OnInit, OnDestroy {
         clientid: client_code,
         session_token: session_token,
         session_user: session_user,
-        creation_status: this.isEditModeOn ? form_data.status ? 6 : 5 : 5, // if creation status is available in the device list then will send that , if not then will send id 5
+        creation_status: this.isEditModeOn ? (form_data.status ? 6 : 5) : 5, // if creation status is available in the device list then will send that , if not then will send id 5
         name: form_data.device_name,
         country_id: parseInt(form_data.country),
-        state_id: parseInt( form_data.state),
+        state_id: parseInt(form_data.state),
         location: form_data.location,
-        timezone_id:  parseInt(form_data.timezone),
-        manager_id:  parseInt(form_data.device_manager),
-        parent_device_id: form_data.link_child ? form_data.parent_device ? form_data.parent_device : null : null ,
+        timezone_id: parseInt(form_data.timezone),
+        manager_id: parseInt(form_data.device_manager),
+        parent_device_id: form_data.link_child
+          ? form_data.parent_device
+            ? form_data.parent_device
+            : null
+          : null,
         device_id: parseInt(form_data.enroll_device),
-        
       };
 
       this.apis.getDeviceDataFromCloud(request).subscribe({
         next: (res) => {
           console.log(res);
-          if(res.Type = 'Success'){
+          if ((res.Type = 'Success')) {
             let modal_ref = this.ngb_modal.open(CommonAlertComponentComponent, {
               centered: true,
             });
-    
+
             modal_ref.componentInstance.alertData = {
               alert_title: 'Success',
-              alert_body: res.Msg?res.Msg:'Something went wrong.',
-    
+              alert_body: res.Msg ? res.Msg : 'Something went wrong.',
+
               alert_actions: [
                 {
                   button_name: 'Close',
@@ -392,16 +443,18 @@ export class DeviceActionsComponent implements OnInit, OnDestroy {
                 },
               ],
             };
-          }
-          else{
+            modal_ref.close((result:any)=>{
+              this.router.navigate(['/feature/devices'])
+            })
+          } else {
             let modal_ref = this.ngb_modal.open(CommonAlertComponentComponent, {
               centered: true,
             });
-    
+
             modal_ref.componentInstance.alertData = {
               alert_title: 'Oops',
-              alert_body: res.Msg?res.Msg:'Something went wrong.',
-    
+              alert_body: res.Msg ? res.Msg : 'Something went wrong.',
+
               alert_actions: [
                 {
                   button_name: 'Close',
@@ -411,21 +464,15 @@ export class DeviceActionsComponent implements OnInit, OnDestroy {
               ],
             };
           }
-         
-          
         },
         error: (err) => {
           console.log('error occurred while updation device');
-          
         },
       });
     }
   }
 
-
-
-
-  updateDevice(){
+  updateDevice() {
     let client_code = this.local_storage.getFromLocalStorage('client_code');
     let session_token = this.local_storage.getFromLocalStorage('session_token');
     let session_user = this.local_storage.getFromLocalStorage('session_user');
@@ -441,30 +488,33 @@ export class DeviceActionsComponent implements OnInit, OnDestroy {
         clientid: client_code,
         session_token: session_token,
         session_user: session_user,
-        creation_status: this.isEditModeOn ? form_data.status ? 6 : 5 : 5, // if creation status is available in the device list then will send that , if not then will send id 5
+        creation_status: this.isEditModeOn ? (form_data.status ? 6 : 5) : 5, // if creation status is available in the device list then will send that , if not then will send id 5
         name: form_data.device_name,
         country_id: parseInt(form_data.country),
-        state_id: parseInt( form_data.state),
+        state_id: parseInt(form_data.state),
         location: form_data.location,
-        timezone_id:  parseInt(form_data.timezone),
-        manager_id:  parseInt(form_data.device_manager),
-        parent_device_id: form_data.link_child ? form_data.parent_device ? form_data.parent_device : null : null ,
+        timezone_id: parseInt(form_data.timezone),
+        manager_id: parseInt(form_data.device_manager),
+        parent_device_id: form_data.link_child
+          ? form_data.parent_device
+            ? form_data.parent_device
+            : null
+          : null,
         device_id: this.rowData.device_id,
-        
       };
 
       this.apis.getDeviceDataFromCloud(request).subscribe({
         next: (res) => {
           console.log(res);
-          if(res.Type = 'Success'){
+          if ((res.Type = 'Success')) {
             let modal_ref = this.ngb_modal.open(CommonAlertComponentComponent, {
               centered: true,
             });
-    
+
             modal_ref.componentInstance.alertData = {
               alert_title: 'Success',
               alert_body: res.Msg,
-    
+
               alert_actions: [
                 {
                   button_name: 'Close',
@@ -473,16 +523,15 @@ export class DeviceActionsComponent implements OnInit, OnDestroy {
                 },
               ],
             };
-          }
-          else{
+          } else {
             let modal_ref = this.ngb_modal.open(CommonAlertComponentComponent, {
               centered: true,
             });
-    
+
             modal_ref.componentInstance.alertData = {
-              alert_title: 'Oops',
-              alert_body: res.Msg?res.Msg:'Something went wrong.',
-    
+              alert_title: 'Error',
+              alert_body: res.Msg ? res.Msg : 'Something went wrong.',
+
               alert_actions: [
                 {
                   button_name: 'Close',
@@ -492,159 +541,369 @@ export class DeviceActionsComponent implements OnInit, OnDestroy {
               ],
             };
           }
-         
-          
         },
         error: (err) => {
           console.log('error occurred while updation device');
-          
         },
       });
     }
   }
 
-  takeBackup(){
-
+  takeBackup() {
     let client_code = this.local_storage.getFromLocalStorage('client_code');
     let session_token = this.local_storage.getFromLocalStorage('session_token');
     let session_user = this.local_storage.getFromLocalStorage('session_user');
 
-    let request = { 
-      
+    let request = {
       // session_token: session_token,
-      "command" :"TakeBackup",
-      "app_name": "lfc-admin-client",
-      "action_name": "TakeBackUp",
+      command: 'TakeBackup',
+      app_name: 'lfc-admin-client',
+      action_name: 'TakeBackUp',
       session_user: session_user,
-      "thing_name":this.rowData.thing_name, 
-      "client_id": client_code,
-      "device_id": this.rowData.device_id
-    }
+      thing_name: this.rowData.thing_name,
+      client_id: client_code,
+      device_id: this.rowData.device_id,
+    };
     this.apis.giveCommandToDevice(request).subscribe({
-      next:(res)=>{
+      next: (res) => {
         console.log(res);
-        
+        if (res.Type == 'Success') {
+          let modal_ref = this.ngb_modal.open(CommonAlertComponentComponent, {
+            centered: true,
+          });
+
+          modal_ref.componentInstance.alertData = {
+            alert_title: 'Success',
+            alert_body: res.Msg ? res.Msg : 'Request Processed Successfully',
+
+            alert_actions: [
+              {
+                button_name: 'Close',
+                type: 1,
+                button_value: 1,
+              },
+            ],
+          };
+          this.getDeviceActionHistory();
+        } else {
+          let modal_ref = this.ngb_modal.open(CommonAlertComponentComponent, {
+            centered: true,
+          });
+
+          modal_ref.componentInstance.alertData = {
+            alert_title: 'Error',
+            alert_body: res.Msg ? res.Msg : 'Something went wrong',
+
+            alert_actions: [
+              {
+                button_name: 'Close',
+                type: 1,
+                button_value: 1,
+              },
+            ],
+          };
+        }
       },
-      error:(err)=>{
-        console.log('error occurred while giving command.',err);
-        
-      }
-    })
+      error: (err) => {
+        console.log('error occurred while giving command.', err);
+      },
+    });
   }
-  UpdateAgent(){
+  UpdateAgent() {
     let client_code = this.local_storage.getFromLocalStorage('client_code');
     let session_token = this.local_storage.getFromLocalStorage('session_token');
     let session_user = this.local_storage.getFromLocalStorage('session_user');
 
-    let request = { 
-
-      "app_name": "lfc-admin-client",
-      "action_name": "UpdateAgent",
+    let request = {
+      app_name: 'lfc-admin-client',
+      action_name: 'UpdateAgent',
       session_user: session_user,
-      "thing_name":this.rowData.thing_name, 
-      "client_id": client_code,
-      "device_id": this.rowData.device_id
-    }
+      thing_name: this.rowData.thing_name,
+      client_id: client_code,
+      device_id: this.rowData.device_id,
+    };
     this.apis.giveCommandToDevice(request).subscribe({
-      next:(res)=>{
-        console.log(res);
-        
+      next: (res) => {
+        if (res.Type == 'Success') {
+          let modal_ref = this.ngb_modal.open(CommonAlertComponentComponent, {
+            centered: true,
+          });
+
+          modal_ref.componentInstance.alertData = {
+            alert_title: 'Success',
+            alert_body: res.Msg ? res.Msg : 'Request Processed Successfully',
+
+            alert_actions: [
+              {
+                button_name: 'Close',
+                type: 1,
+                button_value: 1,
+              },
+            ],
+          };
+          this.getDeviceActionHistory();
+        } else {
+          let modal_ref = this.ngb_modal.open(CommonAlertComponentComponent, {
+            centered: true,
+          });
+
+          modal_ref.componentInstance.alertData = {
+            alert_title: 'Error',
+            alert_body: res.Msg ? res.Msg : 'Something went wrong',
+
+            alert_actions: [
+              {
+                button_name: 'Close',
+                type: 1,
+                button_value: 1,
+              },
+            ],
+          };
+        }
       },
-      error:(err)=>{
-        console.log('error occurred while giving command.',err);
-        
-      }
-    })
+      error: (err) => {
+        console.log('error occurred while giving command.', err);
+      },
+    });
   }
-  UpdateQDA(){
+  UpdateQDA() {
     let client_code = this.local_storage.getFromLocalStorage('client_code');
     let session_token = this.local_storage.getFromLocalStorage('session_token');
     let session_user = this.local_storage.getFromLocalStorage('session_user');
 
-    let request = { 
-
-      "app_name": "lfc-admin-client",
-      "action_name": "UpdateQDA",
+    let request = {
+      app_name: 'lfc-admin-client',
+      action_name: 'UpdateQDA',
       session_user: session_user,
-      "thing_name":this.rowData.thing_name, 
-      "client_id": client_code,
-      "device_id": this.rowData.device_id
-    }
+      thing_name: this.rowData.thing_name,
+      client_id: client_code,
+      device_id: this.rowData.device_id,
+    };
     this.apis.giveCommandToDevice(request).subscribe({
-      next:(res)=>{
-        console.log(res);
-        
+      next: (res) => {
+        if (res.Type == 'Success') {
+          let modal_ref = this.ngb_modal.open(CommonAlertComponentComponent, {
+            centered: true,
+          });
+
+          modal_ref.componentInstance.alertData = {
+            alert_title: 'Success',
+            alert_body: res.Msg ? res.Msg : 'Request Processed Successfully',
+
+            alert_actions: [
+              {
+                button_name: 'Close',
+                type: 1,
+                button_value: 1,
+              },
+            ],
+          };
+
+          this.getDeviceActionHistory();
+        } else {
+          let modal_ref = this.ngb_modal.open(CommonAlertComponentComponent, {
+            centered: true,
+          });
+
+          modal_ref.componentInstance.alertData = {
+            alert_title: 'Error',
+            alert_body: res.Msg ? res.Msg : 'Something went wrong',
+
+            alert_actions: [
+              {
+                button_name: 'Close',
+                type: 1,
+                button_value: 1,
+              },
+            ],
+          };
+        }
       },
-      error:(err)=>{
-        console.log('error occurred while giving command.',err);
-        
-      }
-    })
+      error: (err) => {
+        console.log('error occurred while giving command.', err);
+      },
+    });
   }
-  UpdateEnterprize(){
+  UpdateEnterprize() {
+    let client_code = this.local_storage.getFromLocalStorage('client_code');
+    let session_user = this.local_storage.getFromLocalStorage('session_user');
+
+    let request = {
+      app_name: 'lfc-admin-client',
+      action_name: 'UpdateEnterprise',
+      session_user: session_user,
+      thing_name: this.rowData.thing_name,
+      client_id: client_code,
+      device_id: this.rowData.device_id,
+    };
+    this.apis.giveCommandToDevice(request).subscribe({
+      next: (res) => {
+        if (res.Type == 'Success') {
+          let modal_ref = this.ngb_modal.open(CommonAlertComponentComponent, {
+            centered: true,
+          });
+
+          modal_ref.componentInstance.alertData = {
+            alert_title: 'Success',
+            alert_body: res.Msg ? res.Msg : 'Request Processed Successfully',
+
+            alert_actions: [
+              {
+                button_name: 'Close',
+                type: 1,
+                button_value: 1,
+              },
+            ],
+          };
+
+          this.getDeviceActionHistory();
+        } else {
+          let modal_ref = this.ngb_modal.open(CommonAlertComponentComponent, {
+            centered: true,
+          });
+
+          modal_ref.componentInstance.alertData = {
+            alert_title: 'Error',
+            alert_body: res.Msg ? res.Msg : 'Something went wrong',
+
+            alert_actions: [
+              {
+                button_name: 'Close',
+                type: 1,
+                button_value: 1,
+              },
+            ],
+          };
+        }
+      },
+      error: (err) => {
+        console.log('error occurred while giving command.', err);
+      },
+    });
+  }
+
+  convertDate(input_date:any){
+    const inputDateString = input_date;
+
+// Create a Date object from the input string
+const inputDate = new Date(inputDateString);
+
+// Get the individual components of the date
+const day = inputDate.getDate();
+const month = inputDate.getMonth() + 1; // Month is zero-based, so add 1
+const year = inputDate.getFullYear();
+const hours = inputDate.getHours();
+const minutes = inputDate.getMinutes();
+const seconds = inputDate.getSeconds();
+
+// Format the components into the desired format
+const formattedDate = `${day < 10 ? '0' : ''}${day}-${month < 10 ? '0' : ''}${month}-${year} ${hours}:${minutes}:${seconds}`;
+
+return formattedDate;
+
+  }
+
+  getDeviceActionHistory() {
     let client_code = this.local_storage.getFromLocalStorage('client_code');
     let session_token = this.local_storage.getFromLocalStorage('session_token');
     let session_user = this.local_storage.getFromLocalStorage('session_user');
 
-    let request = { 
-
-      "app_name": "lfc-admin-client",
-      "action_name": "UpdateEnterprise",
+    let request = {
+      app_name: 'lfc-admin-client',
+      function_name: 'Get-Device-Last-Actions',
+      clientid: client_code,
+      session_token: session_token,
       session_user: session_user,
-      "thing_name":this.rowData.thing_name, 
-      "client_id": client_code,
-      "device_id": this.rowData.device_id
-    }
-    this.apis.giveCommandToDevice(request).subscribe({
-      next:(res)=>{
-        console.log(res);
-        
-      },
-      error:(err)=>{
-        console.log('error occurred while giving command.',err);
-        
-      }
-    })
-  }
-
-  getDeviceActionHistory(){
-    let client_code = this.local_storage.getFromLocalStorage('client_code');
-    let session_token = this.local_storage.getFromLocalStorage('session_token');
-    let session_user = this.local_storage.getFromLocalStorage('session_user');
-
-    let request =  {
-      "app_name": "lfc-admin-client",
-      "function_name": "Get-Device-Last-Actions",
-      "clientid":client_code,
-      "session_token":session_token ,
-      "session_user":session_user,
-      "device_id":  this.rowData.device_id
-    }
+      device_id: this.rowData.device_id,
+    };
     this.apis.getDeviceDataFromCloud(request).subscribe({
-      next:(res)=>{
-       if(res.Type == 'Success'){
+      next: (res) => {
+        if (res.Type == 'Success') {
+          let res_data = res.Action_List;
 
-        let res_data = res.Action_List;
+          let keys = [
+            'UpdateAgent',
+            'UpdateEnterprise',
+            'UpdateQDA',
+            'TakeBackUp',
+          ];
 
-        this.deviceRecentActions.agent_update = res_data?.UpdateAgent[0] ? res_data?.UpdateAgent[0]:'Unknown',
-        this.deviceRecentActions.enterprise_update =  res_data?.UpdateEnterprise[0] ? res_data?.UpdateEnterprise[0] : 'Unknown'  ,
-        this.deviceRecentActions.qda_update =  res_data?.UpdateQDA[0] ? res_data?.UpdateQDA[0] : 'Unknown',
-        this.deviceRecentActions.last_backup =  res_data?.TakeBackUp.length > 0  ?  res_data?.TakeBackUp[0] :'Unknown'
+          keys.forEach(key=>{
+            if(res_data[key] && res_data[key].length > 0 ){
+              this.deviceRecentActions[key] =  this.convertDate(res_data[key][0]);
+            }   
+          })
 
-       }else{
 
-       }
-        
+        } else {
+          let modal_ref = this.ngb_modal.open(CommonAlertComponentComponent, {
+            centered: true,
+          });
+
+          modal_ref.componentInstance.alertData = {
+            alert_title: 'Error',
+            alert_body: res.Msg ? res.Msg : 'Something went wrong',
+
+            alert_actions: [
+              {
+                button_name: 'Close',
+                type: 1,
+                button_value: 1,
+              },
+            ],
+          };
+        }
       },
-      error:(err)=>{
-        console.log('error occurred while fetching recent device actions.',err);
-        
-      }
-    })
-
+      error: (err) => {
+        console.log(
+          'error occurred while fetching recent device actions.',
+          err
+        );
+      },
+    });
   }
- 
+  downloadUpdateBackup() {
+    let client_code = this.local_storage.getFromLocalStorage('client_code');
+    let session_token = this.local_storage.getFromLocalStorage('session_token');
+    let session_user = this.local_storage.getFromLocalStorage('session_user');
 
+    let request = {
+      app_name: 'lfc-admin-client',
+      function_name: 'Download-Database-Backup',
+      clientid: client_code,
+      session_token: session_token,
+      session_user: session_user,
+      device_id: this.rowData.device_id,
+    };
+    this.apis.getDeviceDataFromCloud(request).subscribe({
+      next: (res) => {
+        if (res.Type == 'Success') {
+          window.open(res.URL, '_blank');
+        } else {
+          let modal_ref = this.ngb_modal.open(CommonAlertComponentComponent, {
+            centered: true,
+          });
 
+          modal_ref.componentInstance.alertData = {
+            alert_title: 'Error',
+            alert_body: res.Msg ? res.Msg : 'Something went wrong',
 
+            alert_actions: [
+              {
+                button_name: 'Close',
+                type: 1,
+                button_value: 1,
+              },
+            ],
+          };
+        }
+      },
+      error: (err) => {
+        console.log(
+          'error occurred while fetching recent device actions.',
+          err
+        );
+      },
+    });
+  }
 }

@@ -83,7 +83,7 @@ export class CommonTableComponent implements OnInit, OnChanges {
     };
     
     this.dataSource.paginator = this.paginator;
-    this.sort.sort(({ id: 'Transaction No', start: 'desc'}) as MatSortable);
+    // this.sort.sort(({ id: 'Transaction No', start: 'desc'}) as MatSortable);
     this.dataSource.sort = this.sort;
     
    

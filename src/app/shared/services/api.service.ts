@@ -60,6 +60,12 @@ export class ApiService {
 
     command_device_url = `https://44a6atkan2.execute-api.us-east-1.amazonaws.com/DEV`;
 
+    manage_tanks = `https://78jtv9qslf.execute-api.us-east-1.amazonaws.com/DEV`;
+
+    manage_alerts = `https://q22vfomwvg.execute-api.us-east-1.amazonaws.com/DEV`;
+
+
+
 
     error_obj = new BehaviorSubject(null);
 
@@ -117,6 +123,14 @@ export class ApiService {
   }
 
 
+  manageTanks(payload:any):Observable<any>{
+    return this.http.post(this.manage_tanks,payload);
+  }
+
+
+  manageAlerts(payload:any):Observable<any>{
+    return this.http.post(this.manage_alerts,payload);
+  }
 
 
 

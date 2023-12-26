@@ -7,7 +7,7 @@
     <span class="header-1">Alert Log</span>
   </div>
 <div class="w-100 mb-2">
-    <form [formGroup]="dispensesForm">
+    <form [formGroup]="alerts_form">
       <div class="row">
         <div class="col-sm-2 mb-2">
           <label for="">Device</label>
@@ -23,23 +23,34 @@
             </option>
           </select>
         </div>
-        <div class="col-sm-2 mb-2">
-          <label for="">Last Alert</label>
-          <select
-            (change)="onAlertChange($event)"
-            formControlName="alert"
-            class="form-select input_border_class"
-            name=""
-            id=""
-          >
-            <option [value]="alert.value" *ngFor="let alert  of alert_data">
-              {{ alert.viewValue }}
-            </option>
-          </select>
+        <div class="col-sm-2 mb-2 d-flex">
+
+          <input value="last_alerts" (change)="onFilterGroupChange($event)" formControlName="alerts_form_radio" class="dispense_radio align-self-end me-2" type="radio" name="alerts_form_radio">
+
+          <div class="flex-grow-1" >
+            <label for="">Last Alert</label>
+            <select
+              (change)="onAlertChange($event)"
+              formControlName="last_alerts"
+              class="form-select input_border_class"
+              name=""
+              id=""
+            >
+              <option [value]="alert.value" *ngFor="let alert  of alert_data">
+                {{ alert.viewValue }}
+              </option>
+            </select>
+          </div>
+
+
+         
         </div>
   
         
-        <div class="col-sm-2 mb-2">
+        <div class="col-sm-2 mb-2 d-flex">
+          <input value="dates" (change)="onFilterGroupChange($event)" formControlName="alerts_form_radio" class="dispense_radio align-self-end me-2" type="radio" name="alerts_form_radio">
+
+         <div>
           <label for="">Start Date</label>
           <input
             formControlName="start_date"
@@ -47,6 +58,7 @@
             type="date"
             class="form-control input_border_class"
           />
+         </div>
         </div>
         <div class="col-sm-2 mb-2">
           <label for="">End Date</label>
@@ -60,7 +72,7 @@
        
         <div class="col-sm-2 mb-2 ms-auto" style="align-self: end;">
           <button
-            (click)="getData()"
+            (click)="getAlertsData()"
             class="action-button-1 ms-auto"
             style="height: 35px"
           >

@@ -192,6 +192,7 @@
 
         <div class="col-sm-4 d-flex">
           <button
+            [disabled]="deviceForm.invalid"
             type="button"
             class="action-button-1 align-self-end ms-auto"
             (click)="isEditModeOn ? updateDevice() : AddDevice()"
@@ -212,7 +213,7 @@
                 <button class="mb-3 action-button-1" (click)="takeBackup()">Take Backup</button>
                 <div>
                   <div>Backup Requested</div>
-                  <div>{{deviceRecentActions?.last_backup}}</div>
+                  <div>{{deviceRecentActions?.TakeBackUp}}</div>
                 </div>
               </div>
             </app-common-card>
@@ -220,11 +221,7 @@
           <div class="col-sm-12 col-xl-2 col-lg-4">
             <app-common-card>
               <div style="min-height: 150px">
-                <button class="mb-3 action-button-1">Download Backup</button>
-                <div>
-                  Available Backup
-                  <div>mm/dd/yyyy hh:mm</div>
-                </div>
+                <button class="mb-3 action-button-1"  (click)="downloadUpdateBackup()" >Download Backup</button>
               </div>
             </app-common-card>
           </div>
@@ -234,7 +231,7 @@
                 <button class="mb-3 action-button-1" (click)="UpdateAgent()">Update Agent</button>
 
                 <div>Last Updated</div>
-                <div>{{deviceRecentActions?.agent_update}}</div>
+                <div>{{deviceRecentActions?.UpdateAgent}}</div>
                
               </div>
             </app-common-card>
@@ -245,7 +242,7 @@
                 <button class="mb-3 action-button-1" (click)="UpdateQDA()" >Update QDA</button>
 
                 <div>Last Updated</div>
-                <div>{{deviceRecentActions?.qda_update}}</div>
+                <div>{{deviceRecentActions?.UpdateQDA}}</div>
                 <div></div>
               </div>
             </app-common-card>
@@ -256,7 +253,7 @@
                 <button class="mb-3 action-button-1" (click)="UpdateEnterprize()">Update Enterprise</button>
 
                 <div>Last Updated</div>
-                <div>{{deviceRecentActions?.enterprise_update}}</div>
+                <div>{{deviceRecentActions?.UpdateEnterprise}}</div>
               </div>
             </app-common-card>
           </div>

@@ -62,7 +62,22 @@ export class AuthInterceptor implements HttpInterceptor {
                 
             },
             error: (error) => {
-                console.log('from auth err interceptor...',error);
+              let modal_ref = this.ngbModal.open(CommonAlertComponentComponent, {
+                centered: true,
+              });
+  
+              modal_ref.componentInstance.alertData = {
+                alert_title: 'Error',
+                alert_body: error.message ? error.message : 'Something went wrong',
+  
+                alert_actions: [
+                  {
+                    button_name: 'Close',
+                    type: 1,
+                    button_value: 1,
+                  },
+                ],
+              };
 
             },
           })
