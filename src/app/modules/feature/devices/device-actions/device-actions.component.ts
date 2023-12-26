@@ -32,6 +32,12 @@ export class DeviceActionsComponent implements OnInit, OnDestroy {
   isEditModeOn=false;
   device_parent_data:any;
   device_data:any;
+  deviceRecentActions:any ={
+    agent_update:null,
+    enterprise_update:null,
+    qda_update:null,
+    last_backup:null
+  };
   constructor(private ngb_modal:NgbModal,private router:Router,private breadcrumbService:BreadcrumbService,private device_service:DevicesService,private fb:FormBuilder,private local_storage:LocalStorageService,private apis:ApiService){
     this.deviceForm = this.fb.group({
       
@@ -83,7 +89,7 @@ export class DeviceActionsComponent implements OnInit, OnDestroy {
         console.log(res);
         
         if(res==null){
-          // this.router.navigate(['/feature/devices'])
+          this.router.navigate(['/feature/devices'])
           return
         }
 
@@ -92,6 +98,7 @@ export class DeviceActionsComponent implements OnInit, OnDestroy {
         if(res?.editMode){
           this.rowData = res.data;
           this.isEditModeOn = true;
+          
           
 
           this.deviceForm.patchValue({
@@ -106,6 +113,7 @@ export class DeviceActionsComponent implements OnInit, OnDestroy {
           })
 
           this.getCountryList(this.rowData.country_id,this.rowData.state_id);
+          this.getDeviceActionHistory();
 
           if(this.rowData.parent_device_id){
             this.deviceForm.get('parent_device').enable();
@@ -113,8 +121,8 @@ export class DeviceActionsComponent implements OnInit, OnDestroy {
 
         }
         else{
-          this.isEditModeOn = false;
-         
+            this.isEditModeOn = false;
+          
             this.device_data = res.data
             this.device_parent_data = this.device_data?.filter(
               (record: any) => record.Status != 'Activated'
@@ -146,7 +154,6 @@ export class DeviceActionsComponent implements OnInit, OnDestroy {
 
     this.getUserList() 
     this.getTimezoneList();
-   
     this.getParentDeviceList() 
 
 
@@ -503,11 +510,15 @@ export class DeviceActionsComponent implements OnInit, OnDestroy {
     let session_user = this.local_storage.getFromLocalStorage('session_user');
 
     let request = { 
-      clientid: client_code,
-      session_token: session_token,
+      
+      // session_token: session_token,
+      "command" :"TakeBackup",
+      "app_name": "lfc-admin-client",
+      "action_name": "TakeBackUp",
       session_user: session_user,
-      "thing_name":this.rowData.name, 
-      "command" :"TakeBackup"
+      "thing_name":this.rowData.thing_name, 
+      "client_id": client_code,
+      "device_id": this.rowData.device_id
     }
     this.apis.giveCommandToDevice(request).subscribe({
       next:(res)=>{
@@ -515,11 +526,124 @@ export class DeviceActionsComponent implements OnInit, OnDestroy {
         
       },
       error:(err)=>{
-        console.log('error occurred while giving command.');
+        console.log('error occurred while giving command.',err);
         
       }
     })
   }
+  UpdateAgent(){
+    let client_code = this.local_storage.getFromLocalStorage('client_code');
+    let session_token = this.local_storage.getFromLocalStorage('session_token');
+    let session_user = this.local_storage.getFromLocalStorage('session_user');
+
+    let request = { 
+
+      "app_name": "lfc-admin-client",
+      "action_name": "UpdateAgent",
+      session_user: session_user,
+      "thing_name":this.rowData.thing_name, 
+      "client_id": client_code,
+      "device_id": this.rowData.device_id
+    }
+    this.apis.giveCommandToDevice(request).subscribe({
+      next:(res)=>{
+        console.log(res);
+        
+      },
+      error:(err)=>{
+        console.log('error occurred while giving command.',err);
+        
+      }
+    })
+  }
+  UpdateQDA(){
+    let client_code = this.local_storage.getFromLocalStorage('client_code');
+    let session_token = this.local_storage.getFromLocalStorage('session_token');
+    let session_user = this.local_storage.getFromLocalStorage('session_user');
+
+    let request = { 
+
+      "app_name": "lfc-admin-client",
+      "action_name": "UpdateQDA",
+      session_user: session_user,
+      "thing_name":this.rowData.thing_name, 
+      "client_id": client_code,
+      "device_id": this.rowData.device_id
+    }
+    this.apis.giveCommandToDevice(request).subscribe({
+      next:(res)=>{
+        console.log(res);
+        
+      },
+      error:(err)=>{
+        console.log('error occurred while giving command.',err);
+        
+      }
+    })
+  }
+  UpdateEnterprize(){
+    let client_code = this.local_storage.getFromLocalStorage('client_code');
+    let session_token = this.local_storage.getFromLocalStorage('session_token');
+    let session_user = this.local_storage.getFromLocalStorage('session_user');
+
+    let request = { 
+
+      "app_name": "lfc-admin-client",
+      "action_name": "UpdateEnterprise",
+      session_user: session_user,
+      "thing_name":this.rowData.thing_name, 
+      "client_id": client_code,
+      "device_id": this.rowData.device_id
+    }
+    this.apis.giveCommandToDevice(request).subscribe({
+      next:(res)=>{
+        console.log(res);
+        
+      },
+      error:(err)=>{
+        console.log('error occurred while giving command.',err);
+        
+      }
+    })
+  }
+
+  getDeviceActionHistory(){
+    let client_code = this.local_storage.getFromLocalStorage('client_code');
+    let session_token = this.local_storage.getFromLocalStorage('session_token');
+    let session_user = this.local_storage.getFromLocalStorage('session_user');
+
+    let request =  {
+      "app_name": "lfc-admin-client",
+      "function_name": "Get-Device-Last-Actions",
+      "clientid":client_code,
+      "session_token":session_token ,
+      "session_user":session_user,
+      "device_id":  this.rowData.device_id
+    }
+    this.apis.getDeviceDataFromCloud(request).subscribe({
+      next:(res)=>{
+       if(res.Type == 'Success'){
+
+        let res_data = res.Action_List;
+
+        this.deviceRecentActions.agent_update = res_data?.UpdateAgent[0] ? res_data?.UpdateAgent[0]:'Unknown',
+        this.deviceRecentActions.enterprise_update =  res_data?.UpdateEnterprise[0] ? res_data?.UpdateEnterprise[0] : 'Unknown'  ,
+        this.deviceRecentActions.qda_update =  res_data?.UpdateQDA[0] ? res_data?.UpdateQDA[0] : 'Unknown',
+        this.deviceRecentActions.last_backup =  res_data?.TakeBackUp.length > 0  ?  res_data?.TakeBackUp[0] :'Unknown'
+
+       }else{
+
+       }
+        
+      },
+      error:(err)=>{
+        console.log('error occurred while fetching recent device actions.',err);
+        
+      }
+    })
+
+  }
+ 
 
 
 

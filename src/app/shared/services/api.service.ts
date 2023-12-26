@@ -13,6 +13,21 @@ export class ApiService {
 
 
 
+  // 
+  current_apis_in_progress_stack:any[] = [];
+
+  pushIntoStack(){
+    this.current_apis_in_progress_stack.push('Api')
+  }
+  popFromStack(){
+    if(this.current_apis_in_progress_stack.length > 0){
+      this.current_apis_in_progress_stack.pop();
+    }
+  }
+
+  getStackLength(){
+   return  this.current_apis_in_progress_stack.length;
+  }
     
   // token check variables
 
@@ -25,7 +40,7 @@ export class ApiService {
 
   // token check variables end here
 
-    cloud_url = `https://5vvz2ksfs2.execute-api.us-east-1.amazonaws.com/DEV`;
+    manage_dispenses = `https://5vvz2ksfs2.execute-api.us-east-1.amazonaws.com/DEV`;
 
     get_device_data = `https://51je03fxb9.execute-api.us-east-1.amazonaws.com/DEV`;
 
@@ -55,8 +70,8 @@ export class ApiService {
         return this.error_obj;
     }
 
-    getDataFromCloud(payload:any):Observable<any>{
-        return this.http.post(this.cloud_url, payload);
+    getDispenseData(payload:any):Observable<any>{
+        return this.http.post(this.manage_dispenses, payload);
     }
     getDeviceDataFromCloud(payload:any):Observable<any>{
         return this.http.post(this.get_device_data, payload);

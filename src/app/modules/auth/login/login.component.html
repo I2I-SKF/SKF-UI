@@ -16,26 +16,38 @@
       </div>
       <div class="col-sm-12 mb-2">
         <label  class="mb-2"  for="">Email ID</label>
-        <input type="email" formControlName="user_id" class="form-control input_border_class" placeholder="" />
+        <input type="text" formControlName="user_id" class="form-control input_border_class" placeholder="" />
         <app-common-error [form_control_name]="loginform.get('user_id')"></app-common-error>
       </div>
       <div class="col-sm-12 mb-3">
         <label  class="mb-2"  for="">Password</label>
-        <input type="password" formControlName="password" class="form-control input_border_class" placeholder="" />
+        <div style="position: relative;">
+          <input  [type]="isPasswordVisible ? 'text' : 'password'" class="form-control input_border_class" formControlName="password" placeholder="" />
+          <span (click)="toggle()" class="toggle mb-2 cursor-pointer" >
+         
+            <img  *ngIf="isPasswordVisible" src="../../../../assets/imges/eye-alt-svgrepo-com.svg" style="width: 20px;" alt="">
+            <img *ngIf="!isPasswordVisible" src="../../../../assets/imges/eye-slash-svgrepo-com.svg" style="width: 20px;" alt="">
+  
+          </span>
+        </div>
         <app-common-error [form_control_name]="loginform.get('password')"></app-common-error>
 
       </div>
+
+      
       <div class="col-sm-12 mb-3" >
         <button [disabled]="loginform.invalid" (click)="login()" class="action-button-1" >
            Login</button>
       </div>
+
+      
       <div class="col-sm-12 mb-1" >
         <span [routerLink]="'/request-reset-password'" class="hyperlink cursor-pointer" >
             Forgot Password? </span>
       </div>
 
       <div  class="mt-3 text-center buildno" >
-        211223.12
+        221223.13
       </div>
     </form>
   </div>

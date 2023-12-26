@@ -6,6 +6,7 @@ import { BreadcrumbService } from 'src/app/shared/services/breadcrumb.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ApiService } from 'src/app/shared/services/api.service';
 import { DatePipe } from '@angular/common';
+import { LocalStorageService } from 'src/app/shared/services/local-storage.service';
 
 @Component({
   selector: 'app-dispenses',
@@ -19,41 +20,43 @@ export class DispensesComponent {
     private dialog: Dialog,
     private breadcrumbService: BreadcrumbService,
     private fb: FormBuilder,
-    private api: ApiService
+    private api: ApiService,
+    private local_storage:LocalStorageService
   ) {}
 
-  devices_data = [
-    { viewValue: 'Device 1, Pune', value: '00001UZ1XYETP' },
-    { viewValue: 'Device 2, St. Louis', value: '00001S81KOXLA' },
+  devices_data:any[] = [
+    
   ];
   sites_data = [{ value: 'all', viewValue: 'All' }];
   dispense_statuses = [
     { value: 'all', viewValue: 'All' },
-   
-        { value: 0, viewValue: 'Active' },
-        { value: 1, viewValue: 'Ending' },
-        { value: 2, viewValue: 'Complete' },
-        { value: 3, viewValue: 'Error' },
-        { value: 4, viewValue: 'Cancelled' },
-    
+
+    { value: 0, viewValue: 'Active' },
+    { value: 1, viewValue: 'Ending' },
+    { value: 2, viewValue: 'Complete' },
+    { value: 3, viewValue: 'Error' },
+    { value: 4, viewValue: 'Cancelled' },
   ];
   dispense_data: any = [];
   last_sync_time: any = null;
   extractedData: any[] = [];
-  backup_for_filter:any = [];
-  dispense_status_form:any = [];
+  backup_for_filter: any = [];
+  dispense_status_form: any = [];
 
   transaction_data = [
     {
-      value:10,viewValue:10
+      value: 10,
+      viewValue: 10,
     },
     {
-      value:50,viewValue:50
+      value: 50,
+      viewValue: 50,
     },
     {
-      value:100,viewValue:100
+      value: 100,
+      viewValue: 100,
     },
-  ]
+  ];
   displayed_columns = [
     'Device',
     'Site Name',
@@ -144,21 +147,16 @@ export class DispensesComponent {
 
     // this.router.navigate(['/devices/device-details']);
   }
-  searched:any;
-  onSearch(data:any){
-    
-    
-    if(data.target.value != '' ){
+  searched: any;
+  onSearch(data: any) {
+    if (data.target.value != '') {
       this.catchSearchEvents(data.target.value);
-    }
-    else{
-      if(data.target.value == ''){
-        
-        this.catchSearchEvents(null)
-        this.dispense_status_form.get('dispense_status')?.setValue('all'); 
+    } else {
+      if (data.target.value == '') {
+        this.catchSearchEvents(null);
+        this.dispense_status_form.get('dispense_status')?.setValue('all');
       }
     }
-
   }
   ngOnInit(): void {
     this.breadcrumbService.setBreadcrumb([
@@ -172,27 +170,24 @@ export class DispensesComponent {
       },
     ]);
 
-    
     this.dispensesForm = this.fb.group({
-      devices: [this.devices_data[0].value],
-      dispense_form_radio:['last_transaction'],
-      start_date: [],
-      end_date: [],
+      devices: [this.devices_data[0]?.value],
+      dispense_form_radio: ['last_transaction'],
+      start_date: [{value:'',disabled:true}],
+      end_date: [{value:'',disabled:true}],
       // dispense_status: ['all'],
       transactions: [10],
-      
     });
     this.dispense_status_form = this.fb.group({
-      devices: [this.devices_data[0].value],
+      devices: [this.devices_data[0]?.value],
       sites: ['all'],
       start_date: [],
       end_date: [],
       dispense_status: ['all'],
-    
-      
     });
 
-    this.getCloudData(true);
+    this.getDevices();
+   
   }
 
   date_min_max = {
@@ -209,43 +204,57 @@ export class DispensesComponent {
     console.log(`${year}-${month}-${day}`);
     return `${year}-${month}-${day}`;
   }
-  onTransactionChange(data:any){
-
-  }
+  onTransactionChange(data: any) {}
   addDevice() {
     // this.openDialog();
   }
+
+  onFilterGroupChange(data:any){
+      let selected_option  = data.target.value;
+      this.dispensesForm.get('transactions').setValue("");
+      this.dispensesForm.get('start_date').setValue("");
+      this.dispensesForm.get('end_date').setValue("");
+      this.dispensesForm.get('transactions').enable();
+      this.dispensesForm.get('start_date').enable();
+      this.dispensesForm.get('end_date').enable();
+      
+      if(selected_option == 'dates'){
+        this.dispensesForm.get('transactions').disable();
+        this.dispensesForm.get('transactions').setValue("");
+      }
+      else{
+        this.dispensesForm.get('start_date').disable();
+        this.dispensesForm.get('end_date').disable();
+      }
+
+
+  }
+
   startDateChange(data: any) {}
 
   endDateChange(data: any) {}
 
+  searchFilterBackup: any = [];
 
-  searchFilterBackup:any = [];
+  catchSearchEvents(data: any) {
+    this.dispense_status_form.get('dispense_status').setValue('all');
 
-  catchSearchEvents(data:any){
+    this.onDispenseStatusChange({ target: { value: 'all' } });
 
-    this.dispense_status_form.get('dispense_status').setValue('all')
-
-    this.onDispenseStatusChange({target:{value:'all'}});
-
-
-    if(this.searchFilterBackup.length>0){
-      this.dispense_data =  this.searchFilterBackup 
-    }
-    else{
+    if (this.searchFilterBackup.length > 0) {
+      this.dispense_data = this.searchFilterBackup;
+    } else {
       this.searchFilterBackup = this.dispense_data;
     }
 
-    if(data){
-      let filtered_data = this.dispense_data.filter((record:any)=>{
-        return record['Transaction No'] == parseInt(data)
+    if (data) {
+      let filtered_data = this.dispense_data.filter((record: any) => {
+        return record['Transaction No'] == parseInt(data);
       });
       this.dispense_data = filtered_data;
 
       console.log(filtered_data);
-      
-    }
-    else{
+    } else {
       this.dispense_data = this.searchFilterBackup;
     }
   }
@@ -267,17 +276,21 @@ export class DispensesComponent {
           Device: this.checkIfKeyExists(record.deviceid),
           'Site Name': this.checkIfKeyExists(record.dmsTypeDescription),
           'Transaction No': this.checkIfKeyExists(record.transactionNumber),
-          'Start Time': this.checkIfKeyExists(record.dispenseStartedLocal)  ,
+          'Start Time': this.checkIfKeyExists(record.dispenseStartedLocal),
           'Dispense Status': this.checkIfKeyExists(record.statusDescription),
           'Controller Response': this.checkIfKeyExists(
             record.hardwareStatusCodeDescription
           ),
           'Fluid Name': this.checkIfKeyExists(record.tankFluidDescription),
           'Initiated By': this.checkIfKeyExists(record.initiatedBy),
-          Ordered: `${this.checkIfKeyExists(record.quantityRequested)} (${this.checkIfKeyExists(record.volumeUnitAbbrev)})` ,
-          Dispensed: `${this.checkIfKeyExists(record.quantityDispensed)} (${this.checkIfKeyExists(record.volumeUnitAbbrev)})`,
-          'End Time': this.checkIfKeyExists(record.dispenseStartedLocal)  ,
-          'dispense_status_id':`${record.statusId}`
+          Ordered: `${this.checkIfKeyExists(
+            record.quantityRequested
+          )} (${this.checkIfKeyExists(record.volumeUnitAbbrev)})`,
+          Dispensed: `${this.checkIfKeyExists(
+            record.quantityDispensed
+          )} (${this.checkIfKeyExists(record.volumeUnitAbbrev)})`,
+          'End Time': this.checkIfKeyExists(record.dispenseStartedLocal),
+          dispense_status_id: `${record.statusId}`,
         };
       });
     } else {
@@ -291,14 +304,13 @@ export class DispensesComponent {
     this.sites_data.forEach((site: any) => {
       if (site.value != 'all') {
         this.site_wise_dispneses[site.value].forEach((record: any) => {
-
-          this.dispense_statuses.push()
+          this.dispense_statuses.push();
 
           dispense_data.push({
             Device: this.checkIfKeyExists(record.deviceid),
             'Site Name': this.checkIfKeyExists(record.dmsTypeDescription),
             'Transaction No': this.checkIfKeyExists(record.transactionNumber),
-            'Start Time':  this.checkIfKeyExists(record.dispenseStartedLocal) ,
+            'Start Time': this.checkIfKeyExists(record.dispenseStartedLocal),
 
             'Dispense Status': this.checkIfKeyExists(record.statusDescription),
             'Controller Response': this.checkIfKeyExists(
@@ -306,13 +318,15 @@ export class DispensesComponent {
             ),
             'Fluid Name': this.checkIfKeyExists(record.tankFluidDescription),
             'Initiated By': this.checkIfKeyExists(record.initiatedBy),
-            Ordered: `${this.checkIfKeyExists(record.quantityRequested)} (${this.checkIfKeyExists(record.volumeUnitAbbrev)})` ,
-            Dispensed: `${this.checkIfKeyExists(record.quantityDispensed)} (${this.checkIfKeyExists(record.volumeUnitAbbrev)})`,
-            'End Time': this.checkIfKeyExists(record.dispenseStartedLocal) ,
+            Ordered: `${this.checkIfKeyExists(
+              record.quantityRequested
+            )} (${this.checkIfKeyExists(record.volumeUnitAbbrev)})`,
+            Dispensed: `${this.checkIfKeyExists(
+              record.quantityDispensed
+            )} (${this.checkIfKeyExists(record.volumeUnitAbbrev)})`,
+            'End Time': this.checkIfKeyExists(record.dispenseStartedLocal),
 
-            'dispense_status_id':`${record.statusId}`
-
-            
+            dispense_status_id: `${record.statusId}`,
           });
         });
       }
@@ -334,10 +348,10 @@ export class DispensesComponent {
   onDeviceChange(data: any) {
     let selected_device = data.target.value;
     let today = new Date();
-    
+
     // this.dispensesForm.get('start_date').setValue(this.formatDate(today));
     // this.dispensesForm.get('end_date').setValue(this.formatDate(today));
-    this.getCloudData(true);
+    this.getCloudData();
   }
   resetEverything() {
     this.site_wise_dispneses = [];
@@ -345,82 +359,76 @@ export class DispensesComponent {
     this.sites_data = [{ value: 'all', viewValue: 'All' }];
   }
 
-  onDispenseStatusChange(data:any){
-
-
+  onDispenseStatusChange(data: any) {
     console.log(data);
-    
-    let selected_dispense_status:any = data.target.value;
-    console.log('selected option dispense ',selected_dispense_status);
-  
-    
-    if(this.backup_for_filter.length != 0){
 
+    let selected_dispense_status: any = data.target.value;
+    console.log('selected option dispense ', selected_dispense_status);
+
+    if (this.backup_for_filter.length != 0) {
       this.dispense_data = this.backup_for_filter;
-
-
-    }
-    else{
+    } else {
       this.backup_for_filter = this.dispense_data;
     }
 
-
-    if(selected_dispense_status =='all'){
+    if (selected_dispense_status == 'all') {
       this.dispense_data = this.backup_for_filter;
-    }
-    else{
-      let filterd_data = this.dispense_data.filter((dispense:any)=>{
-        console.log(dispense['dispense_status_id'] + " " + selected_dispense_status);
-        
-        if(dispense['dispense_status_id'] == selected_dispense_status){
+    } else {
+      let filterd_data = this.dispense_data.filter((dispense: any) => {
+        console.log(
+          dispense['dispense_status_id'] + ' ' + selected_dispense_status
+        );
+
+        if (dispense['dispense_status_id'] == selected_dispense_status) {
           return true;
-        }
-        else{
-          return false; 
+        } else {
+          return false;
         }
       });
-  
+
       this.dispense_data = filterd_data;
     }
-
-   
-
-
-
   }
 
-  convertToUTCDate(){
-    return new Date().toISOString().split("T")[0];
+  convertToUTCDate() {
+    return new Date().toISOString().split('T')[0];
   }
-  
 
-  getCloudData(isOnload=false) {
+  getCloudData() {
+
     this.resetEverything();
 
-    console.log('inside cloud fetch');
+    let client_code = this.local_storage.getFromLocalStorage('client_code');
+   
 
-    let data:any = {
-      device_id: this.dispensesForm.get('devices').value,
-      from_time: this.dispensesForm.get('start_date').value,
-      to_time: this.dispensesForm.get('end_date').value,
+    let data: any = {
+      app_name: 'lfc-admin-client',
+      clientid:client_code ,
+      thing_name: this.dispensesForm.get('devices').value,
+      from_time: this.dispensesForm.get('end_date').value ? this.dispensesForm.get('end_date').value + " 00:00:00": null,
+      to_time: this.dispensesForm.get('start_date').value ?  this.dispensesForm.get('start_date').value + " 11:59:59" : null,
+      limit: parseInt(this.dispensesForm.get('transactions').value),
     };
-    if(this.dispensesForm.get('end_date').value == null || this.dispensesForm.get('start_date').value == null  ){
-      data = {
-        device_id: this.dispensesForm.get('devices').value,
-      }
-    }
+    // if (
+    //   this.dispensesForm.get('end_date').value == null ||
+    //   this.dispensesForm.get('start_date').value == null
+    // ) {
+    //   data = {
+    //     device_id: this.dispensesForm.get('devices').value,
+    //   };
+    // }
 
-    let date_check= this.formatDate(new Date());
+    // let date_check = this.formatDate(new Date());
 
-    // if(isOnload || (date_check == data.from_time && date_check == data.to_time)){
-    //    data = {
+    // if (date_check == data.from_time && date_check == data.to_time) {
+    //   data = {
     //     device_id: this.dispensesForm.get('devices').value,
     //     from_time: this.convertToUTCDate(),
     //     to_time: new Date().toISOString(),
     //   };
     // }
 
-    this.api.getDataFromCloud(data).subscribe({
+    this.api.getDispenseData(data).subscribe({
       next: (res) => {
         console.log(res.body);
 
@@ -444,11 +452,10 @@ export class DispensesComponent {
 
         this.onSiteChange({ target: { value: 'all' } });
 
-       
-
-       
-        this.last_sync_time = new DatePipe('en-US').transform(res.utctime, 'yyyy-MM-dd HH:mm');
-        
+        this.last_sync_time = new DatePipe('en-US').transform(
+          res.utctime,
+          'yyyy-MM-dd HH:mm'
+        );
       },
       error: (err) => {
         console.error('error occurred while reading from cloud', err);
@@ -456,6 +463,43 @@ export class DispensesComponent {
     });
   }
 
+  getDevices() {
+    let client_code = this.local_storage.getFromLocalStorage('client_code');
+    let session_token = this.local_storage.getFromLocalStorage('session_token');
+    let session_user = this.local_storage.getFromLocalStorage('session_user');
+
+    let payload = {
+      app_name: 'lfc-admin-client',
+      function_name: 'Get-Device-List',
+      clientid: client_code,
+      session_token: session_token,
+      session_user: session_user,
+    };
+
+    this.api.getDeviceDataFromCloud(payload).subscribe({
+      next: (res) => {
+       
+        this.devices_data = res.device_list.map((record: any) => {
+          return {
+            api_data:record,
+            device_id: record.device_id,
+            value:this.checkIfKeyExists(record.thing_name),
+            viewValue: this.checkIfKeyExists(record.name),
+            thing_name:this.checkIfKeyExists(record.thing_name) 
+          };
+        });
+
+        if(this.devices_data.length >0){
+          this.dispensesForm.get('devices').setValue(this.devices_data[0].value)
+          this.getCloudData();
+        }
+       
+      },
+      error: (error) => {
+        console.log('error occurred while fetching device data', error);
+      },
+    });
+  }
 
 
 

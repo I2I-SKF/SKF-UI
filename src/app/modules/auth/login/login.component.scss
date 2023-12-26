@@ -43,3 +43,15 @@
 .buildno{
     color: $grey-300;
 }
+
+
+.toggle{
+    position: absolute;
+    font-size: 18px;
+    color:$grey-700;
+    right: 15px;
+    top: 4px;
+    bottom: 8px;
+    margin: auto;
+    user-select: none;
+}

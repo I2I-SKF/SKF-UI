@@ -84,6 +84,7 @@ export class PasswordVerifyComponent {
       "token_verification_link": this.token_verification_link,
       "activate_token": activate_token,
       "user_email": this.mail_verification_form.get('mail').value,
+      'client_code':  this.mail_verification_form.get('client_id').value,
 
     }
     this.apis.sendMailAfterMailVerification(request).subscribe({

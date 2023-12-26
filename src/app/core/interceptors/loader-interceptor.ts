@@ -9,6 +9,7 @@ import { Observable } from 'rxjs';
 import { finalize } from 'rxjs/operators';
 import { NgxSpinnerService } from 'ngx-spinner'; // Import the spinner service
 import { Router } from '@angular/router';
+import { ApiService } from 'src/app/shared/services/api.service';
 
 
 
@@ -18,6 +19,7 @@ export class LoaderInterceptor implements HttpInterceptor {
   constructor(
     private spinner: NgxSpinnerService,
     private router: Router,
+    private apis:ApiService
   
   ) {}
 
@@ -25,18 +27,27 @@ export class LoaderInterceptor implements HttpInterceptor {
     request: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
-    const currentRoute = this.router.url;
 
-    console.log('loader_showing');
-    
-    this.spinner.show();
 
-    
+    this.apis.pushIntoStack();
+    if(this.apis.getStackLength() > 0){
+      this.spinner.show();
+    }
+    else{
+      this.spinner.hide();
+    }
 
     return next.handle(request).pipe(
       finalize(() => {
         console.log('!.. loader_showing ');
-        this.spinner.hide();
+        this.apis.popFromStack();
+        if(this.apis.getStackLength() > 0){
+          this.spinner.show();
+        }
+        else{
+          this.spinner.hide();
+        }
+       
 
         
        

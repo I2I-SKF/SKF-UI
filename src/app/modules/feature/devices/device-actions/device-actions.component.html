@@ -209,10 +209,10 @@
           <div class="col-sm-12 col-xl-2 col-lg-4">
             <app-common-card>
               <div style="min-height: 150px">
-                <button class="mb-3 action-button-1">Take Backup</button>
+                <button class="mb-3 action-button-1" (click)="takeBackup()">Take Backup</button>
                 <div>
                   <div>Backup Requested</div>
-                  <div>mm/dd/yyyy hh:mm</div>
+                  <div>{{deviceRecentActions?.last_backup}}</div>
                 </div>
               </div>
             </app-common-card>
@@ -231,30 +231,32 @@
           <div class="col-sm-12 col-xl-2 col-lg-4">
             <app-common-card>
               <div style="min-height: 150px">
-                <button class="mb-3 action-button-1">Update Agent</button>
+                <button class="mb-3 action-button-1" (click)="UpdateAgent()">Update Agent</button>
 
-                <div>Latest Version :</div>
-                <div>version Edge:</div>
+                <div>Last Updated</div>
+                <div>{{deviceRecentActions?.agent_update}}</div>
+               
               </div>
             </app-common-card>
           </div>
           <div class="col-sm-12 col-xl-2 col-lg-4">
             <app-common-card>
               <div style="min-height: 150px">
-                <button class="mb-3 action-button-1">Update QDA</button>
+                <button class="mb-3 action-button-1" (click)="UpdateQDA()" >Update QDA</button>
 
-                <div>Latest Version :</div>
-                <div>version Edge:</div>
+                <div>Last Updated</div>
+                <div>{{deviceRecentActions?.qda_update}}</div>
+                <div></div>
               </div>
             </app-common-card>
           </div>
           <div class="col-sm-12 col-xl-2 col-lg-4">
             <app-common-card>
               <div style="min-height: 150px">
-                <button class="mb-3 action-button-1">Update Enterprise</button>
+                <button class="mb-3 action-button-1" (click)="UpdateEnterprize()">Update Enterprise</button>
 
-                <div>Latest Version :</div>
-                <div>version Edge:</div>
+                <div>Last Updated</div>
+                <div>{{deviceRecentActions?.enterprise_update}}</div>
               </div>
             </app-common-card>
           </div>

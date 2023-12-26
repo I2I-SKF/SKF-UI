@@ -24,6 +24,7 @@ export interface CustomModalOptions extends NgbModalOptions {
 })
 export class LoginComponent implements OnInit {
   loginform: any;
+  isPasswordVisible:any;
   constructor(
     private router: Router,
     private apis: ApiService,
@@ -35,12 +36,20 @@ export class LoginComponent implements OnInit {
   ) {
     this.loginform = this.fb.group({
       customer_id: ['', [Validators.required ,patternValidator(VALIDATION_PATTERNS.SPACE_TRAILING_LEADING.PATTERN,VALIDATION_PATTERNS.SINGLE_STRING_WITHOUT_TRAILING_LEADING_SPACES.VALIDATION_MSG)]],
-      user_id: ['', [Validators.required,patternValidator(VALIDATION_PATTERNS.EMAIL.PATTERN,VALIDATION_PATTERNS.EMAIL.VALIDATION_MSG)]],
+      user_id: ['', [Validators.required,patternValidator(VALIDATION_PATTERNS.SPACE_TRAILING_LEADING.PATTERN,VALIDATION_PATTERNS.SINGLE_STRING_WITHOUT_TRAILING_LEADING_SPACES.VALIDATION_MSG),patternValidator(/^(?!\.)[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,'Please Enter a valid email.')]],
       password: ['', Validators.required],
     });
   }
 
   ngOnInit() {}
+
+  toggle(){
+    if(this.loginform.get('password')?.value !==null && this.loginform.get('password')?.value !== '' ){
+
+      this.isPasswordVisible = !this.isPasswordVisible;
+    }
+  }
+
 
   login() {
     var jsondata = {
