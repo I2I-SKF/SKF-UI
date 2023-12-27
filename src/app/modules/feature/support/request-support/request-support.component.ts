@@ -60,10 +60,15 @@ export class RequestSupportComponent implements OnInit {
           return { 
             viewValue: record.name,
             value: record.thing_name,
+            device_id:record.device_id
              
             
            }
         })
+
+        if(this.deviceData.length > 0){
+          this.request_support_form.get('device').setValue(this.deviceData[0].value);
+        }
 
       
 
@@ -89,7 +94,7 @@ export class RequestSupportComponent implements OnInit {
     let formData = this.request_support_form.value;
     console.log(formData);
 
-    let device_name  = this.deviceData.filter((record:any)=>record.value == formData.device )[0].viewValue;
+    let device_det  = this.deviceData.filter((record:any)=>record.value == formData.device )[0];
     
     let request = {
       app_name: 'lfc-admin-client',
@@ -97,7 +102,8 @@ export class RequestSupportComponent implements OnInit {
       session_token: session_token,
       session_user: session_user,
       client_code: client_code,
-      device_name:device_name ,
+      device_name: device_det.viewValue ,
+      device_id:device_det.device_id,
       thing_name: formData.device,
       request_details: formData.support_request,
       requested_by: username,

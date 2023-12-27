@@ -31,10 +31,10 @@ export class SupportComponent implements OnInit {
   ]
   request_data = [
     {
-      value:3,viewValue:3
+      value:"3",viewValue:"3"
     },
     {
-      value:6,viewValue:6
+      value:"6",viewValue:"6"
     },
   ]
 
@@ -42,9 +42,8 @@ export class SupportComponent implements OnInit {
   table_data:any[] = [] 
 
   dispensesForm:any;
-  devices_data = [
-    { viewValue: 'Device 1, Pune', value: '00001UZ1XYETP' },
-    { viewValue: 'Device 2, St. Louis', value: '00001S81KOXLA' },
+  devices_data:any = [
+    
   ];
 
 
@@ -66,22 +65,53 @@ export class SupportComponent implements OnInit {
     ]);
     let date = new Date();
     this.dispensesForm = this.fb.group({
-      devices: [this.devices_data[0].value],
-      start_date: [],
-      end_date: [],
-      request:[3]
+      devices: [''],
+      start_date: [{value:'',disabled:true}],
+      end_date: [{value:'',disabled:true}],
+      last_request:['3'],
+      support_filter_toggle:['last_request']
       
     });
-    this.getSupportData();
+    
     this.getTicketStatusList();
+    this.getDevices();
   }
 
   rowClick(row:any){
     console.log(row);
   }
   requestSupport(){
-      this.ngbmodal.open(RequestSupportComponent,{centered:true})
+    let modal_ref =   this.ngbmodal.open(RequestSupportComponent,{centered:true})
+
+    modal_ref.result.then((res)=>{
+      this.getTicketStatusList();
+    })
+
+
   }
+
+
+  onFilterGroupChange(data:any){
+    let selected_option  = data.target.value;
+    this.dispensesForm.get('last_request').setValue("");
+    this.dispensesForm.get('start_date').setValue("");
+    this.dispensesForm.get('end_date').setValue("");
+    this.dispensesForm.get('last_request').enable();
+    this.dispensesForm.get('start_date').enable();
+    this.dispensesForm.get('end_date').enable();
+    
+    if(selected_option == 'dates'){
+      this.dispensesForm.get('last_request').disable();
+      this.dispensesForm.get('last_request').setValue("");
+    }
+    else{
+      this.dispensesForm.get('last_request').setValue("3");
+      this.dispensesForm.get('start_date').disable();
+      this.dispensesForm.get('end_date').disable();
+    }
+
+
+}
   private formatDate(date: Date): string {
     const year = date.getFullYear();
     const month = String(date.getMonth() + 1).padStart(2, '0');
@@ -99,8 +129,54 @@ export class SupportComponent implements OnInit {
   endDateChange(event:any){
 
   }
-  getData(){
 
+  getDevices() {
+    let client_code = this.local_storage.getFromLocalStorage('client_code');
+    let session_token = this.local_storage.getFromLocalStorage('session_token');
+    let session_user = this.local_storage.getFromLocalStorage('session_user');
+
+    let payload = {
+      app_name: 'lfc-admin-client',
+      function_name: 'Get-Device-List',
+      clientid: client_code,
+      session_token: session_token,
+      session_user: session_user,
+    };
+
+    this.apis.getDeviceDataFromCloud(payload).subscribe({
+      next: (res) => {
+       
+        this.devices_data = res.device_list.map((record: any) => {
+          return {
+            api_data:record,
+            device_id: record.device_id,
+            value:this.checkIfKeyExists(record.thing_name),
+            viewValue: this.checkIfKeyExists(record.name),
+            thing_name:this.checkIfKeyExists(record.thing_name) 
+          };
+        });
+
+        if(this.devices_data.length >0){
+          this.dispensesForm.get('devices').setValue(this.devices_data[0].value)
+          this.getSupportData();
+        }
+       
+      },
+      error: (error) => {
+        console.log('error occurred while fetching device data', error);
+      },
+    });
+  }
+
+  checkIfKeyExists(key: any) {
+    if (key != null && key != '') {
+      return key;
+    } else {
+      return 'Unknown';
+    }
+  }
+  getData(){
+this.getSupportData()
   }
   onRequestChange(data:any){
 
@@ -117,6 +193,10 @@ export class SupportComponent implements OnInit {
         "session_token": session_token,
         "session_user": session_user,
         "client_code": client_code,
+        thing_name: this.dispensesForm.get('devices').value ?  this.dispensesForm.get('devices').value : null ,
+        from_time: this.dispensesForm.get('end_date').value ? this.dispensesForm.get('end_date').value + " 00:00:00": null,
+        to_time: this.dispensesForm.get('start_date').value ?  this.dispensesForm.get('start_date').value + " 11:59:59" : null,
+        limit: this.dispensesForm.get('last_request').value ?  parseInt(this.dispensesForm.get('last_request').value) : null
       }
   
       this.apis.manageTicket(request).subscribe({

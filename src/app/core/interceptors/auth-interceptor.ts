@@ -12,10 +12,11 @@ import { tap } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { CommonAlertComponentComponent } from 'src/app/shared/components/common-alert-component/common-alert-component.component';
+import { ApiService } from 'src/app/shared/services/api.service';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
-  constructor(private router: Router,private ngbModal:NgbModal) {}
+  constructor(private router: Router,private ngbModal:NgbModal,private apis:ApiService) {}
 
   intercept(
     request: HttpRequest<any>,
@@ -25,29 +26,34 @@ export class AuthInterceptor implements HttpInterceptor {
         tap({
             next: (event:any) => {
                 if(event?.body?.Code == 'SessionExpired'){
+
+
+                    this.apis.pushIntoSessionStack();
+
+                    if(this.apis.getSessionStackLength() ==  1){
+                      localStorage.clear();
+                      let modal_ref= this.ngbModal.open(CommonAlertComponentComponent,{centered:true})
+                      modal_ref.componentInstance.alertData = {
+                          alert_title: 'Session Alert',
+                          alert_body: event?.body?.Msg,
                     
-                    localStorage.clear();
-                   
-                    
-                    let modal_ref= this.ngbModal.open(CommonAlertComponentComponent,{centered:true})
-                    modal_ref.componentInstance.alertData = {
-                        alert_title: 'Session Alert',
-                        alert_body: event?.body?.Msg,
                   
-                
-                        alert_actions: [
-                          {
-                            button_name: 'Close',
-                            type: 1,
-                            button_value: 1,
-                          },
-                        ],
-                      };
+                          alert_actions: [
+                            {
+                              button_name: 'Close',
+                              type: 1,
+                              button_value: 1,
+                            },
+                          ],
+                        };
+  
+                      modal_ref.result.then(result=>{
+                          this.router.navigate(['/']);
+                      })
+  
+                    }
 
-                    modal_ref.result.then(result=>{
-                        this.router.navigate(['/']);
-                    })
-
+                    
 
 
                    

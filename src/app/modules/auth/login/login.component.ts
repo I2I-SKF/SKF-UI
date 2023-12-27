@@ -41,7 +41,9 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.apis.session_expiration_stack = [];
+  }
 
   toggle(){
     if(this.loginform.get('password')?.value !==null && this.loginform.get('password')?.value !== '' ){

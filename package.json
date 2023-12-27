@@ -26,6 +26,7 @@
     "crypto-js": "^4.2.0",
     "highcharts-angular": "^3.1.2",
     "moment-timezone": "^0.5.43",
+    "ng-multiselect-dropdown": "^1.0.0",
     "ngx-spinner": "^16.0.2",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",

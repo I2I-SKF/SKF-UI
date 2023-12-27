@@ -253,6 +253,7 @@ export class DeviceComponent implements OnInit {
     this.dataSource.data = this.data;
   }
   onClickSearch(data: any) {}
+  
   onDispenseStatusChange(data: any) {
     let selected_status = data.target.value;
     if (this.status_wise_filter_data.length > 0) {

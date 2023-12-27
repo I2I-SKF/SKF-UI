@@ -33,10 +33,10 @@ export class DeviceActionsComponent implements OnInit, OnDestroy {
   device_parent_data: any;
   device_data: any;
   deviceRecentActions: any = {
-    'UpdateAgent' :'Unknown',
-    'UpdateEnterprise' : 'Unknown',
-    'UpdateQDA': 'Unknown',
-    'TakeBackUp': 'Unknown',
+    UpdateAgent: 'Unknown',
+    UpdateEnterprise: 'Unknown',
+    UpdateQDA: 'Unknown',
+    TakeBackUp: 'Unknown',
   };
   constructor(
     private ngb_modal: NgbModal,
@@ -390,6 +390,7 @@ export class DeviceActionsComponent implements OnInit, OnDestroy {
   }
   ngOnDestroy(): void {
     this.rowDataSubscription.unsubscribe();
+    this.device_service.setSharedData(null)
   }
 
   AddDevice() {
@@ -443,9 +444,9 @@ export class DeviceActionsComponent implements OnInit, OnDestroy {
                 },
               ],
             };
-            modal_ref.close((result:any)=>{
-              this.router.navigate(['/feature/devices'])
-            })
+            modal_ref.close((result: any) => {
+              this.router.navigate(['/feature/devices']);
+            });
           } else {
             let modal_ref = this.ngb_modal.open(CommonAlertComponentComponent, {
               centered: true,
@@ -782,25 +783,26 @@ export class DeviceActionsComponent implements OnInit, OnDestroy {
     });
   }
 
-  convertDate(input_date:any){
+  convertDate(input_date: any) {
     const inputDateString = input_date;
 
-// Create a Date object from the input string
-const inputDate = new Date(inputDateString);
+    // Create a Date object from the input string
+    const inputDate = new Date(inputDateString);
 
-// Get the individual components of the date
-const day = inputDate.getDate();
-const month = inputDate.getMonth() + 1; // Month is zero-based, so add 1
-const year = inputDate.getFullYear();
-const hours = inputDate.getHours();
-const minutes = inputDate.getMinutes();
-const seconds = inputDate.getSeconds();
+    // Get the individual components of the date
+    const day = inputDate.getDate();
+    const month = inputDate.getMonth() + 1; // Month is zero-based, so add 1
+    const year = inputDate.getFullYear();
+    const hours = inputDate.getHours();
+    const minutes = inputDate.getMinutes();
+    const seconds = inputDate.getSeconds();
 
-// Format the components into the desired format
-const formattedDate = `${day < 10 ? '0' : ''}${day}-${month < 10 ? '0' : ''}${month}-${year} ${hours}:${minutes}:${seconds}`;
+    // Format the components into the desired format
+    const formattedDate = `${day < 10 ? '0' : ''}${day}-${
+      month < 10 ? '0' : ''
+    }${month}-${year} ${hours}:${minutes}:${seconds}`;
 
-return formattedDate;
-
+    return formattedDate;
   }
 
   getDeviceActionHistory() {
@@ -828,13 +830,13 @@ return formattedDate;
             'TakeBackUp',
           ];
 
-          keys.forEach(key=>{
-            if(res_data[key] && res_data[key].length > 0 ){
-              this.deviceRecentActions[key] =  this.convertDate(res_data[key][0]);
-            }   
-          })
-
-
+          keys.forEach((key) => {
+            if (res_data[key] && res_data[key].length > 0) {
+              this.deviceRecentActions[key] = this.convertDate(
+                res_data[key][0]
+              );
+            }
+          });
         } else {
           let modal_ref = this.ngb_modal.open(CommonAlertComponentComponent, {
             centered: true,

@@ -16,6 +16,24 @@ export class ApiService {
   // 
   current_apis_in_progress_stack:any[] = [];
 
+  session_expiration_stack:any = [];
+
+
+
+  pushIntoSessionStack(){
+    this.session_expiration_stack.push('session')
+  }
+  popFromSessionStack(){
+    if(this.session_expiration_stack.length > 0){
+      this.session_expiration_stack.pop();
+    }
+  }
+  getSessionStackLength(){
+    return  this.session_expiration_stack.length;
+   }
+
+
+
   pushIntoStack(){
     this.current_apis_in_progress_stack.push('Api')
   }
@@ -130,6 +148,10 @@ export class ApiService {
 
   manageAlerts(payload:any):Observable<any>{
     return this.http.post(this.manage_alerts,payload);
+  }
+
+  sendEmail(payload:any):Observable<any>{
+    return this.http.post(this.sendMail,payload);
   }
 
 

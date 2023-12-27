@@ -6,6 +6,8 @@ import { UsersComponent } from './users/users.component';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { AddUserComponent } from './add-user/add-user.component';
 import { DialogModule } from '@angular/cdk/dialog';
+import { ReactiveFormsModule } from '@angular/forms';
+import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 
 
 @NgModule({
@@ -18,6 +20,9 @@ import { DialogModule } from '@angular/cdk/dialog';
     UsersRoutingModule,
     SharedModule,
     DialogModule,
+    ReactiveFormsModule,
+    SharedModule,
+    NgMultiSelectDropDownModule.forRoot()
     
   ]
 })

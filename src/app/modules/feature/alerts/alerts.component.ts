@@ -5,6 +5,7 @@ import { CommonAlertComponentComponent } from 'src/app/shared/components/common-
 import { ApiService } from 'src/app/shared/services/api.service';
 import { BreadcrumbService } from 'src/app/shared/services/breadcrumb.service';
 import { LocalStorageService } from 'src/app/shared/services/local-storage.service';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-alerts',
@@ -69,7 +70,7 @@ export class AlertsComponent implements OnInit {
     return `${year}-${month}-${day}`;
   }
   onDeviceChange(data:any){
-
+    this.getAlertsData();
   }
   startDateChange(data:any){
 
@@ -86,12 +87,25 @@ export class AlertsComponent implements OnInit {
       "thing_name":  this.alerts_form.get('devices')?.value ? this.alerts_form.get('devices').value : null,  
       "from_time":  this.alerts_form.get('start_date')?.value ? this.alerts_form.get('start_date').value + " 00:00:00" : null , 
       "to_time": this.alerts_form.get('end_date')?.value ? this.alerts_form.get('end_date').value + " 11:59:59" : null ,   
-      "limit" : this.alerts_form.get('alert')?.value
+      "limit" : this.alerts_form.get('last_alerts')?.value ? this.alerts_form.get('last_alerts')?.value : null
     } 
 
     this.apis.manageAlerts(request).subscribe({
       next:(res)=>{
         if(res.Type='Success'){
+
+          this.data = res.result_list.map((alert:any)=>{
+            return {
+              "Date & Time": alert.alert_ts,
+              "Device Name":alert.thing_name,
+              "Location":'Unknown',
+              "Alert Type":alert.alert_type,
+              "Description":alert.description,
+              "alert_time":alert.alert_ts
+            
+            }
+          })
+
 
         }
         else{
@@ -196,5 +210,6 @@ export class AlertsComponent implements OnInit {
 
 
   }
+ 
 
 }

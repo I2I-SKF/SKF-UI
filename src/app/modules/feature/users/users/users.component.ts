@@ -1,148 +1,240 @@
-
 import { Component } from '@angular/core';
 import { BreadcrumbService } from 'src/app/shared/services/breadcrumb.service';
 import { AddUserComponent } from '../add-user/add-user.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { Route, Router } from '@angular/router';
+import { ApiService } from 'src/app/shared/services/api.service';
+import { LocalStorageService } from 'src/app/shared/services/local-storage.service';
+import { CommonAlertComponentComponent } from 'src/app/shared/components/common-alert-component/common-alert-component.component';
+import { UsersService } from '../users.service';
+import { FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'app-users',
   templateUrl: './users.component.html',
-  styleUrls: ['./users.component.scss']
+  styleUrls: ['./users.component.scss'],
 })
 export class UsersComponent {
   displayed_columns = [
-    "User ID",
-    "User Role",
-    "User Name",
-    "Email",
-    "Contact No",
-    "Status",
+    // 'User ID',
+    'User Name',
+    'User Role',
+    'Email',
+    'Contact No',
+    'Status',
     // "Last Log In",
-    
-    "Action"
-
+    'Action',
   ];
 
-  data = [
-    {"User ID":"U12345",
-    "User Role":"Admin",
-    "User Name":"Alice Adams",
-    "Email":"alic.adams@email.com",
-    "Contact No":"555-1235",
-    "Status":"Active",
-    "Last Log In":"15/09/23 8:30",
-    "Action":[
-      "Closed",
-      "Reopen",
-      "Resolved"
-    ]},
-    {"User ID":"U12346",
-    "User Role":"User",
-    "User Name":"Bob Brown",
-    "Email":"bob.brown@email.com",
-    "Contact No":"555-1235",
-    "Status":"Active",
-    "Last Log In":"14/09/23 9:00",
-    "Action":[
-      "Select",
-      "Edit User",
-      "Suspend User",
-      "Reactivate User",
-      "Delete User"
-    ]},
-    {"User ID":"U12347",
-    "User Role":"User",
-    "User Name":"John Smith",
-    "Email":"john.smith@email.com",
-    "Contact No":"555-1235",
-    "Status":"Active",
-    "Last Log In":"13/09/23 9:30",
-    "Action":[
-      "Select",
-      "Edit User",
-      "Suspend User",
-      "Reactivate User",
-      "Delete User"
-    ]},
-    {"User ID":"U12348",
-    "User Role":"User",
-    "User Name":"Dean Robbins",
-    "Email":"dean.robb@email.com",
-    "Contact No":"555-1235",
-    "Status":"Active",
-    "Last Log In":"12/09/23 9:30",
-    "Action":[
-      "Select",
-      "Edit User",
-      "Suspend User",
-      "Reactivate User",
-      "Delete User"
-    ]},
-    {"User ID":"U12349",
-    "User Role":"Admin",
-    "User Name":"Alex langford",
-    "Email":"alex.langford@email.com",
-    "Contact No":"555-12341",
-    "Status":"Active",
-    "Last Log In":"11/09/23 10:00",
-    "Action":[
-      "Select",
-      "Edit User",
-      "Suspend User",
-      "Reactivate User",
-      "Delete User"
-    ]},
-    {"User ID":"U12351",
-    "User Role":"User",
-    "User Name":"Joke Conner",
-    "Email":"jake.conner@email.com",
-    "Contact No":"555-13413",
-    "Status":"Active",
-    "Last Log In":"13/09/23 10:00",
-    "Action":[
-      "Select",
-      "Edit User",
-      "Suspend User",
-      "Reactivate User",
-      "Delete User"
-    ]},
-    {"User ID":"U12352",
-    "User Role":"User",
-    "User Name":"Helena Goldburge",
-    "Email":"helena.g@email.com",
-    "Contact No":"555-13412",
-    "Status":"Active",
-    "Last Log In":"16/09/23 10:00",
-    "Action":[
-      "Select",
-      "Edit User",
-      "Suspend User",
-      "Reactivate User",
-      "Delete User"
-    ]},
-  ]
-  constructor(private breadcrumbs:BreadcrumbService,private ngb_modal:NgbModal){
+  data = [];
+  user_form:any;
+  constructor(
+    private local_storage: LocalStorageService,
+    private breadcrumbs: BreadcrumbService,
+    private ngb_modal: NgbModal,
+    private router: Router,
+    private apis: ApiService,
+    private users_service:UsersService,
+    private fb:FormBuilder
+  ) {
 
-
-    
+    this.user_form = this.fb.group({
+      user_status:['all']
+    })
   }
-  
-  addUser(){
-   this.ngb_modal.open(AddUserComponent,{centered:true})
+
+  addUser() {
+    //  this.ngb_modal.open(AddUserComponent,{centered:true})
+    this.router.navigate(['/feature/users/add-user']);
   }
   ngOnInit(): void {
     this.breadcrumbs.setBreadcrumb([
       {
-        name:'Home',
-        link:'/feature/home'
+        name: 'Home',
+        link: '/feature/home',
       },
-     
+
       {
-        name:'Users',
-        link:''
+        name: 'Users',
+        link: '',
       },
-     
     ]);
+   
+    this.getUserStatusList();
   }
+
+  getUserRolesFromCodes(data: string) {
+    if (data != 'Unknown') {
+      return data
+        .split(',')
+        .map((role: any) => {
+          if (role == '1') {
+            return 'Admin';
+          }
+          if (role == '2') {
+            return 'Device Manager';
+          }
+          if (role == '3') {
+            return 'Site Manager';
+          }
+          return '';
+        })
+        .join(',');
+    } else {
+      return data;
+    }
+  }
+
+  onUserStatusChange(data: any) {
+    let selected_status = data.target.value;
+    if (this.status_wise_filter_data.length > 0) {
+      this.data = this.status_wise_filter_data;
+    } else {
+      this.status_wise_filter_data = this.data;
+    }
+
+    if (selected_status != 'all') {
+      let data = this.data.filter(
+        (record: any) => record.Status == selected_status
+      );
+      this.data = data;
+    }
+
+   
+  }
+  getUserStatus(userId:any){
+   return  this.user_status_list.find((user:any)=>user.status_id == userId).status_name;
+  }
+
+  status_wise_filter_data:any=[];
+  onSearch(search_value: any) {
+
+   let  search_query = search_value.target.value;
+
+    this.user_form.get('device_status')?.setValue('all')
+    if (this.status_wise_filter_data.length > 0) {
+      this.data = this.status_wise_filter_data;
+    } else {
+      this.status_wise_filter_data = this.data;
+    }
+
+
+    if(search_query!=''){
+
+      let data = this.data.filter((record:any)=>record['User Name'].includes(search_query));
+      this.data = data;
+
+    }
+    else{
+      this.status_wise_filter_data = this.data;
+    }
+
+
+
+   
+  }
+  onClickSearch(data: any) {}
+
+  getRoleFromId(id:any){
+
+    if(id == 1){
+      return 'Admin'
+    }
+    else if(id==2){
+      return 'Device Manager'
+    }
+    else{
+      return 'Site Manager'
+    }
+
+  }
+
+  catchTableButtonClick(data:any){
+   console.log(data);
+  this.users_service.setSharedData(data.row.data);
+  this.router.navigate(['/feature/users/add-user'])
+  }
+
   
+
+
+
+
+  getUsersData() {
+    this.data = [];
+    let session_token = this.local_storage.getFromLocalStorage('session_token');
+    let session_user = this.local_storage.getFromLocalStorage('session_user');
+    let client_code = this.local_storage.getFromLocalStorage('client_code');
+    let request = {
+      app_name: 'lfc-admin-client',
+      session_token: session_token,
+      session_user: session_user,
+      function_name: 'Get-User-List',
+      client_code: client_code,
+    };
+    this.apis.manageUser(request).subscribe({
+      next: (res) => {
+        if (res.Type == 'Success') {
+          this.data = res.user_list.map((user: any) => {
+            return {
+              'User ID': user.user_id,
+              'User Role':  this.getUserRolesFromCodes(user.roles),
+              user_role_id: user.roles,
+              'User Name': user.name,
+               Email: user.email,
+              'Contact No': user.mobile,
+              Status: this.getUserStatus(user.status_id) ,
+              status_id: this.getUserStatus(user.status_id) ,
+              data: user,
+            };
+          });
+         
+        } else {
+          let modal_ref = this.ngb_modal.open(CommonAlertComponentComponent, {
+            centered: true,
+          });
+          modal_ref.componentInstance.alertData = {
+            alert_title: 'Error',
+            alert_body: res.Msg?res.Msg:'Something went wrong',
+
+            alert_actions: [
+              {
+                button_name: 'Close',
+                type: 1,
+                button_value: 1,
+              },
+            ],
+          };
+        }
+      },
+      error: (err) => {},
+    });
+  }
+
+  user_status_list:any = [];
+
+  getUserStatusList() {
+    let session_token = this.local_storage.getFromLocalStorage('session_token');
+    let session_user = this.local_storage.getFromLocalStorage('session_user');
+    let client_code = this.local_storage.getFromLocalStorage('client_code');
+    let request = {
+      app_name: 'lfc-admin-client',
+      session_token: session_token,
+      session_user: session_user,
+      function_name: 'Get-User-Status-List',
+      client_code: client_code,
+    };
+    this.apis.manageUser(request).subscribe({
+      next: (res) => {
+        this.user_status_list = res;
+        this.getUsersData();
+      },
+      error: (err) => {
+        console.log('error ocurred while fetching user status list ...', err);
+      },
+    });
+  }
+
+ 
+ 
 }

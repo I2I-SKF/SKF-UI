@@ -210,7 +210,7 @@
           <div class="col-sm-12 col-xl-2 col-lg-4">
             <app-common-card>
               <div style="min-height: 150px">
-                <button class="mb-3 action-button-1" (click)="takeBackup()">Take Backup</button>
+                <button class="mb-3 action-button-1"  [disabled]="rowData?.connection_status_name == 'Disconnected'" (click)="takeBackup()">Take Backup</button>
                 <div>
                   <div>Backup Requested</div>
                   <div>{{deviceRecentActions?.TakeBackUp}}</div>
@@ -227,8 +227,9 @@
           </div>
           <div class="col-sm-12 col-xl-2 col-lg-4">
             <app-common-card>
+             
               <div style="min-height: 150px">
-                <button class="mb-3 action-button-1" (click)="UpdateAgent()">Update Agent</button>
+                <button class="mb-3 action-button-1" [disabled]="rowData?.connection_status_name == 'Disconnected'" (click)="UpdateAgent()">Update Agent</button>
 
                 <div>Last Updated</div>
                 <div>{{deviceRecentActions?.UpdateAgent}}</div>
@@ -239,7 +240,7 @@
           <div class="col-sm-12 col-xl-2 col-lg-4">
             <app-common-card>
               <div style="min-height: 150px">
-                <button class="mb-3 action-button-1" (click)="UpdateQDA()" >Update QDA</button>
+                <button class="mb-3 action-button-1"  [disabled]="rowData?.connection_status_name == 'Disconnected'" (click)="UpdateQDA()" >Update QDA</button>
 
                 <div>Last Updated</div>
                 <div>{{deviceRecentActions?.UpdateQDA}}</div>
@@ -250,7 +251,7 @@
           <div class="col-sm-12 col-xl-2 col-lg-4">
             <app-common-card>
               <div style="min-height: 150px">
-                <button class="mb-3 action-button-1" (click)="UpdateEnterprize()">Update Enterprise</button>
+                <button class="mb-3 action-button-1"  [disabled]="rowData?.connection_status_name == 'Disconnected'" (click)="UpdateEnterprize()">Update Enterprise</button>
 
                 <div>Last Updated</div>
                 <div>{{deviceRecentActions?.UpdateEnterprise}}</div>
