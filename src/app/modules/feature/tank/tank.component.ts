@@ -116,6 +116,8 @@ export class TankComponent implements OnInit {
 
 
   getTanksData() {
+    this.tankData = [];
+    this.last_updated_at = null;
     let client_code = this.local_storage.getFromLocalStorage('client_code');
    
 
@@ -129,18 +131,18 @@ export class TankComponent implements OnInit {
       next: (res) => {
        
         if(res.Type=="Success"){
-          this.tankData = res.body.map((tank:any)=>{
+          this.tankData = res.result_list.map((tank:any)=>{
             return {
-              tank_name:tank?.name,
-              tank_id:tank?.id,
-              fluid:tank?.fluidDescription,
-              level_monitoring: tank?.isMonitored ? tank?.isMonitored == true ? 'On' : 'Off' : 'Unknown',
-              last_level:tank?.lastLevelUpdateDateTime ? tank?.lastLevelUpdateDateTime :'Unknown' ,
-              maximum_level:tank?.capacityInLiters ? tank?.capacityInLiters : 'Unknown',
-              current_level:tank?.currentVolumeLevelInLiters ? tank?.currentVolumeLevelInLiters : 'Unknown',
-              low_warning_level:tank?.warningVolumeLevelInLiters ? tank?.warningVolumeLevelInLiters:'Unknown',
-              tank_stop_level:tank?.stopVolumeLevelInLiters  ? tank?.stopVolumeLevelInLiters : 'Unknown',
-              calculated_tank_level: ((tank?.currentVolumeLevelInLiters  / tank?.capacityInLiters ) * 100)
+              tank_name:tank?.tank_name,
+              tank_id:tank?.tank_id,
+              fluid:tank?.fluid,
+              level_monitoring: tank?.level_monitoring ? tank?.level_monitoring == true ? 'On' : 'Off' : 'Unknown',
+              last_level:tank?.last_level ? tank?.last_level :'Unknown' ,
+              maximum_level:tank?.maximum_level ? tank?.maximum_level : 'Unknown',
+              current_level:tank?.current_level ? tank?.current_level : 'Unknown',
+              low_warning_level:tank?.low_warning_level ? tank?.low_warning_level:'Unknown',
+              tank_stop_level:tank?.tank_stop_level  ? tank?.tank_stop_level : 'Unknown',
+              calculated_tank_level: ((tank?.current_level  / tank?.maximum_level ) * 100)
             }
           });
   

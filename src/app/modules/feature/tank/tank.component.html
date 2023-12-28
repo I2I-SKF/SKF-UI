@@ -28,10 +28,10 @@
     <ng-container *ngFor="let tank of tankData">
       <div class="col-sm-12 col-xl-3 mb-3">
         <app-common-card [card_title]="tank?.tank_name">
-          <div class="mb-2">Tank ID: {{ tank.tank_id }}</div>
-          <div class="mb-2">Fluid: {{ tank.fluid }}</div>
-          <div class="mb-2">Level Monitoring: {{ tank?.level_monitoring }}</div>
-          <div class="mb-2">Last Level:{{ tank?.last_level }}</div>
+          <div class="mb-2"> <span class="fw-bold" >Tank ID:</span>  {{ tank.tank_id }}</div>
+          <div class="mb-2"> <span class="fw-bold" >Fluid:</span>  {{ tank.fluid }}</div>
+          <div class="mb-2"> <span class="fw-bold" >Level Monitoring:</span>  {{ tank?.level_monitoring }}</div>
+          <div class="mb-2"> <span class="fw-bold" >Last Level:</span> {{ tank?.last_level }}</div>
           <div class="mb-2">
             <ngb-progressbar
               style="height: 30px"
@@ -41,12 +41,13 @@
               [value]="tank.calculated_tank_level"
             />
           </div>
-          <div class="mb-2">Maximum Level (lit): {{ tank?.maximum_level }}</div>
-          <div class="mb-2">Current Level (lit): {{ tank?.current_level }}</div>
+          <div class="mb-2"> <span class="fw-bold" >Maximum Level (lit):</span>  {{ tank?.maximum_level }}</div>
+          <div class="mb-2"> <span class="fw-bold" >Current Level (lit):</span> {{ tank?.current_level }}</div>
           <div class="mb-2">
-            Low Warning Level: {{ tank?.low_warning_level }}
+            <span class="fw-bold" >Low Warning Level:</span>  {{ tank?.low_warning_level }}
           </div>
-          <div class="mb-2">Tank Stop Level: {{ tank?.tank_stop_level }}</div>
+          <div class="mb-2"> 
+            <span class="fw-bold" > Tank Stop Level:</span> {{ tank?.tank_stop_level }}</div>
         </app-common-card>
       </div>
     </ng-container>

@@ -14,6 +14,15 @@ export function patternValidator(pattern: RegExp, errorMessage: string): Validat
 }
 
 
+export function trimString(string:string){
+  if(string && string.length > 0){
+    return string.trim();
+  }else{
+    return string;
+  }
+}
+
+
 export const VALIDATION_PATTERNS = {
   EMAIL:{
     PATTERN:/^(?!\.)[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
@@ -38,7 +47,7 @@ export const VALIDATION_PATTERNS = {
   },
   ONLY_SPACES:{
     PATTERN:/^.*[^\s].*$/,
-    VALIDATION_MSG:'Enter valid input.'
+    VALIDATION_MSG:'Enter valid input'
   },
   SPACE_TRAILING_LEADING:{
     PATTERN:/^[^\s].*[^\s]$/,
@@ -47,6 +56,10 @@ export const VALIDATION_PATTERNS = {
   SINGLE_STRING_WITHOUT_TRAILING_LEADING_SPACES:{
     PATTERN:/^[^\s]+$/,
     VALIDATION_MSG:'Leading, trailing or spaces in between are not allowed'
+  },
+  ONLY_APHABETS:{
+    PATTERN:/^[A-Za-z\s]+$/,
+    VALIDATION_MSG:'Numbers and special symbols are not allowed'
   }
   
   

@@ -1,13 +1,14 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { BreadcrumbService } from 'src/app/shared/services/breadcrumb.service';
 import { DevicesService } from '../devices.service';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, PatternValidator, Validators } from '@angular/forms';
 import { patternValidator } from 'src/app/shared/validators/pattern.validators';
 import { LocalStorageService } from 'src/app/shared/services/local-storage.service';
 import { ApiService } from 'src/app/shared/services/api.service';
 import { Router } from '@angular/router';
 import { CommonAlertComponentComponent } from 'src/app/shared/components/common-alert-component/common-alert-component.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { VALIDATION_PATTERNS,trimString } from 'src/app/shared/validators/validators/pattern.validator';
 
 @Component({
   selector: 'app-device-actions',
@@ -49,14 +50,14 @@ export class DeviceActionsComponent implements OnInit, OnDestroy {
   ) {
     this.deviceForm = this.fb.group({
       enroll_device: [''],
-      device_name: ['', [Validators.required]],
+      device_name: ['', [Validators.required, patternValidator(VALIDATION_PATTERNS.ONLY_SPACES.PATTERN,VALIDATION_PATTERNS.ONLY_SPACES.VALIDATION_MSG)]],
       country: ['', [Validators.required]],
       state: ['', [Validators.required]],
       timezone: ['', Validators.required],
       device_manager: ['', Validators.required],
       link_child: [false],
       parent_device: [{ value: '', disabled: true }],
-      location: ['', [Validators.required, ,]],
+      location: ['', [Validators.required,patternValidator(VALIDATION_PATTERNS.ONLY_APHABETS.PATTERN,VALIDATION_PATTERNS.ONLY_APHABETS.VALIDATION_MSG), patternValidator(VALIDATION_PATTERNS.ONLY_SPACES.PATTERN,VALIDATION_PATTERNS.ONLY_SPACES.VALIDATION_MSG)]],
     });
   }
 
@@ -139,6 +140,132 @@ export class DeviceActionsComponent implements OnInit, OnDestroy {
     this.getParentDeviceList();
   }
 
+
+
+
+  CheckConnection(){
+    let client_code = this.local_storage.getFromLocalStorage('client_code');
+    let session_user = this.local_storage.getFromLocalStorage('session_user');
+
+    let request = {
+      app_name: 'lfc-admin-client',
+      action_name: 'CheckConnection',
+      session_user: session_user,
+      thing_name: this.rowData.thing_name,
+      client_id: client_code,
+      device_id: this.rowData.device_id,
+    };
+    this.apis.giveCommandToDevice(request).subscribe({
+      next: (res) => {
+        if (res.Type == 'Success') {
+          let modal_ref = this.ngb_modal.open(CommonAlertComponentComponent, {
+            centered: true,
+          });
+
+          modal_ref.componentInstance.alertData = {
+            alert_title: 'Success',
+            alert_body: res.Msg ? res.Msg : 'Request Processed Successfully',
+
+            alert_actions: [
+              {
+                button_name: 'Close',
+                type: 1,
+                button_value: 1,
+              },
+            ],
+          };
+
+          this.getDeviceStatus();
+        } else {
+          let modal_ref = this.ngb_modal.open(CommonAlertComponentComponent, {
+            centered: true,
+          });
+
+          modal_ref.componentInstance.alertData = {
+            alert_title: 'Error',
+            alert_body: res.Msg ? res.Msg : 'Something went wrong',
+
+            alert_actions: [
+              {
+                button_name: 'Close',
+                type: 1,
+                button_value: 1,
+              },
+            ],
+          };
+        }
+      },
+      error: (err) => {
+        console.log('error occurred while giving command.', err);
+      },
+    });
+  }
+  getDeviceStatus(){
+    let client_code = this.local_storage.getFromLocalStorage('client_code');
+    let session_token = this.local_storage.getFromLocalStorage('session_token');
+    let session_user = this.local_storage.getFromLocalStorage('session_user');
+
+
+  
+
+    if (client_code && session_token && session_user) {
+      let request = {
+        app_name: 'lfc-admin-client',
+        function_name: 'Get-Device-Status',
+        clientid: client_code,
+        session_token: session_token,
+        session_user: session_user,
+        device_id: this.rowData.device_id,
+      };
+
+      this.apis.getDeviceDataFromCloud(request).subscribe({
+        next: (res) => {
+          console.log(res);
+          if (res.Type == "Success") {
+            let modal_ref = this.ngb_modal.open(CommonAlertComponentComponent, {
+              centered: true,
+            });
+
+            modal_ref.componentInstance.alertData = {
+              alert_title: 'Success',
+              alert_body:  res.device_status ? "Device Status: " + res.device_status : 'Request Processed Successfully',
+            
+
+              alert_actions: [
+                {
+                  button_name: 'Close',
+                  type: 1,
+                  button_value: 1,
+                },
+              ],
+            };
+           
+          } else {
+            let modal_ref = this.ngb_modal.open(CommonAlertComponentComponent, {
+              centered: true,
+            });
+
+            modal_ref.componentInstance.alertData = {
+              alert_title: 'Oops',
+              alert_body: res.Msg ? res.Msg : 'Something went wrong.',
+
+              alert_actions: [
+                {
+                  button_name: 'Close',
+                  type: 1,
+                  button_value: 1,
+                },
+              ],
+            };
+          }
+        },
+        error: (err) => {
+          console.log('error occurred while updation device');
+        },
+      });
+    }
+  }
+
   onParentLink(data: any) {
     if (this.deviceForm.get('link_child').value) {
       this.deviceForm.get('parent_device').enable();
@@ -168,14 +295,21 @@ export class DeviceActionsComponent implements OnInit, OnDestroy {
     };
     this.apis.getDeviceDataFromCloud(request).subscribe({
       next: (res) => {
-        this.timezoneList = res.Timezone_List.map((timezone: any) => {
-          return {
-            value: timezone.timezone_id,
-            viewValue: timezone.timezone_name,
-          };
-        });
+        if(res.Type="Success"){
+          this.timezoneList = res.Timezone_List.map((timezone: any) => {
+            return {
+              value: timezone.timezone_id,
+              viewValue: timezone.timezone_name,
+            };
+          });
+        }else{
+          this.router.navigate(['/feature/devices']);
+        }
+       
       },
-      error: (err) => {},
+      error: (err) => {
+        this.router.navigate(['/feature/devices']);
+      },
     });
   }
   getUserList() {
@@ -202,6 +336,7 @@ export class DeviceActionsComponent implements OnInit, OnDestroy {
               };
             });
           } else {
+            this.router.navigate(['/feature/devices']);
             let modal_ref = this.ngb_modal.open(CommonAlertComponentComponent, {
               centered: true,
             });
@@ -220,7 +355,9 @@ export class DeviceActionsComponent implements OnInit, OnDestroy {
             };
           }
         },
-        error: (err) => {},
+        error: (err) => {
+          this.router.navigate(['/feature/devices']);
+        },
       });
     }
   }
@@ -250,6 +387,7 @@ export class DeviceActionsComponent implements OnInit, OnDestroy {
               });
             }
           } else {
+            this.router.navigate(['/feature/devices']);
             let modal_ref = this.ngb_modal.open(CommonAlertComponentComponent, {
               centered: true,
             });
@@ -268,7 +406,9 @@ export class DeviceActionsComponent implements OnInit, OnDestroy {
             };
           }
         },
-        error: (err) => {},
+        error: (err) => {
+          this.router.navigate(['/feature/devices']);
+        },
       });
     }
   }
@@ -303,6 +443,7 @@ export class DeviceActionsComponent implements OnInit, OnDestroy {
             this.getStateList(selectedCountry, selectedState);
           }
         } else {
+          this.router.navigate(['/feature/devices']);
           let modal_ref = this.ngb_modal.open(CommonAlertComponentComponent, {
             centered: true,
           });
@@ -321,7 +462,9 @@ export class DeviceActionsComponent implements OnInit, OnDestroy {
           };
         }
       },
-      error: (err: any) => {},
+      error: (err: any) => {
+        this.router.navigate(['/feature/devices']);
+      },
     });
   }
   getStateList(countryId: any, selectedState = null) {
@@ -350,6 +493,7 @@ export class DeviceActionsComponent implements OnInit, OnDestroy {
             this.deviceForm.get('state').setValue(selectedState);
           }
         } else {
+          this.router.navigate(['/feature/devices']);
           let modal_ref = this.ngb_modal.open(CommonAlertComponentComponent, {
             centered: true,
           });
@@ -369,22 +513,7 @@ export class DeviceActionsComponent implements OnInit, OnDestroy {
         }
       },
       error: (err) => {
-        let modal_ref = this.ngb_modal.open(CommonAlertComponentComponent, {
-          centered: true,
-        });
-
-        modal_ref.componentInstance.alertData = {
-          alert_title: 'Error',
-          alert_body: err.message ? err.message : 'Something went wrong',
-
-          alert_actions: [
-            {
-              button_name: 'Close',
-              type: 1,
-              button_value: 1,
-            },
-          ],
-        };
+        this.router.navigate(['/feature/devices']);
       },
     });
   }
@@ -394,6 +523,10 @@ export class DeviceActionsComponent implements OnInit, OnDestroy {
   }
 
   AddDevice() {
+
+   
+    
+
     let client_code = this.local_storage.getFromLocalStorage('client_code');
     let session_token = this.local_storage.getFromLocalStorage('session_token');
     let session_user = this.local_storage.getFromLocalStorage('session_user');
@@ -402,7 +535,7 @@ export class DeviceActionsComponent implements OnInit, OnDestroy {
 
     let form_data = this.deviceForm.value;
 
-    if (client_code && session_token && session_user) {
+    if (client_code && session_token && session_user && this.deviceForm.valid) {
       let request = {
         app_name: 'lfc-admin-client',
         function_name: 'Update-Device',
@@ -410,10 +543,10 @@ export class DeviceActionsComponent implements OnInit, OnDestroy {
         session_token: session_token,
         session_user: session_user,
         creation_status: this.isEditModeOn ? (form_data.status ? 6 : 5) : 5, // if creation status is available in the device list then will send that , if not then will send id 5
-        name: form_data.device_name,
+        name: trimString(form_data.device_name),
         country_id: parseInt(form_data.country),
         state_id: parseInt(form_data.state),
-        location: form_data.location,
+        location: trimString(form_data.location),
         timezone_id: parseInt(form_data.timezone),
         manager_id: parseInt(form_data.device_manager),
         parent_device_id: form_data.link_child
@@ -427,7 +560,7 @@ export class DeviceActionsComponent implements OnInit, OnDestroy {
       this.apis.getDeviceDataFromCloud(request).subscribe({
         next: (res) => {
           console.log(res);
-          if ((res.Type = 'Success')) {
+          if ((res.Type == 'Success')) {
             let modal_ref = this.ngb_modal.open(CommonAlertComponentComponent, {
               centered: true,
             });
@@ -507,7 +640,7 @@ export class DeviceActionsComponent implements OnInit, OnDestroy {
       this.apis.getDeviceDataFromCloud(request).subscribe({
         next: (res) => {
           console.log(res);
-          if ((res.Type = 'Success')) {
+          if (res.Type == 'Success') {
             let modal_ref = this.ngb_modal.open(CommonAlertComponentComponent, {
               centered: true,
             });
@@ -809,6 +942,7 @@ export class DeviceActionsComponent implements OnInit, OnDestroy {
     let client_code = this.local_storage.getFromLocalStorage('client_code');
     let session_token = this.local_storage.getFromLocalStorage('session_token');
     let session_user = this.local_storage.getFromLocalStorage('session_user');
+
 
     let request = {
       app_name: 'lfc-admin-client',

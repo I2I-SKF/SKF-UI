@@ -26,6 +26,8 @@ export class CommonErrorComponent {
     const errorMessages: { [key: string]: string } = {
       required: 'This field is required',
       pattern: value,
+      minLength: `Enter a Valid Input`,
+      maxLength: `Enter a Valid Input`,
       // Add more error messages as needed
     };
 

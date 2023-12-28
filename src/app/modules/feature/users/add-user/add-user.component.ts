@@ -8,6 +8,8 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { CommonAlertComponentComponent } from 'src/app/shared/components/common-alert-component/common-alert-component.component';
 import { Router } from '@angular/router';
 import { IDropdownSettings } from 'ng-multiselect-dropdown';
+import { VALIDATION_PATTERNS, patternValidator,trimString } from 'src/app/shared/validators/validators/pattern.validator';
+
 
 @Component({
   selector: 'app-add-user',
@@ -26,11 +28,11 @@ export class AddUserComponent implements OnInit,OnDestroy {
   selectedItems: any = [];
   constructor(private router:Router,private ngb_modal:NgbModal,private local_storage: LocalStorageService,private breadcrumbs :BreadcrumbService,private fb:FormBuilder,private users_service:UsersService,private apis:ApiService){
     this.userForm = this.fb.group({
-      name:['',[Validators.required]],
-      email:['',[Validators.required]],
+      name:['',[Validators.required,patternValidator(VALIDATION_PATTERNS.ONLY_SPACES.PATTERN,VALIDATION_PATTERNS.ONLY_SPACES.VALIDATION_MSG)]],
+      email:['',[Validators.required,patternValidator(VALIDATION_PATTERNS.ONLY_SPACES.PATTERN,VALIDATION_PATTERNS.ONLY_SPACES.VALIDATION_MSG) ,patternValidator(VALIDATION_PATTERNS.EMAIL.PATTERN,VALIDATION_PATTERNS.EMAIL.VALIDATION_MSG) ]],
     
       role:['',[Validators.required]],
-      contact_number:['',[Validators.required]]
+      contact_number:['',[Validators.required,Validators.max(9999999999),Validators.min(9999999999),patternValidator(VALIDATION_PATTERNS.ONLY_SPACES.PATTERN,VALIDATION_PATTERNS.ONLY_SPACES.VALIDATION_MSG)]]
 
     })
   }
@@ -121,13 +123,13 @@ export class AddUserComponent implements OnInit,OnDestroy {
     let client_code = this.local_storage.getFromLocalStorage('client_code');
     let request = {
      
-      mail_type: "Create-User-Manage",
+      mail_type: "Create-User-Client",
       subject: 'Your LFC Cloud Account',
       token_verification_link: this.token_verification_link,
       activate_token: this.activate_token,
-      user_email: formData.email,
+      user_email: trimString(formData.email),
       login_url:this.login_url,
-      user_name:formData.name,
+      user_name: trimString(formData.name),
       client_code: client_code,
 
     };
@@ -210,9 +212,9 @@ export class AddUserComponent implements OnInit,OnDestroy {
         client_code: client_code,
         session_token: session_token,
         session_user: session_user,
-        name: form_data.name,
-        email: form_data.email,
-        mobile: form_data.contact_number.toString(),
+        name: trimString(form_data.name),
+        email: trimString(form_data.email),
+        mobile: trimString(form_data.contact_number.toString()),
         roles: user_roles.join(','),
       };
       this.apis.manageUser(request).subscribe({
@@ -306,9 +308,9 @@ export class AddUserComponent implements OnInit,OnDestroy {
         session_user: session_user ? parseInt(session_user) : session_user,
         function_name: 'Update-User',
         client_code: client_code,
-        name: form_data.name,
-        email: form_data.email,
-        mobile: form_data.contact_number.toString(),
+        name: trimString(form_data.name),
+        email: trimString(form_data.email),
+        mobile:trimString(form_data.contact_number.toString()),
         status_id: form_data.status ? 3:1 ,
         roles:  user_roles.join(','),
         user_id: this.rowData.user_id,

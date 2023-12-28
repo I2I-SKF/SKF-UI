@@ -405,8 +405,8 @@ export class DispensesComponent {
       app_name: 'lfc-admin-client',
       clientid:client_code ,
       thing_name: this.dispensesForm.get('devices').value,
-      from_time: this.dispensesForm.get('end_date').value ? this.dispensesForm.get('end_date').value + " 00:00:00": null,
-      to_time: this.dispensesForm.get('start_date').value ?  this.dispensesForm.get('start_date').value + " 11:59:59" : null,
+      from_time: this.dispensesForm.get('start_date').value ? this.dispensesForm.get('start_date').value + " 00:00:00": null,
+      to_time: this.dispensesForm.get('end_date').value ?  this.dispensesForm.get('end_date').value + " 11:59:59" : null,
       limit: parseInt(this.dispensesForm.get('transactions').value),
     };
     // if (

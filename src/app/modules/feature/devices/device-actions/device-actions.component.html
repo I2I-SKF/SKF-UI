@@ -8,7 +8,7 @@
         : "Activate An Edge Device"
     }}
   </span>
-  <button *ngIf="isEditModeOn" class="action-button-1">Delete Device</button>
+  <button *ngIf="isEditModeOn" class="action-button-1" [disabled]="true">Delete Device</button>
 </div>
 
 <app-common-card>
@@ -44,7 +44,7 @@
       </div>
       <div class="ms-auto col-sm-3 d-flex">
         <button
-          class="action-button-1 ms-auto align-self-end justify-content-end"
+          class="action-button-1 ms-auto align-self-end justify-content-end" (click)="CheckConnection()"
         >
           Check Connection
         </button>
@@ -192,7 +192,7 @@
 
         <div class="col-sm-4 d-flex">
           <button
-            [disabled]="deviceForm.invalid"
+           [disabled]="deviceForm.invalid"
             type="button"
             class="action-button-1 align-self-end ms-auto"
             (click)="isEditModeOn ? updateDevice() : AddDevice()"
