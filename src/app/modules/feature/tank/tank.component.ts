@@ -77,6 +77,7 @@ export class TankComponent implements OnInit {
             this.tankForm.get('devices').setValue(this.devices_data[0].value)
             
           }
+          
           this.getTanksData() ;
         }
         else{

@@ -32,7 +32,7 @@ export class AddUserComponent implements OnInit,OnDestroy {
       email:['',[Validators.required,patternValidator(VALIDATION_PATTERNS.ONLY_SPACES.PATTERN,VALIDATION_PATTERNS.ONLY_SPACES.VALIDATION_MSG) ,patternValidator(VALIDATION_PATTERNS.EMAIL.PATTERN,VALIDATION_PATTERNS.EMAIL.VALIDATION_MSG) ]],
     
       role:['',[Validators.required]],
-      contact_number:['',[Validators.required,Validators.max(9999999999),Validators.min(9999999999),patternValidator(VALIDATION_PATTERNS.ONLY_SPACES.PATTERN,VALIDATION_PATTERNS.ONLY_SPACES.VALIDATION_MSG)]]
+      contact_number:['',[Validators.required,patternValidator(VALIDATION_PATTERNS.ONLY_SPACES.PATTERN,VALIDATION_PATTERNS.ONLY_SPACES.VALIDATION_MSG),patternValidator(VALIDATION_PATTERNS.PHONE.PATTERN,VALIDATION_PATTERNS.PHONE.VALIDATION_MSG)]]
 
     })
   }

@@ -23,7 +23,7 @@
     </div>
   </form>
 </div>
-<app-common-card>
+<app-common-card *ngIf="tankData && tankData.length> 0">
   <div class="row">
     <ng-container *ngFor="let tank of tankData">
       <div class="col-sm-12 col-xl-3 mb-3">
@@ -59,4 +59,8 @@
     </div>
     <div class="col-sm-12 col-xl-3"></div>
   </div>
+</app-common-card>
+
+<app-common-card *ngIf="!tankData && tankData.length == 0">
+  <p class="text-center">No Data Found</p>
 </app-common-card>

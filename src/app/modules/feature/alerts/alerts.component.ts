@@ -81,7 +81,7 @@ export class AlertsComponent implements OnInit {
 
   getAlertsData(){
     let client_code = this.local_storage.getFromLocalStorage('client_code');
-    let request = {
+    let request:any = {
       "app_name": "lfc-admin-client", 
       "clientid": client_code, 
       "thing_name":  this.alerts_form.get('devices')?.value ? this.alerts_form.get('devices').value : null,  
@@ -89,6 +89,15 @@ export class AlertsComponent implements OnInit {
       "to_time": this.alerts_form.get('end_date')?.value ? this.alerts_form.get('end_date').value + " 11:59:59" : null ,   
       "limit" : this.alerts_form.get('last_alerts')?.value ? this.alerts_form.get('last_alerts')?.value : null
     } 
+
+
+    if(this.alerts_form.get('alerts_form_radio').value == 'last_alerts'){
+      delete request.from_time;
+      delete request.to_time;
+     }
+     else{
+     delete request.limit;
+     }
 
     this.apis.manageAlerts(request).subscribe({
       next:(res)=>{

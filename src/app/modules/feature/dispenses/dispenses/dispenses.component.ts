@@ -409,6 +409,14 @@ export class DispensesComponent {
       to_time: this.dispensesForm.get('end_date').value ?  this.dispensesForm.get('end_date').value + " 11:59:59" : null,
       limit: parseInt(this.dispensesForm.get('transactions').value),
     };
+
+    if(this.dispensesForm.get('dispense_form_radio').value == 'last_transaction'){
+      delete data.from_time;
+      delete data.to_time;
+     }
+     else{
+     delete data.limit;
+     }
     // if (
     //   this.dispensesForm.get('end_date').value == null ||
     //   this.dispensesForm.get('start_date').value == null

@@ -178,7 +178,7 @@ export class SupportComponent implements OnInit {
     let session_user = this.local_storage.getFromLocalStorage('session_user');
     let client_code = this.local_storage.getFromLocalStorage('client_code');
     if (session_token && session_user) {
-      let request = {
+      let request:any = {
         app_name: 'lfc-admin-client',
         function_name: 'Get-Ticket-List',
         session_token: session_token,
@@ -197,6 +197,19 @@ export class SupportComponent implements OnInit {
           ? parseInt(this.dispensesForm.get('last_request').value)
           : null,
       };
+
+      if(this.dispensesForm.get('support_filter_toggle').value == 'last_request'){
+       delete request.start_date;
+       delete request.end_date;
+      }
+      else{
+      delete request.limit;
+      }
+
+
+
+
+
 
      
           this.apis.manageTicket(request).subscribe({

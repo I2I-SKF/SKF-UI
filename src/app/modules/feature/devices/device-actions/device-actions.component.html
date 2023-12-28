@@ -95,6 +95,9 @@
             formControlName="country"
             id=""
           >
+            <option value="">
+              Select
+            </option>
             <option [value]="country.value" *ngFor="let country of countryList">
               {{ country.viewValue }}
             </option>
@@ -107,6 +110,9 @@
         <div class="col-sm-4">
           <label class="font-size-sm mb-2 mt-2" for=""> State</label>
           <select class="form-select" formControlName="state" id="">
+            <option value="">
+              Select
+            </option>
             <option [value]="state.value" *ngFor="let state of StatesList">
               {{ state.viewValue }}
             </option>
@@ -129,7 +135,11 @@
         </div>
         <div class="col-sm-4">
           <label class="font-size-sm mb-2 mt-2" for=""> Timezone</label>
+        
           <select class="form-select" formControlName="timezone" id="">
+            <option value="">
+              Select
+            </option>
             <option
               *ngFor="let timezone of timezoneList"
               [value]="timezone.value"
@@ -144,6 +154,9 @@
         <div class="col-sm-4">
           <label class="mb-2 mt-2" for="">Assign Device Manager</label>
           <select class="form-select" formControlName="device_manager" id="">
+            <option value="">
+              Select
+            </option>
             <option [value]="option.value" *ngFor="let option of deviceManager">
               {{ option.viewValue }}
             </option>
@@ -180,6 +193,7 @@
         <div class="col-sm-4">
           <label class="mb-2 mt-2" for="">Parent Device</label>
           <select class="form-select" formControlName="parent_device" id="">
+
             <option value="" selected>Select</option>
             <option
               [value]="option.value"
