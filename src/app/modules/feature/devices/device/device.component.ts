@@ -16,6 +16,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { LocalStorageService } from 'src/app/shared/services/local-storage.service';
 import { DeviceActionsComponent } from '../device-actions/device-actions.component';
 import { DevicesService } from '../devices.service';
+import { ExportCsvService } from 'src/app/shared/services/export-csv.service';
 @Component({
   selector: 'app-device',
   templateUrl: './device.component.html',
@@ -33,7 +34,8 @@ export class DeviceComponent implements OnInit {
     private apis: ApiService,
     private ngb_modal: NgbModal,
     private local_storage: LocalStorageService,
-    private device_service:DevicesService
+    private device_service:DevicesService,
+    private csv_export:ExportCsvService
   ) {
     this.dispense_status_form = this.fb.group({
       device_status: ['all'],
@@ -326,5 +328,29 @@ export class DeviceComponent implements OnInit {
     } else {
       return 'Unknown';
     }
+  }
+
+  exportToCsv(){
+    
+    let export_data = this.data.map((record:any)=>{
+      return {
+        'Device ID': record['Device ID'],
+            Status: record['Status'],
+            'Device Name':record['Device Name'],
+            'Device Location': record['Device Location'],
+            'Device Manager': record['Device Manager'],
+            Sites: record['Sites'],
+            Controllers: record['Controllers'],
+            'Latest Backup': record['Latest Backup'],
+            'Enterprise Version':record['Enterprise Version'],
+            'Agent Version':record['Agent Version'],
+      }
+    })
+
+    this.csv_export.setDataToExportAsCsv(export_data,'device_data.csv')
+    
+  
+   
+    
   }
 }

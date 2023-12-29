@@ -26,13 +26,16 @@ export class AuthInterceptor implements HttpInterceptor {
         tap({
             next: (event:any) => {
                 if(event?.body?.Code == 'SessionExpired'){
-
+                  console.log('inside the interceptor');
+                  
 
                     this.apis.pushIntoSessionStack();
 
                     if(this.apis.getSessionStackLength() ==  1){
                       localStorage.clear();
-                      let modal_ref= this.ngbModal.open(CommonAlertComponentComponent,{centered:true})
+                      
+                      
+                      let modal_ref= this.ngbModal.open(CommonAlertComponentComponent,{centered:true,backdrop:'static'})
                       modal_ref.componentInstance.alertData = {
                           alert_title: 'Session Alert',
                           alert_body: event?.body?.Msg,
@@ -49,6 +52,7 @@ export class AuthInterceptor implements HttpInterceptor {
   
                       modal_ref.result.then(result=>{
                           this.router.navigate(['/']);
+
                       })
   
                     }
@@ -68,6 +72,7 @@ export class AuthInterceptor implements HttpInterceptor {
                 
             },
             error: (error) => {
+              
               let modal_ref = this.ngbModal.open(CommonAlertComponentComponent, {
                 centered: true,
               });

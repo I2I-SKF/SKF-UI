@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({
@@ -19,9 +20,12 @@ export class ApiService {
   session_expiration_stack:any = [];
 
 
+ 
 
   pushIntoSessionStack(){
     this.session_expiration_stack.push('session')
+    console.log(this.session_expiration_stack);
+    
   }
   popFromSessionStack(){
     if(this.session_expiration_stack.length > 0){

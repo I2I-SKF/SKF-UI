@@ -7,6 +7,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { ApiService } from 'src/app/shared/services/api.service';
 import { DatePipe } from '@angular/common';
 import { LocalStorageService } from 'src/app/shared/services/local-storage.service';
+import { ExportCsvService } from 'src/app/shared/services/export-csv.service';
 
 @Component({
   selector: 'app-dispenses',
@@ -21,7 +22,8 @@ export class DispensesComponent {
     private breadcrumbService: BreadcrumbService,
     private fb: FormBuilder,
     private api: ApiService,
-    private local_storage:LocalStorageService
+    private local_storage:LocalStorageService,
+    private csv_export: ExportCsvService
   ) {}
 
   devices_data:any[] = [
@@ -307,7 +309,7 @@ export class DispensesComponent {
           this.dispense_statuses.push();
 
           dispense_data.push({
-            Device: this.checkIfKeyExists(record.deviceid),
+             Device: this.checkIfKeyExists(record.deviceid),
             'Site Name': this.checkIfKeyExists(record.dmsTypeDescription),
             'Transaction No': this.checkIfKeyExists(record.transactionNumber),
             'Start Time': this.checkIfKeyExists(record.dispenseStartedLocal),
@@ -509,6 +511,35 @@ export class DispensesComponent {
     });
   }
 
+
+  exportToCsv(){
+    console.log(this.data);
+    
+    let export_data = this.dispense_data.map((record:any)=>{
+      return {
+        'Device':record['Device'],
+        'Site Name':record['Site Name'],
+        'Transaction No':record['Transaction No'],
+        'Start Time':record['Start Time'],
+        'Dispense Status':record['Dispense Status'],
+        'Controller Response':record['Controller Response'],
+        'Fluid Name':record['Fluid Name'],
+        'Initiated By':record['Initiated By'],
+        'Ordered':record['Ordered'],
+        'Dispensed':record['Dispensed'],
+        'End Time':record['End Time'],
+       }
+    })
+
+
+        
+
+    this.csv_export.setDataToExportAsCsv(export_data,'dispense_data.csv')
+    
+  
+   
+    
+  }
 
 
 

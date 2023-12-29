@@ -33,7 +33,7 @@
         
         </div>
         <div class="col-sm-12 d-flex justify-content-end mb-2 mt-2 mb-2">
-            <button type="button" class="action-button-1" (click)="createTicket()" >Make Request</button>
+            <button type="button" [disabled]="request_support_form.invalid" class="action-button-1" (click)="createTicket()" >Make Request</button>
             <button type="button" class="action-button-2 ms-2" (click)="closeModal()"  >Cancel</button>
         </div>
        

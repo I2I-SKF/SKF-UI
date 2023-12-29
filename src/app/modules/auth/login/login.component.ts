@@ -74,7 +74,7 @@ export class LoginComponent implements OnInit {
           'client_code',
           jsondata.client_code
         );
-        // this.localStorage.setToLocalStorage('session_token','EgBYylQQlOWXlrTCCNfJAEiumMtbiVkkyutntWbNIQNcbTvEbqUsaxkcDlcbcitZoTDbRaQwUHvfrnVqtIhXAsAwZZrJtxrrhKwe');
+        // this.local_storage.setToLocalStorage('session_token','EgBYylQQlOWXlrTCCNfJAEiumMtbiVkkyutntWbNIQNcbTvEbqUsaxkcDlcbcitZoTDbRaQwUHvfrnVqtIhXAsAwZZrJtxrrhKwe');
         this.local_storage.setToLocalStorage('session_user', session_user);
         this.local_storage.setToLocalStorage('user_name', user_name);
 

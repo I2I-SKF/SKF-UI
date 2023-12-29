@@ -38,8 +38,8 @@ export class AddUserComponent implements OnInit,OnDestroy {
   }
   userRoles: any = [
     { value: '1', viewValue: 'Admin' },
-    { value: '2', viewValue: 'Device Manager' },
-    { value: '3', viewValue: 'Site Manager' },
+    { value: '2', viewValue: 'Site Manager' },
+    { value: '3', viewValue: 'Device Manager' },
   ];
  
 

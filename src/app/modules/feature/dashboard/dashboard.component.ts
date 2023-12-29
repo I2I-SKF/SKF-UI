@@ -5,6 +5,7 @@ import { CommonDialogComponent } from 'src/app/shared/components/common-dialog/c
 import { CHART, CHART_CONFIGURATIONS } from 'src/app/shared/constants/charts';
 import { BreadcrumbService } from 'src/app/shared/services/breadcrumb.service';
 import { ChartServiceService } from 'src/app/shared/services/chart-service.service';
+import { ExportCsvService } from 'src/app/shared/services/export-csv.service';
 import { ToastService } from 'src/app/shared/services/toast.service';
 @Component({
   selector: 'app-dashboard',
@@ -22,7 +23,8 @@ export class DashboardComponent implements OnInit {
     private chart: ChartServiceService,
     public toastService: ToastService,
     public breadcrumbService: BreadcrumbService,
-    private httpclient:HttpClient
+    private httpclient:HttpClient,
+    private export_csv:ExportCsvService
   ) {}
   ngOnInit(): void {
     this.breadcrumbService.setBreadcrumb([
@@ -93,5 +95,10 @@ export class DashboardComponent implements OnInit {
         },
       },
     ]);
+  }
+
+
+  test(){
+    this.export_csv.exportToCSV();
   }
 }
