@@ -72,6 +72,9 @@ export class AddDeviceComponent implements OnInit, OnChanges {
     this.device_parent_data = this.device_data?.filter(
       (record: any) => record.Status != 'Activated'
     );
+
+    console.log(this.device_parent_data);
+    
     this.getUserList() 
     this.getTimezoneList();
   }

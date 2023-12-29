@@ -122,19 +122,24 @@ p {
   cursor: pointer;
 }
 
-.action-button-3 {
-  @include action-btn-1;
-}
+.action-button-3{
+  background-color: $grey-200;
+  color: $black;
+  padding: 4px 8px;
+  border: 1px solid $grey-500;
+  border-radius: 3px;
+ }
 
-.action-button-3:hover {
-  background-color: $primary-darker;
+
+ .action-button-3:hover{
+  background-color:$grey-500;
   color: $white;
 }
-.action-button-3:active {
-  background-color: $primary-darker;
+.action-button-3:active{
+  background-color: $grey-500;
   color: $white;
 }
-.action-button-3:disabled {
+.action-button-3:disabled{
   background-color: $grey-100;
   color: $grey-500;
 }

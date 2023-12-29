@@ -7,6 +7,7 @@ import { FormBuilder } from '@angular/forms';
 import { ApiService } from 'src/app/shared/services/api.service';
 import { LocalStorageService } from 'src/app/shared/services/local-storage.service';
 import { CommentHistoryComponent } from './comment-history/comment-history.component';
+import { ExportCsvService } from 'src/app/shared/services/export-csv.service';
 
 @Component({
   selector: 'app-support',
@@ -54,7 +55,8 @@ export class SupportComponent implements OnInit {
     private ngbmodal: NgbModal,
     private fb: FormBuilder,
     private apis: ApiService,
-    private local_storage: LocalStorageService
+    private local_storage: LocalStorageService,
+    private csv_export:ExportCsvService
   ) {}
   ngOnInit(): void {
     this.breadcrumbService.setBreadcrumb([
@@ -314,4 +316,38 @@ export class SupportComponent implements OnInit {
       });
     }
   }
+
+
+  exportToCsv(){
+    
+
+    
+    let export_data = this.table_data.map((record:any)=>{
+      let comment_history:any = [];
+      if(record['Comment History']){
+        
+    
+      record['Comment History'].forEach((comment:any)=>{
+        comment_history.push(  `${comment.Comment} ${comment.Status} ${comment.Timestamp}` )
+      })
+      }
+
+      return {
+        'Ticket ID':record['Ticket ID'],
+        'Status':record['Status'],
+        'Open Days':record['Open Days'],
+        'Device ID':record['Device ID'],
+        'Request Details':record['Request Details'],
+        'Remote Access':record['Remote Access'],
+        'Resolution':record['Resolution'],
+        'Date':record['Date'],
+        'Comment History': comment_history.join(",") ,
+       }
+    })
+
+    this.csv_export.setDataToExportAsCsv(export_data,'support_data.csv')
+
+  }
+
+
 }

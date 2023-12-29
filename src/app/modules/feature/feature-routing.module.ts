@@ -9,63 +9,77 @@ import { SitesComponent } from './sites/sites/sites.component';
 import { ReportsComponent } from './reports/reports.component';
 import { SupportComponent } from './support/support.component';
 import { TankComponent } from './tank/tank.component';
+import { RoleGuardService } from 'src/app/role.guard';
 
 const routes: Routes = [
   {
     path: '',
     component: DashboardComponent,
     // data: { breadcrumb: 'Home' }
+    data: { breadcrumb: 'Users',roles:['1','3','2'] },
   },
   {
     path: 'home',
     component: DashboardComponent,
     // data: { breadcrumb: 'Home' }
+    canActivate:[RoleGuardService],
+    data: { breadcrumb: 'Users',roles:['1','3','2'] },
   },
   {
     path: 'alerts',
     component: AlertsComponent,
-    data: { breadcrumb: 'Alerts' },
+    canActivate:[RoleGuardService],
+    data: { breadcrumb: 'Users',roles:['1','3','2'] },
   },
   {
     path: 'sites',
     loadChildren: () =>
       import('./sites/sites.module').then((m) => m.SitesModule),
-      data:{breadcrumb:'Sites'}
     
+
+      data: { breadcrumb: 'Users',roles:['1','3'] },
    
     
   },
   {
     path: 'reports',
-    component:ReportsComponent
-    
+    component:ReportsComponent,
+    canActivate:[RoleGuardService],
+    data: { breadcrumb: 'Users',roles:['1','3'] },
    
     
   },
   {
     path: 'tanks',
-    component:TankComponent
-    
+    component:TankComponent,
+    canActivate:[RoleGuardService],
+    data: { breadcrumb: 'Users',roles:['1','3'] },
    
     
   },
   {
     path: 'site-details',
     component: CommonSiteDetailComponent,
-    data: { breadcrumb: 'Site Details' },
+  
+    canActivate:[RoleGuardService],
+    data: { breadcrumb: 'Users',roles:['1','3'] },
   },
   {
     path: 'devices',
 
     loadChildren: () =>
       import('./devices/devices.module').then((m) => m.DevicesModule),
-    data: { breadcrumb: 'Devices' },
+  
+    canActivate:[RoleGuardService],
+    data: { breadcrumb: 'Users',roles:['1','3','2'] },
   },
   {
     path: 'dispenses',
 
     loadChildren: () =>
       import('./dispenses/dispenses.module').then((m) => m.DispensesModule),
+      canActivate:[RoleGuardService],
+      data: { breadcrumb: 'Users',roles:['1','3'] },
     
   },
   {
@@ -74,12 +88,14 @@ const routes: Routes = [
     loadChildren: () =>
       import('./users/users.module').then((m) => m.UsersModule),
     data: { breadcrumb: 'Users' },
+    canActivate:[RoleGuardService],
   },
   {
     path: 'support',
     loadChildren: () =>
     import('./support/support.module').then((m) => m.SupportModule),
-     data: { breadcrumb: 'Users' },
+    canActivate:[RoleGuardService],
+     data: { breadcrumb: 'Users',roles:['1',] },
   },
 
   {

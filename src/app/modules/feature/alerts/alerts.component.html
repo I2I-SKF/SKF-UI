@@ -89,5 +89,5 @@
 
 <div class="d-flex justify-content-end"    >
    
-    <button class="action-button-1" >Download List</button>
+    <button class="action-button-1" (click)="exportToCsv()" [disabled]="data.length == 0" >Download List</button>
 </div>

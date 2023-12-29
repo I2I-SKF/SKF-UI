@@ -63,7 +63,7 @@
 
           <input value="dates" (change)="onFilterGroupChange($event)" formControlName="dispense_form_radio" class="dispense_radio align-self-end me-2" type="radio" name="dispense_form_radio">
       
-        <div>
+        <div class="flex-grow-1">
           <label for="">Start Date</label>
           <input
             formControlName="start_date"
@@ -96,6 +96,11 @@
     </div>
   </form>
 </div>
+
+<div class="pt-2 pb-2" >
+  placeholder for graph
+</div>
+
 <div style="margin-bottom: 15px">
   <form
     [formGroup]="dispense_status_form"

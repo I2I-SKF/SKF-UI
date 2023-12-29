@@ -295,6 +295,7 @@ export class DeviceComponent implements OnInit {
             'Device ID': this.checkIfKeyExists(record.thing_name),
             Status: this.checkIfKeyExists(record.creation_status_name),
             'Device Name': this.checkIfKeyExists(record.name),
+            device_name_for_dd: `${this.checkIfKeyExists(record.thing_name)}  mac_id: ${record.mac_id}`,
             'Device Location': this.checkIfKeyExists(record.location),
             'Device Manager': this.checkIfKeyExists(record.manager_name),
             Sites: this.checkIfKeyExists(record.sites),

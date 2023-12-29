@@ -8,6 +8,7 @@ import { LocalStorageService } from 'src/app/shared/services/local-storage.servi
 import { CommonAlertComponentComponent } from 'src/app/shared/components/common-alert-component/common-alert-component.component';
 import { UsersService } from '../users.service';
 import { FormBuilder } from '@angular/forms';
+import { ExportCsvService } from 'src/app/shared/services/export-csv.service';
 
 @Component({
   selector: 'app-users',
@@ -26,7 +27,7 @@ export class UsersComponent {
     'Action',
   ];
 
-  data = [];
+  data:any = [];
   user_form:any;
   constructor(
     private local_storage: LocalStorageService,
@@ -35,7 +36,8 @@ export class UsersComponent {
     private router: Router,
     private apis: ApiService,
     private users_service:UsersService,
-    private fb:FormBuilder
+    private fb:FormBuilder,
+    private csv_export:ExportCsvService
   ) {
 
     this.user_form = this.fb.group({
@@ -71,10 +73,10 @@ export class UsersComponent {
           if (role == '1') {
             return 'Admin';
           }
-          if (role == '2') {
+          if (role == '3') {
             return 'Device Manager';
           }
-          if (role == '3') {
+          if (role == '2') {
             return 'Site Manager';
           }
           return '';
@@ -233,6 +235,24 @@ export class UsersComponent {
         console.log('error ocurred while fetching user status list ...', err);
       },
     });
+  }
+
+
+  exportToCsv(){
+   
+    
+    let export_data = this.data.map((record:any)=>{
+      return {
+        'User Name':record['User Name'],
+        'User Role':record['User Role'],
+        'Email':record['Email'],
+        'Contact No':record['Contact No'],
+        'Status':record['Status'],
+       }
+    })
+
+    this.csv_export.setDataToExportAsCsv(export_data,'users_data.csv')
+
   }
 
  

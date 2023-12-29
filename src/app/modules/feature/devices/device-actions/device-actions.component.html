@@ -64,11 +64,14 @@
             formControlName="enroll_device"
             id=""
           >
+          <option value="">
+            Select
+          </option>
             <option
               [value]="option.device_id"
               *ngFor="let option of device_parent_data"
             >
-              {{ option["Device Name"] }}
+              {{ option["device_name_for_dd"] }}
             </option>
           </select>
           <app-common-error

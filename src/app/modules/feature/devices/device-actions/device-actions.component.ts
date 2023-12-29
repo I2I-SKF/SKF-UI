@@ -1,14 +1,22 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { BreadcrumbService } from 'src/app/shared/services/breadcrumb.service';
 import { DevicesService } from '../devices.service';
-import { FormBuilder, FormGroup, PatternValidator, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  PatternValidator,
+  Validators,
+} from '@angular/forms';
 import { patternValidator } from 'src/app/shared/validators/pattern.validators';
 import { LocalStorageService } from 'src/app/shared/services/local-storage.service';
 import { ApiService } from 'src/app/shared/services/api.service';
 import { Router } from '@angular/router';
 import { CommonAlertComponentComponent } from 'src/app/shared/components/common-alert-component/common-alert-component.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { VALIDATION_PATTERNS,trimString } from 'src/app/shared/validators/validators/pattern.validator';
+import {
+  VALIDATION_PATTERNS,
+  trimString,
+} from 'src/app/shared/validators/validators/pattern.validator';
 
 @Component({
   selector: 'app-device-actions',
@@ -50,14 +58,36 @@ export class DeviceActionsComponent implements OnInit, OnDestroy {
   ) {
     this.deviceForm = this.fb.group({
       enroll_device: [''],
-      device_name: ['', [Validators.required, patternValidator(VALIDATION_PATTERNS.ONLY_SPACES.PATTERN,VALIDATION_PATTERNS.ONLY_SPACES.VALIDATION_MSG)]],
+      device_name: [
+        '',
+        [
+          Validators.required,
+          patternValidator(
+            VALIDATION_PATTERNS.ONLY_SPACES.PATTERN,
+            VALIDATION_PATTERNS.ONLY_SPACES.VALIDATION_MSG
+          ),
+        ],
+      ],
       country: ['', [Validators.required]],
       state: ['', [Validators.required]],
       timezone: ['', Validators.required],
       device_manager: ['', Validators.required],
       link_child: [false],
       parent_device: [{ value: '', disabled: true }],
-      location: ['', [Validators.required,patternValidator(VALIDATION_PATTERNS.ONLY_APHABETS.PATTERN,VALIDATION_PATTERNS.ONLY_APHABETS.VALIDATION_MSG), patternValidator(VALIDATION_PATTERNS.ONLY_SPACES.PATTERN,VALIDATION_PATTERNS.ONLY_SPACES.VALIDATION_MSG)]],
+      location: [
+        '',
+        [
+          Validators.required,
+          patternValidator(
+            VALIDATION_PATTERNS.ONLY_APHABETS.PATTERN,
+            VALIDATION_PATTERNS.ONLY_APHABETS.VALIDATION_MSG
+          ),
+          patternValidator(
+            VALIDATION_PATTERNS.ONLY_SPACES.PATTERN,
+            VALIDATION_PATTERNS.ONLY_SPACES.VALIDATION_MSG
+          ),
+        ],
+      ],
     });
   }
 
@@ -140,10 +170,7 @@ export class DeviceActionsComponent implements OnInit, OnDestroy {
     this.getParentDeviceList();
   }
 
-
-
-
-  CheckConnection(){
+  CheckConnection() {
     let client_code = this.local_storage.getFromLocalStorage('client_code');
     let session_user = this.local_storage.getFromLocalStorage('session_user');
 
@@ -200,13 +227,10 @@ export class DeviceActionsComponent implements OnInit, OnDestroy {
       },
     });
   }
-  getDeviceStatus(){
+  getDeviceStatus() {
     let client_code = this.local_storage.getFromLocalStorage('client_code');
     let session_token = this.local_storage.getFromLocalStorage('session_token');
     let session_user = this.local_storage.getFromLocalStorage('session_user');
-
-
-  
 
     if (client_code && session_token && session_user) {
       let request = {
@@ -221,15 +245,16 @@ export class DeviceActionsComponent implements OnInit, OnDestroy {
       this.apis.getDeviceDataFromCloud(request).subscribe({
         next: (res) => {
           console.log(res);
-          if (res.Type == "Success") {
+          if (res.Type == 'Success') {
             let modal_ref = this.ngb_modal.open(CommonAlertComponentComponent, {
               centered: true,
             });
 
             modal_ref.componentInstance.alertData = {
               alert_title: 'Success',
-              alert_body:  res.device_status ? "Device Status: " + res.device_status : 'Request Processed Successfully',
-            
+              alert_body: res.device_status
+                ? 'Device Status: ' + res.device_status
+                : 'Request Processed Successfully',
 
               alert_actions: [
                 {
@@ -239,7 +264,6 @@ export class DeviceActionsComponent implements OnInit, OnDestroy {
                 },
               ],
             };
-           
           } else {
             let modal_ref = this.ngb_modal.open(CommonAlertComponentComponent, {
               centered: true,
@@ -295,17 +319,16 @@ export class DeviceActionsComponent implements OnInit, OnDestroy {
     };
     this.apis.getDeviceDataFromCloud(request).subscribe({
       next: (res) => {
-        if(res.Type="Success"){
+        if ((res.Type = 'Success')) {
           this.timezoneList = res.Timezone_List.map((timezone: any) => {
             return {
               value: timezone.timezone_id,
               viewValue: timezone.timezone_name,
             };
           });
-        }else{
+        } else {
           this.router.navigate(['/feature/devices']);
         }
-       
       },
       error: (err) => {
         this.router.navigate(['/feature/devices']);
@@ -519,14 +542,10 @@ export class DeviceActionsComponent implements OnInit, OnDestroy {
   }
   ngOnDestroy(): void {
     this.rowDataSubscription.unsubscribe();
-    this.device_service.setSharedData(null)
+    this.device_service.setSharedData(null);
   }
 
   AddDevice() {
-
-   
-    
-
     let client_code = this.local_storage.getFromLocalStorage('client_code');
     let session_token = this.local_storage.getFromLocalStorage('session_token');
     let session_user = this.local_storage.getFromLocalStorage('session_user');
@@ -560,7 +579,7 @@ export class DeviceActionsComponent implements OnInit, OnDestroy {
       this.apis.getDeviceDataFromCloud(request).subscribe({
         next: (res) => {
           console.log(res);
-          if ((res.Type == 'Success')) {
+          if (res.Type == 'Success') {
             let modal_ref = this.ngb_modal.open(CommonAlertComponentComponent, {
               centered: true,
             });
@@ -942,7 +961,6 @@ export class DeviceActionsComponent implements OnInit, OnDestroy {
     let client_code = this.local_storage.getFromLocalStorage('client_code');
     let session_token = this.local_storage.getFromLocalStorage('session_token');
     let session_user = this.local_storage.getFromLocalStorage('session_user');
-
 
     let request = {
       app_name: 'lfc-admin-client',

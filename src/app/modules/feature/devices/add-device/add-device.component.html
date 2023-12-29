@@ -16,7 +16,7 @@
       <div class="col-sm-6">
         <label class="font-size-sm mb-2 mt-2" for="">Registered Device</label>
         <select (change)="onDeviceSelect($event)" class="form-select" formControlName="enroll_device" id="">
-          <option [value]="option.device_id" *ngFor="let option of device_parent_data">{{option['Device Name']}}</option>
+          <option [value]="option.device_id" *ngFor="let option of device_parent_data">{{option['device_name_for_dd']}}</option>
         </select>
         <app-common-error  [form_control_name]="deviceForm.get('enroll_device')"></app-common-error>
       </div>

@@ -531,14 +531,8 @@ export class DispensesComponent {
        }
     })
 
-
-        
-
     this.csv_export.setDataToExportAsCsv(export_data,'dispense_data.csv')
-    
-  
-   
-    
+
   }
 
 

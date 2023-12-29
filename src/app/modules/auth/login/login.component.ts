@@ -65,10 +65,11 @@ export class LoginComponent implements OnInit {
     this.apis.login(jsondata).subscribe((res: any) => {
       if (res.Type == 'Success') {
         let session_token = res.session_token;
-
         let session_user = `${res.User_ID}`;
         let user_name = res.Username;
+        let user_roles = res.role_list;
 
+        this.local_storage.setToLocalStorage('user_details', user_roles);
         this.local_storage.setToLocalStorage('session_token', session_token);
         this.local_storage.setToLocalStorage(
           'client_code',

@@ -2,6 +2,8 @@ import { Component, EventEmitter, HostListener, Input, OnInit, Output, ViewEncap
 import {NAVIGATION} from '../constants/navigation'
 import { Router } from '@angular/router';
 import { LocalStorageService } from 'src/app/shared/services/local-storage.service';
+import { CommonAlertComponentComponent } from 'src/app/shared/components/common-alert-component/common-alert-component.component';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -10,12 +12,13 @@ import { LocalStorageService } from 'src/app/shared/services/local-storage.servi
 })
 export class HeaderComponent  implements OnInit {
 
-  constructor(private router:Router,private local_storage:LocalStorageService){
+  constructor(private router:Router,private local_storage:LocalStorageService,private ngbmodal:NgbModal){
 
   }
   @Input() isSidebarOpen = false;
   @Output() toggleSideBar:any =  new EventEmitter<any>();
-  userPermissions = ['user'];
+  userPermissions:any = null;
+  filteredNavigationLinks:any= null
   username:any = null;
   options:any =[
     {value:'all_sites',viewValue:'All Sites'},
@@ -34,12 +37,56 @@ export class HeaderComponent  implements OnInit {
     
   ]
 
-  get filteredNavigationLinks() {
-    return NAVIGATION.filter((link:any) => this.userPermissions.includes(link.requiredPermission));
-  }
+  
 
   ngOnInit(){
     this.username = this.local_storage.getFromLocalStorage('user_name')
+
+    if(this.local_storage.getFromLocalStorage('user_details')){
+      this.userPermissions =this.local_storage.getFromLocalStorage('user_details')?.split(",")
+
+      
+      this.filteredNavigationLinks = NAVIGATION.filter((link:any) =>  {
+        
+        const set1 = new Set(this.userPermissions);
+  
+        
+        for (const value of link.requiredPermission) {
+          if (set1.has(value)) {
+            return true; // Common value found
+          }
+        }
+      
+        return false; // No common value found
+        
+      
+      })
+
+
+    }
+    else{
+      let modal_ref = this.ngbmodal.open(CommonAlertComponentComponent,{centered:true});
+      modal_ref.componentInstance.alertData = {
+        alert_title: 'Error',
+        alert_body: 'User role not found!',
+  
+
+        alert_actions: [
+          {
+            button_name: 'Close',
+            type: 1,
+            button_value: 1,
+          },
+        ],
+      };
+
+
+      modal_ref.result.then(result=>{
+        this.router.navigate(['/'])
+      })
+    }
+
+
   }
   siteOptionChanged(event:any){
       console.log(event);

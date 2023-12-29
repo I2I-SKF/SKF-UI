@@ -6,6 +6,7 @@ import { ApiService } from 'src/app/shared/services/api.service';
 import { BreadcrumbService } from 'src/app/shared/services/breadcrumb.service';
 import { LocalStorageService } from 'src/app/shared/services/local-storage.service';
 import { DatePipe } from '@angular/common';
+import { ExportCsvService } from 'src/app/shared/services/export-csv.service';
 
 @Component({
   selector: 'app-alerts',
@@ -27,13 +28,13 @@ export class AlertsComponent implements OnInit {
    
   ];
 
-  data = []
+  data:any = []
   alert_data = [
     {value:3,viewValue:3},
     {value:6,viewValue:6}
   ]
 
-  constructor(private ngbmodal:NgbModal,private breadcrumbs:BreadcrumbService,private fb:FormBuilder,private apis:ApiService,private local_storage:LocalStorageService){
+  constructor(private csv_export:ExportCsvService,private ngbmodal:NgbModal,private breadcrumbs:BreadcrumbService,private fb:FormBuilder,private apis:ApiService,private local_storage:LocalStorageService){
 
   }
 
@@ -217,6 +218,23 @@ export class AlertsComponent implements OnInit {
         this.alerts_form.get('end_date').disable();
       }
 
+
+  }
+
+  exportToCsv(){
+   
+    
+    let export_data = this.data.map((record:any)=>{
+      return {
+        "Date & Time":record['Date & Time'],
+   "Device Name":record['Device Name'],
+   "Location":record['Location'],
+   "Alert Type":record['Alert Type'],
+   "Description":record['Description']
+       }
+    })
+
+    this.csv_export.setDataToExportAsCsv(export_data,'alerts_data.csv')
 
   }
  
