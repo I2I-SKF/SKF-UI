@@ -66,6 +66,7 @@ p {
 }
 
 .action-button-1 {
+  text-wrap: nowrap;
   @include action-btn-1;
 }
 
