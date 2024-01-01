@@ -24,14 +24,14 @@ export const NAVIGATION = [
     icon: '../../../assets/imges/icons/drop.svg',
     name: 'Dispenses',
     link: '/feature/dispenses',
-    requiredPermission: ['1','3'],
+    requiredPermission: ['1','2'],
     class:'invert_img'
   },
   {
     icon: '../../../assets/imges/icons/users.svg',
     name: 'Tanks',
     link: '/feature/tanks',
-    requiredPermission:  ['1','3'],
+    requiredPermission:  ['1','2'],
   },
   {
     icon: '../../../assets/imges/icons/bell.svg',
@@ -57,7 +57,7 @@ export const NAVIGATION = [
     icon: '../../../assets/imges/icons/users.svg',
     name: 'Support',
     link: '/feature/support',
-    requiredPermission:[ '1'],
+    requiredPermission:[ '1' ,'2'],
   },
 
   // {

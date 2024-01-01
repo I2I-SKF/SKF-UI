@@ -35,7 +35,7 @@ export class LoginComponent implements OnInit {
     private ngbModal: NgbModal
   ) {
     this.loginform = this.fb.group({
-      customer_id: ['', [Validators.required ,patternValidator(VALIDATION_PATTERNS.SPACE_TRAILING_LEADING.PATTERN,VALIDATION_PATTERNS.SINGLE_STRING_WITHOUT_TRAILING_LEADING_SPACES.VALIDATION_MSG)]],
+      customer_id: ['', [Validators.required ,patternValidator(VALIDATION_PATTERNS.SPACE_TRAILING_LEADING.PATTERN,VALIDATION_PATTERNS.SINGLE_STRING_WITHOUT_TRAILING_LEADING_SPACES.VALIDATION_MSG),patternValidator(VALIDATION_PATTERNS.SPACE_TRAILING_LEADING.PATTERN,VALIDATION_PATTERNS.SINGLE_STRING_WITHOUT_TRAILING_LEADING_SPACES.VALIDATION_MSG)]],
       user_id: ['', [Validators.required,patternValidator(VALIDATION_PATTERNS.SPACE_TRAILING_LEADING.PATTERN,VALIDATION_PATTERNS.SINGLE_STRING_WITHOUT_TRAILING_LEADING_SPACES.VALIDATION_MSG),patternValidator(/^(?!\.)[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,'Please Enter a valid email.')]],
       password: ['', Validators.required],
     });

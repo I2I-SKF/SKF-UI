@@ -56,22 +56,7 @@ export class AddUserComponent implements OnInit,OnDestroy {
   ngOnInit(): void {
     this.token_verification_link = `${window.location.href.split("/")[0]}//${window.location.href.split("/")[2]}`;
     this.login_url = `${window.location.href.split("/")[0]}//${window.location.href.split("/")[2]}`;
-    this.breadcrumbs.setBreadcrumb([
-      {
-        name:'Home',
-        link:'/feature/home'
-      },
-     
-      {
-        name:'Users',
-        link:'/feature/users'
-      },
-      {
-        name:'Add User',
-        link:''
-      },
-     
-    ]);
+   
 
     this.rowData_subscription = this.users_service.sharedData$.subscribe({
       next:(res)=>{
@@ -80,6 +65,22 @@ export class AddUserComponent implements OnInit,OnDestroy {
           this.userForm.addControl('status', this.fb.control('', Validators.required));
 
           this.isEditModeOn = true;
+          this.breadcrumbs.setBreadcrumb([
+            {
+              name:'Home',
+              link:'/feature/home'
+            },
+           
+            {
+              name:'Users',
+              link:'/feature/users'
+            },
+            {
+              name:'Edit User',
+              link:''
+            },
+           
+          ]);
           console.log(this.rowData,this.userForm);
 
           let user_roles: any[] = this.rowData['roles'].split(',');
@@ -97,6 +98,24 @@ export class AddUserComponent implements OnInit,OnDestroy {
       
           })
 
+        }
+        else{
+          this.breadcrumbs.setBreadcrumb([
+            {
+              name:'Home',
+              link:'/feature/home'
+            },
+           
+            {
+              name:'Users',
+              link:'/feature/users'
+            },
+            {
+              name:'Add User',
+              link:''
+            },
+           
+          ]);
         }
         
          

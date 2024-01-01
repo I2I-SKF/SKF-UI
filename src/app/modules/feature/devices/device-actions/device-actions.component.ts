@@ -676,6 +676,9 @@ export class DeviceActionsComponent implements OnInit, OnDestroy {
                 },
               ],
             };
+            modal_ref.close((result: any) => {
+              this.router.navigate(['/feature/devices']);
+            });
           } else {
             let modal_ref = this.ngb_modal.open(CommonAlertComponentComponent, {
               centered: true,

@@ -76,7 +76,7 @@
     
             
             <div class="col-sm-12  d-flex justify-content-end mt-2 mb-2  mb-2">
-                <button [disabled]="userForm.invalid" type="button" class="action-button-1 align-self-end" (click)="isEditModeOn?updateUser():createUser()" > {{isEditModeOn ? 'Edit':'Add'}} </button>
+                <button [disabled]="userForm.invalid" type="button" class="action-button-1 align-self-end" (click)="isEditModeOn?updateUser():createUser()" >Submit </button>
                 <button *ngIf="!isEditModeOn" [routerLink]="'/feature/users'"  type="button" class="action-button-1 ms-2  align-self-end " >Cancel</button>
             </div>
            

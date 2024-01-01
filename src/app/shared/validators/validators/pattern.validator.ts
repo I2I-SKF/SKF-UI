@@ -54,7 +54,7 @@ export const VALIDATION_PATTERNS = {
     VALIDATION_MSG:'Leading or trailing white spaces are not allowed'
   },
   SINGLE_STRING_WITHOUT_TRAILING_LEADING_SPACES:{
-    PATTERN:/^[^\s]+$/,
+    PATTERN:/^\S+$/,
     VALIDATION_MSG:'Leading, trailing or spaces in between are not allowed'
   },
   ONLY_APHABETS:{

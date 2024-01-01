@@ -53,7 +53,7 @@ const routes: Routes = [
     path: 'tanks',
     component:TankComponent,
     canActivate:[RoleGuardService],
-    data: { breadcrumb: 'Users',roles:['1','3'] },
+    data: { breadcrumb: 'Users',roles:['1','2'] },
    
     
   },
@@ -79,7 +79,7 @@ const routes: Routes = [
     loadChildren: () =>
       import('./dispenses/dispenses.module').then((m) => m.DispensesModule),
       canActivate:[RoleGuardService],
-      data: { breadcrumb: 'Users',roles:['1','3'] },
+      data: { breadcrumb: 'Users',roles:['1','2'] },
     
   },
   {
@@ -87,7 +87,8 @@ const routes: Routes = [
 
     loadChildren: () =>
       import('./users/users.module').then((m) => m.UsersModule),
-    data: { breadcrumb: 'Users' },
+    
+    data: { breadcrumb: 'Users',roles:['1'] },
     canActivate:[RoleGuardService],
   },
   {
@@ -95,7 +96,7 @@ const routes: Routes = [
     loadChildren: () =>
     import('./support/support.module').then((m) => m.SupportModule),
     canActivate:[RoleGuardService],
-     data: { breadcrumb: 'Users',roles:['1',] },
+     data: { breadcrumb: 'Users',roles:['1','2'] },
   },
 
   {
