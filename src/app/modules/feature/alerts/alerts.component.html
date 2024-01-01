@@ -23,9 +23,13 @@
             </option>
           </select>
         </div>
-        <div class="col-sm-2 mb-2 d-flex">
 
+        <div class="col-auto align-self-end">
           <input value="last_alerts" (change)="onFilterGroupChange($event)" formControlName="alerts_form_radio" class="dispense_radio align-self-end me-2" type="radio" name="alerts_form_radio">
+
+        </div>
+        <div class="col-sm-2 mb-2 ">
+
 
           <div class="flex-grow-1" >
             <label for="">Last Alert</label>
@@ -45,10 +49,13 @@
 
          
         </div>
+        <div class="col-auto align-self-end">
+
+          <input value="dates" (change)="onFilterGroupChange($event)" formControlName="alerts_form_radio" class="dispense_radio align-self-end me-2" type="radio" name="alerts_form_radio">
+        </div>
   
         
-        <div class="col-sm-2 mb-2 d-flex">
-          <input value="dates" (change)="onFilterGroupChange($event)" formControlName="alerts_form_radio" class="dispense_radio align-self-end me-2" type="radio" name="alerts_form_radio">
+        <div class="col-sm-2 mb-2">
 
          <div>
           <label for="">Start Date</label>

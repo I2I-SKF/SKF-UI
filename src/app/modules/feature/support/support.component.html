@@ -19,15 +19,19 @@
           </option>
         </select>
       </div>
-      <div class="col-sm-2 mb-2 d-flex">
+
+      <div class="col-auto align-self-end">
         <input
-          value="last_request"
-          (change)="onFilterGroupChange($event)"
-          formControlName="support_filter_toggle"
-          class="dispense_radio align-self-end me-2"
-          type="radio"
-          name="support_filter_toggle"
-        />
+        value="last_request"
+        (change)="onFilterGroupChange($event)"
+        formControlName="support_filter_toggle"
+        class="dispense_radio align-self-end me-2"
+        type="radio"
+        name="support_filter_toggle"
+      />
+      </div>
+      <div class="col-sm-2 mb-2 ">
+       
         <div class="flex-grow-1">
           <label for="">Last Request</label>
           <select
@@ -46,17 +50,20 @@
           </select>
         </div>
       </div>
-
-      <div class="col-sm-2 mb-2 d-flex">
+      <div class="col-auto align-self-end">
         <input
-          value="dates"
-          (change)="onFilterGroupChange($event)"
-          formControlName="support_filter_toggle"
-          class="dispense_radio align-self-end me-2"
-          type="radio"
-          name="support_filter_toggle"
-        />
+        value="dates"
+        (change)="onFilterGroupChange($event)"
+        formControlName="support_filter_toggle"
+        class="dispense_radio align-self-end me-2"
+        type="radio"
+        name="support_filter_toggle"
+      />
 
+      </div>
+
+      <div class="col-sm-2 mb-2 ">
+       
         <div class="flex-grow-1">
           <label for="">Start Date</label>
           <input
