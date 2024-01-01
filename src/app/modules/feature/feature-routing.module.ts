@@ -31,24 +31,24 @@ const routes: Routes = [
     canActivate:[RoleGuardService],
     data: { breadcrumb: 'Users',roles:['1','3','2'] },
   },
-  {
-    path: 'sites',
-    loadChildren: () =>
-      import('./sites/sites.module').then((m) => m.SitesModule),
+  // {
+  //   path: 'sites',
+  //   loadChildren: () =>
+  //     import('./sites/sites.module').then((m) => m.SitesModule),
     
 
-      data: { breadcrumb: 'Users',roles:['1','3'] },
+  //     data: { breadcrumb: 'Users',roles:['1','2'] },
    
     
-  },
-  {
-    path: 'reports',
-    component:ReportsComponent,
-    canActivate:[RoleGuardService],
-    data: { breadcrumb: 'Users',roles:['1','3'] },
+  // },
+  // {
+  //   path: 'reports',
+  //   component:ReportsComponent,
+  //   canActivate:[RoleGuardService],
+  //   data: { breadcrumb: 'Users',roles:['1','3'] },
    
     
-  },
+  // },
   {
     path: 'tanks',
     component:TankComponent,
@@ -57,13 +57,13 @@ const routes: Routes = [
    
     
   },
-  {
-    path: 'site-details',
-    component: CommonSiteDetailComponent,
+  // {
+  //   path: 'site-details',
+  //   component: CommonSiteDetailComponent,
   
-    canActivate:[RoleGuardService],
-    data: { breadcrumb: 'Users',roles:['1','3'] },
-  },
+  //   canActivate:[RoleGuardService],
+  //   data: { breadcrumb: 'Users',roles:['1','3'] },
+  // },
   {
     path: 'devices',
 
@@ -110,3 +110,16 @@ const routes: Routes = [
   exports: [RouterModule],
 })
 export class FeatureRoutingModule {}
+
+
+
+
+// if (role == '1') {
+//   return 'Admin';
+// }
+// if (role == '3') {
+//   return 'Device Manager';
+// }
+// if (role == '2') {
+//   return 'Site Manager';
+// }
