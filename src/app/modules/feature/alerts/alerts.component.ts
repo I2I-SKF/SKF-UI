@@ -75,6 +75,7 @@ export class AlertsComponent implements OnInit {
   }
   startDateChange(data:any){
 
+    this.alerts_form.get('end_date').setValue('')
   }
   endDateChange(data:any){
 

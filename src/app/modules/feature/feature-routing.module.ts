@@ -2,12 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { AlertsComponent } from './alerts/alerts.component';
-import { CommonSiteDetailComponent } from './common-site-detail/common-site-detail.component';
 import { PageNotFoundComponent } from 'src/app/pages/page-not-found/page-not-found.component';
-import { SiteDetailsComponent } from './sites/site-details/site-details.component';
-import { SitesComponent } from './sites/sites/sites.component';
-import { ReportsComponent } from './reports/reports.component';
-import { SupportComponent } from './support/support.component';
 import { TankComponent } from './tank/tank.component';
 import { RoleGuardService } from 'src/app/role.guard';
 

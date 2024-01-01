@@ -37,7 +37,7 @@ export class PasswordVerifyComponent {
         [
           Validators.required,
           patternValidator(
-            VALIDATION_PATTERNS.SPACE_TRAILING_LEADING.PATTERN,
+            VALIDATION_PATTERNS.SINGLE_STRING_WITHOUT_TRAILING_LEADING_SPACES.PATTERN,
             VALIDATION_PATTERNS.SINGLE_STRING_WITHOUT_TRAILING_LEADING_SPACES
               .VALIDATION_MSG
           ),

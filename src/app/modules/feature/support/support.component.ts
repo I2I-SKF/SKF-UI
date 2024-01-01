@@ -123,7 +123,9 @@ export class SupportComponent implements OnInit {
   }
 
   onDeviceChange(event: any) {}
-  startDateChange(event: any) {}
+  startDateChange(event: any) {
+    this.dispensesForm.get('end_date').setValue('');
+  }
   endDateChange(event: any) {}
 
   getDevices() {

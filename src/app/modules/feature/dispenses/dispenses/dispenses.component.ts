@@ -232,7 +232,9 @@ export class DispensesComponent {
 
   }
 
-  startDateChange(data: any) {}
+  startDateChange(data: any) {
+    this.dispensesForm.get('end_date').setValue('')
+  }
 
   endDateChange(data: any) {}
 

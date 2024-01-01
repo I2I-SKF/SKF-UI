@@ -70,6 +70,7 @@
       <div class="col-sm-2 mb-2">
         <label for="">End Date</label>
         <input
+          [min]="dispensesForm.get('start_date').value"
           formControlName="end_date"
           (change)="endDateChange($event)"
           type="date"
