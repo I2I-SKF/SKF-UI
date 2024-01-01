@@ -3,7 +3,7 @@ import { Dialog } from '@angular/cdk/dialog';
 import { Router } from '@angular/router';
 import * as XLSX from 'xlsx';
 import { BreadcrumbService } from 'src/app/shared/services/breadcrumb.service';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ApiService } from 'src/app/shared/services/api.service';
 import { DatePipe } from '@angular/common';
 import { LocalStorageService } from 'src/app/shared/services/local-storage.service';
@@ -22,13 +22,11 @@ export class DispensesComponent {
     private breadcrumbService: BreadcrumbService,
     private fb: FormBuilder,
     private api: ApiService,
-    private local_storage:LocalStorageService,
+    private local_storage: LocalStorageService,
     private csv_export: ExportCsvService
   ) {}
 
-  devices_data:any[] = [
-    
-  ];
+  devices_data: any[] = [];
   sites_data = [{ value: 'all', viewValue: 'All' }];
   dispense_statuses = [
     { value: 'all', viewValue: 'All' },
@@ -59,6 +57,8 @@ export class DispensesComponent {
       viewValue: 100,
     },
   ];
+
+  currentDate: any = new Date();
   displayed_columns = [
     'Device',
     'Site Name',
@@ -173,23 +173,22 @@ export class DispensesComponent {
     ]);
 
     this.dispensesForm = this.fb.group({
-      devices: [this.devices_data[0]?.value],
+      devices: [this.devices_data[0]?.value,Validators.required],
       dispense_form_radio: ['last_transaction'],
-      start_date: [{value:'',disabled:true}],
-      end_date: [{value:'',disabled:true}],
+      start_date: [{ value: '', disabled: true }],
+      end_date: [{ value: '', disabled: true }],
       // dispense_status: ['all'],
       transactions: [10],
     });
     this.dispense_status_form = this.fb.group({
-      devices: [this.devices_data[0]?.value],
+      devices: [this.devices_data[0]?.value ],
       sites: ['all'],
       start_date: [],
       end_date: [],
       dispense_status: ['all'],
     });
-
+    this.currentDate = this.getTodaysDate();
     this.getDevices();
-   
   }
 
   date_min_max = {
@@ -211,29 +210,37 @@ export class DispensesComponent {
     // this.openDialog();
   }
 
-  onFilterGroupChange(data:any){
-      let selected_option  = data.target.value;
-      this.dispensesForm.get('transactions').setValue("");
-      this.dispensesForm.get('start_date').setValue("");
-      this.dispensesForm.get('end_date').setValue("");
-      this.dispensesForm.get('transactions').enable();
-      this.dispensesForm.get('start_date').enable();
-      this.dispensesForm.get('end_date').enable();
-      
-      if(selected_option == 'dates'){
-        this.dispensesForm.get('transactions').disable();
-        this.dispensesForm.get('transactions').setValue("");
-      }
-      else{
-        this.dispensesForm.get('start_date').disable();
-        this.dispensesForm.get('end_date').disable();
-      }
+  onFilterGroupChange(data: any) {
+    let selected_option = data.target.value;
+    this.dispensesForm.get('transactions').setValue('');
+    this.dispensesForm.get('start_date').setValue('');
+    this.dispensesForm.get('end_date').setValue('');
+    this.dispensesForm.get('transactions').enable();
+    this.dispensesForm.get('start_date').enable();
+    this.dispensesForm.get('end_date').enable();
 
-
+    if (selected_option == 'dates') {
+      this.dispensesForm.get('transactions').disable();
+      this.dispensesForm.get('transactions').setValue('');
+    } else {
+      this.dispensesForm.get('start_date').disable();
+      this.dispensesForm.get('end_date').disable();
+      this.dispensesForm.get('transactions').setValue('10');
+    }
   }
 
   startDateChange(data: any) {
-    this.dispensesForm.get('end_date').setValue('')
+    this.dispensesForm.get('end_date').setValue('');
+    console.log(this.dispensesForm.get('start_date').value);
+  }
+
+  getTodaysDate() {
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = (today.getMonth() + 1).toString().padStart(2, '0');
+    const day = today.getDate().toString().padStart(2, '0');
+
+    return `${year}-${month}-${day}`;
   }
 
   endDateChange(data: any) {}
@@ -311,7 +318,7 @@ export class DispensesComponent {
           this.dispense_statuses.push();
 
           dispense_data.push({
-             Device: this.checkIfKeyExists(record.deviceid),
+            Device: this.checkIfKeyExists(record.deviceid),
             'Site Name': this.checkIfKeyExists(record.dmsTypeDescription),
             'Transaction No': this.checkIfKeyExists(record.transactionNumber),
             'Start Time': this.checkIfKeyExists(record.dispenseStartedLocal),
@@ -399,28 +406,31 @@ export class DispensesComponent {
   }
 
   getCloudData() {
-
     this.resetEverything();
 
     let client_code = this.local_storage.getFromLocalStorage('client_code');
-   
 
     let data: any = {
       app_name: 'lfc-admin-client',
-      clientid:client_code ,
+      clientid: client_code,
       thing_name: this.dispensesForm.get('devices').value,
-      from_time: this.dispensesForm.get('start_date').value ? this.dispensesForm.get('start_date').value + " 00:00:00": null,
-      to_time: this.dispensesForm.get('end_date').value ?  this.dispensesForm.get('end_date').value + " 11:59:59" : null,
+      from_time: this.dispensesForm.get('start_date').value
+        ? this.dispensesForm.get('start_date').value + ' 00:00:00'
+        : null,
+      to_time: this.dispensesForm.get('end_date').value
+        ? this.dispensesForm.get('end_date').value + ' 11:59:59'
+        : null,
       limit: parseInt(this.dispensesForm.get('transactions').value),
     };
 
-    if(this.dispensesForm.get('dispense_form_radio').value == 'last_transaction'){
+    if (
+      this.dispensesForm.get('dispense_form_radio').value == 'last_transaction'
+    ) {
       delete data.from_time;
       delete data.to_time;
-     }
-     else{
-     delete data.limit;
-     }
+    } else {
+      delete data.limit;
+    }
     // if (
     //   this.dispensesForm.get('end_date').value == null ||
     //   this.dispensesForm.get('start_date').value == null
@@ -490,22 +500,22 @@ export class DispensesComponent {
 
     this.api.getDeviceDataFromCloud(payload).subscribe({
       next: (res) => {
-       
         this.devices_data = res.device_list.map((record: any) => {
           return {
-            api_data:record,
+            api_data: record,
             device_id: record.device_id,
-            value:this.checkIfKeyExists(record.thing_name),
+            value: this.checkIfKeyExists(record.thing_name),
             viewValue: this.checkIfKeyExists(record.name),
-            thing_name:this.checkIfKeyExists(record.thing_name) 
+            thing_name: this.checkIfKeyExists(record.thing_name),
           };
         });
 
-        if(this.devices_data.length >0){
-          this.dispensesForm.get('devices').setValue(this.devices_data[0].value)
+        if (this.devices_data.length > 0) {
+          this.dispensesForm
+            .get('devices')
+            .setValue(this.devices_data[0].value);
           this.getCloudData();
         }
-       
       },
       error: (error) => {
         console.log('error occurred while fetching device data', error);
@@ -513,32 +523,25 @@ export class DispensesComponent {
     });
   }
 
-
-  exportToCsv(){
+  exportToCsv() {
     console.log(this.data);
-    
-    let export_data = this.dispense_data.map((record:any)=>{
+
+    let export_data = this.dispense_data.map((record: any) => {
       return {
-        'Device':record['Device'],
-        'Site Name':record['Site Name'],
-        'Transaction No':record['Transaction No'],
-        'Start Time':record['Start Time'],
-        'Dispense Status':record['Dispense Status'],
-        'Controller Response':record['Controller Response'],
-        'Fluid Name':record['Fluid Name'],
-        'Initiated By':record['Initiated By'],
-        'Ordered':record['Ordered'],
-        'Dispensed':record['Dispensed'],
-        'End Time':record['End Time'],
-       }
-    })
+        Device: record['Device'],
+        'Site Name': record['Site Name'],
+        'Transaction No': record['Transaction No'],
+        'Start Time': record['Start Time'],
+        'Dispense Status': record['Dispense Status'],
+        'Controller Response': record['Controller Response'],
+        'Fluid Name': record['Fluid Name'],
+        'Initiated By': record['Initiated By'],
+        Ordered: record['Ordered'],
+        Dispensed: record['Dispensed'],
+        'End Time': record['End Time'],
+      };
+    });
 
-    this.csv_export.setDataToExportAsCsv(export_data,'dispense_data.csv')
-
+    this.csv_export.setDataToExportAsCsv(export_data, 'dispense_data.csv');
   }
-
-
-
-
-
 }

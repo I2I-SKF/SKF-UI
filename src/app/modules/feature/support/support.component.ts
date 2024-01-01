@@ -46,7 +46,7 @@ export class SupportComponent implements OnInit {
 
   ticketStatuses: any = [];
   table_data: any[] = [];
-
+  currentDate:any =null;
   dispensesForm: any;
   devices_data: any = [];
 
@@ -70,7 +70,7 @@ export class SupportComponent implements OnInit {
         link: '',
       },
     ]);
-    let date = new Date();
+    this.currentDate = this.getTodaysDate();
     this.dispensesForm = this.fb.group({
       devices: [''],
       start_date: [{ value: '', disabled: true }],
@@ -81,6 +81,7 @@ export class SupportComponent implements OnInit {
 
     this.getTicketStatusList();
     this.getDevices();
+
   }
 
   rowClick(row: any) {
@@ -127,6 +128,16 @@ export class SupportComponent implements OnInit {
     this.dispensesForm.get('end_date').setValue('');
   }
   endDateChange(event: any) {}
+  
+
+  getTodaysDate() {
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = (today.getMonth() + 1).toString().padStart(2, '0');
+    const day = today.getDate().toString().padStart(2, '0');
+
+    return `${year}-${month}-${day}`;
+  }
 
   getDevices() {
     let client_code = this.local_storage.getFromLocalStorage('client_code');

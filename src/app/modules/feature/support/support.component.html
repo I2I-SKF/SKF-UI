@@ -67,6 +67,7 @@
         <div class="flex-grow-1">
           <label for="">Start Date</label>
           <input
+           [max]="currentDate"
             formControlName="start_date"
             (change)="startDateChange($event)"
             type="date"
@@ -77,6 +78,7 @@
       <div class="col-sm-2 mb-2">
         <label for="">End Date</label>
         <input
+        [max]="currentDate"
           [min]="dispensesForm.get('start_date').value"
           formControlName="end_date"
           (change)="endDateChange($event)"
@@ -86,6 +88,7 @@
       </div>
       <div class="col-auto mb-2 ms-auto" style="align-self: end">
         <button
+        [disabled]="dispensesForm.get('support_filter_toggle').value == 'last_request' ? !dispensesForm.get('last_request').value :  !(dispensesForm.get('start_date').value && dispensesForm.get('end_date').value )"
         type="button"
           (click)="getSupportData()"
           class="action-button-1"

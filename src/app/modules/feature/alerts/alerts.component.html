@@ -18,6 +18,7 @@
             name=""
             id=""
           >
+            
             <option [value]="device.value" *ngFor="let device of devices_data">
               {{ device.viewValue }}
             </option>
@@ -60,6 +61,7 @@
          <div>
           <label for="">Start Date</label>
           <input
+          [max]="currentDate"
             formControlName="start_date"
             (change)="startDateChange($event)"
             type="date"
@@ -70,6 +72,7 @@
         <div class="col-sm-2 mb-2">
           <label for="">End Date</label>
           <input
+          [max]="currentDate"
             [min]="alerts_form.get('start_date').value"
             formControlName="end_date"
             (change)="endDateChange($event)"
@@ -80,6 +83,7 @@
        
         <div class="col-sm-2 mb-2 ms-auto" style="align-self: end;">
           <button
+          [disabled]=" alerts_form.get('alerts_form_radio').value == 'last_alerts' ? !alerts_form.get('last_alerts').value :  !(alerts_form.get('start_date').value && alerts_form.get('end_date').value )"
             (click)="getAlertsData()"
             class="action-button-1 ms-auto"
             style="height: 35px"

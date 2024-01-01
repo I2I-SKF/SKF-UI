@@ -28,6 +28,9 @@ export class AlertsComponent implements OnInit {
    
   ];
 
+  currentDate:any=null;
+
+
   data:any = []
   alert_data = [
     {value:3,viewValue:3},
@@ -61,6 +64,7 @@ export class AlertsComponent implements OnInit {
       
     });
     this.getDevices()
+    this.currentDate = this.getTodaysDate();
   }
 
   private formatDate(date: Date): string {
@@ -79,6 +83,16 @@ export class AlertsComponent implements OnInit {
   }
   endDateChange(data:any){
 
+  }
+
+
+  getTodaysDate() {
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = (today.getMonth() + 1).toString().padStart(2, '0');
+    const day = today.getDate().toString().padStart(2, '0');
+
+    return `${year}-${month}-${day}`;
   }
 
   getAlertsData(){
@@ -217,6 +231,7 @@ export class AlertsComponent implements OnInit {
       else{
         this.alerts_form.get('start_date').disable();
         this.alerts_form.get('end_date').disable();
+        this.alerts_form.get('last_alerts').setValue("3");
       }
 
 

@@ -73,6 +73,7 @@
         <div class="flex-grow-1">
           <label for="">Start Date</label>
           <input
+            [max]="currentDate"
             formControlName="start_date"
             (change)="startDateChange($event)"
             type="date"
@@ -84,6 +85,7 @@
       <div class="col-sm-2 mb-2">
         <label for="">End Date</label>
         <input
+          [max]="currentDate"
           [min]="dispensesForm.get('start_date')?.value"
           formControlName="end_date"
           (change)="endDateChange($event)"
@@ -94,6 +96,7 @@
 
       <div class="col-sm-2 mb-2 ms-auto" style="align-self: end">
         <button
+        [disabled]="  dispensesForm.get('dispense_form_radio').value == 'last_transaction' ? !dispensesForm.get('transactions').value :  !(dispensesForm.get('start_date').value && dispensesForm.get('end_date').value )"
           (click)="getCloudData()"
           class="action-button-1 ms-auto"
           style="height: 35px"
