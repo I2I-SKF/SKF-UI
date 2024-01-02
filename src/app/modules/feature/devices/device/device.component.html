@@ -8,8 +8,10 @@
     <app-filter-bar class="col-sm-12 w-100" [component_details]="{name:'Edge Devices'}" [controlConfig]="formControls" ></app-filter-bar>
 </div> -->
 
-<div class="d-flex justify-content-between" style="margin-bottom: 15px">
+<div class="d-flex" style="margin-bottom: 15px">
   <span class="header-1">Alemite Edge Devices</span>
+ 
+  <button class="ms-auto me-2 action-button-1" (click)="downloadAgentInstaller()">Download Installer</button>
   <button class="action-button-1" (click)="addDevice()">Activate Device</button>
 </div>
 

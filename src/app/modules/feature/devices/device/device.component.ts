@@ -17,6 +17,7 @@ import { LocalStorageService } from 'src/app/shared/services/local-storage.servi
 import { DeviceActionsComponent } from '../device-actions/device-actions.component';
 import { DevicesService } from '../devices.service';
 import { ExportCsvService } from 'src/app/shared/services/export-csv.service';
+import { CommonAlertComponentComponent } from 'src/app/shared/components/common-alert-component/common-alert-component.component';
 @Component({
   selector: 'app-device',
   templateUrl: './device.component.html',
@@ -354,4 +355,71 @@ export class DeviceComponent implements OnInit {
    
     
   }
+
+
+
+  downloadAgentInstaller(){
+     
+   
+
+    this.apis.downloadAgentInstaller().subscribe({
+      next:(res)=>{
+        if(res.Type=="Success"){
+
+          if(res['download_url']){
+            window.open(res.download_url,"_blank")
+          }
+          else{
+            let modal_ref = this.ngb_modal.open(CommonAlertComponentComponent, {
+              centered: true,
+            });
+  
+            modal_ref.componentInstance.alertData = {
+              alert_title: 'Error',
+              alert_body: res.Msg ? res.Msg : 'Something went wrong',
+  
+              alert_actions: [
+                {
+                  button_name: 'Close',
+                  type: 1,
+                  button_value: 1,
+                },
+              ],
+            };
+          }
+        
+
+
+
+
+        }else{
+          let modal_ref = this.ngb_modal.open(CommonAlertComponentComponent, {
+            centered: true,
+          });
+
+          modal_ref.componentInstance.alertData = {
+            alert_title: 'Error',
+            alert_body: res.Msg ? res.Msg : 'Something went wrong',
+
+            alert_actions: [
+              {
+                button_name: 'Close',
+                type: 1,
+                button_value: 1,
+              },
+            ],
+          };
+
+        }
+        
+      },
+      error:(err)=>{
+
+      }
+    })
+
+
+
+  }
+
 }

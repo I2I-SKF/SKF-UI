@@ -86,6 +86,8 @@ export class ApiService {
 
     manage_alerts = `https://q22vfomwvg.execute-api.us-east-1.amazonaws.com/DEV`;
 
+    download_agent_installer = `https://dme091pzhf.execute-api.us-east-1.amazonaws.com/DEV/`;
+
 
 
 
@@ -156,6 +158,10 @@ export class ApiService {
 
   sendEmail(payload:any):Observable<any>{
     return this.http.post(this.sendMail,payload);
+  }
+
+  downloadAgentInstaller():Observable<any>{
+    return this.http.post(this.download_agent_installer,{});
   }
 
 

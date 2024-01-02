@@ -711,7 +711,6 @@ export class DeviceActionsComponent implements OnInit, OnDestroy {
     let session_user = this.local_storage.getFromLocalStorage('session_user');
 
     let request = {
-      // session_token: session_token,
       command: 'TakeBackup',
       app_name: 'lfc-admin-client',
       action_name: 'TakeBackUp',
