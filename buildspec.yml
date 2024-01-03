@@ -1,5 +1,5 @@
 version: 0.2
- 
+
 phases:
   install:
     runtime-versions:
@@ -9,10 +9,10 @@ phases:
       - export ANGULAR_VERSION="15.2.9"
       - export NODEJS_VERSION="18.15.0"
       - export AWS_REGION="us-east-1"
- 
+
       # Install the specified Angular version globally
       - npm install -g @angular/cli@"$ANGULAR_VERSION"
- 
+
   build:
     commands:
       # Check installed versions and AWS region
@@ -21,10 +21,11 @@ phases:
       - echo "Node.js version: $NODEJS_VERSION"
       - echo "Angular CLI version: $ANGULAR_VERSION"
       - echo "AWS Region: $AWS_REGION"
+      
       # Install dependencies and build your Angular app
       - npm install 
-      - ng build
- 
+      - ng build 
+
 artifacts:
   files:
     - dist/**/*
