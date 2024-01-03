@@ -1,7 +1,10 @@
+@import '../../../../variables';
 .card-header{
-    background-color: #d6d6d6;
+    background-color:#9b9b9b;
+    color: white;
 }
 
-.text-size{
-    font-size: var(--font-small);
+
+.icon-size{
+    font-size: $font-lg;
 }

@@ -1,0 +1,160 @@
+@import '../../../../variables';
+
+
+.primary-style{
+    background-color:$primary-600;
+    color:$white;
+    padding: 10px 16px;
+    border-radius: 2px;
+    display: flex;  
+    align-items: center;
+    border: none;
+   
+}
+.primary-style img{
+    filter: invert(1);
+}
+
+.primary-style:hover{
+    background-color:$primary-700;
+    color:$white;
+}
+
+.primary-style:active{
+    background-color:$primary-800;
+    color:$white;
+}
+
+
+
+
+
+
+
+.secondary-1{
+    border: 1px solid $primary-600;
+    background-color: $primary-200;
+    padding: 10px 16px;
+    color: $primary-600;
+    
+}
+
+.secondary-1:hover{
+    border: 1px solid $primary-700;
+    background-color: $primary-300;
+   
+    color: $primary-700;
+}
+.secondary-1:active{
+    border: 1px solid $primary-800;
+    background-color: $primary-400;
+    color: $primary-800;
+}
+
+
+.secondary-1 span{
+    font-weight: 700;
+}
+
+.secondary-style img{
+    filter: invert(13%) sepia(77%) saturate(3521%) hue-rotate(215deg) brightness(88%) contrast(93%);
+}
+
+
+
+.font-size{
+    height: 20px;
+}
+
+
+
+
+
+.destructive-style {
+    background-color:$red-base;
+    color:$white;
+    border: none;
+    padding: 10px 16px;
+    border-radius: 2px;
+    display: flex;  
+    align-items: center;
+}
+.destructive-style:hover {
+    background-color:$red-dark;
+  
+}
+.destructive-style:active {
+    background-color:$red-darker;
+  
+}
+
+
+
+
+.secondary-2 {
+    color: $grey-700;
+    border: 1px solid $grey-700;
+    padding: 10px 16px;
+    border-radius: 2px;
+    display: flex;  
+    align-items: center;
+}
+
+.secondary-2:hover{
+    background-color: $grey-200;
+}
+
+.secondary-2:active{
+    background-color: $grey-300;
+}
+
+.secondary-2 span{
+    font-weight: 700;
+}
+
+.destructive-secondary img{ 
+filter: invert(0);
+}
+
+
+.success{
+    background-color: $green-base;
+    color: $white;
+    padding: 10px 16px;
+    border-radius: 2px;
+    display: flex;  
+    align-items: center;
+    border: none;
+}
+
+.success:hover{
+    background-color: $green-dark;
+}
+
+.success:active{
+    background-color: $green-darker;
+}
+
+
+
+.button_disabled{
+    background-color: $grey-300 !important;
+    color: $grey-500 !important;
+}
+
+.button_disabled img{
+    filter: invert(77%) sepia(13%) saturate(184%) hue-rotate(180deg) brightness(93%) contrast(80%);
+}
+
+.link{
+    background-color: transparent;
+    border: none;
+    color: $primary-600;
+    outline:none;
+    padding: 10px 16px;
+    border-radius: 2px;
+}
+
+.link img{
+    
+}

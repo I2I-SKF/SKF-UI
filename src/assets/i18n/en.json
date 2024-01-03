@@ -1,0 +1,74 @@
+{
+  "HEADER.QUICK.DISPENSE": "LFC Quick Dispense",
+  "SIDEBAR.MONITOR": "Monitor Dispenses",
+  "SIDEBAR.HOME": "Home",
+  "SIDEBAR.HISTORY": "History",
+  "SIDEBAR.LOGOUT": "Log Out",
+  "HOME.START": "Start",
+  "HOME.ACTIVE.DISPENSES": "Active Dispenses",
+  "HOME.HISTORY": "History",
+  "HOME.LABEL.DISPENSEING.HOSE": "Dispensing Hose",
+  "HOME.LABEL.ORDER.QANTITY": "Dispensing Hose",
+  "HOME.LABEL.UNIT": "Dispensing Hose",
+  "HOME.LABEL.ENTER.PIN": "Enter PIN",
+  "HOME.BUTTON.START": "Start",
+  "forgot-password": "Forgot Password?",
+  "login": "Login",
+  "password": "Password",
+  "email": "Email",
+  "cancelled-at-11-45-am-time-out": "Cancelled at 11:45 AM (Time Out)",
+  "started-at-11-30-and-0": "Started at 11:30 and",
+  "fluid-1-ordered-qty-4-quart-or-dispensed-qty-4-quart-0": "Fluid 1, Ordered Qty.:4 Quart | Dispensed Qty.:4 Quart",
+  "dispense-id-12869-9-13-2023-initiated-by-scott-p-0": "Dispense ID : 12869 - 9/13/2023, Initiated by: Scott P.",
+  "completed-at-11-45-am": "Completed at 11:45 AM",
+  "started-at-11-30-and": "Started at 11:30 and",
+  "fluid-1-ordered-qty-4-quart-or-dispensed-qty-4-quart": "Fluid 1, Ordered Qty.:4 Quart | Dispensed Qty.:4 Quart",
+  "dispense-id-12869-9-13-2023-initiated-by-scott-p": "Dispense ID : 12869 - 9/13/2023, Initiated by: Scott P.",
+  "search-by-dispense-id-username": "Search by dispense ID / Username",
+  "end-date": "End Date",
+  "start-date": "Start Date",
+  "timed-out": "Timed Out",
+  "cancelled": "Cancelled",
+  "dispensed-partial": "Dispensed Partial",
+  "dispensed-full": "Dispensed Full",
+  "all": "All",
+  "last-7-days": "Last 7 Days",
+  "last-2-days": "Last 2 Days",
+  "yesterday": "Yesterday",
+  "today": "Today",
+  "HOME": {
+    "HISTORY": "History",
+    "ACTIVE": {
+      "DISPENSES": "Active Dispenses"
+    },
+    "BUTTON": {
+      "START": "Start"
+    },
+    "LABEL": {
+      "ENTER": {
+        "PIN": "Enter PIN"
+      },
+      "DISPENSEING": {
+        "HOSE": "Dispensing Hose"
+      }
+    }
+  },
+  "refresh": "Refresh",
+  "showing-12-active-dispenses": "Showing 12 active dispenses",
+  "dispense": "Dispense",
+  "find-a-dispense": "Find A Dispense",
+  "selectedhose-1-40-selectedhose-2-60-90": "{0}%",
+  "tank-level": "Tank Level",
+  "gallon-gal": "Gallon (Gal)",
+  "quart-qt": "Quart (Qt)",
+  "pint-pt": "Pint (Pt)",
+  "ounce-oz": "Ounce (Oz)",
+  "select-0": "Select",
+  "unit": "Unit",
+  "enter-quantity": "Enter Quantity",
+  "order-quantity": "Order Quantity",
+  "3-castrol-gtx": "3 Castrol GTX",
+  "2-castrol-gtx": "2 Castrol GTX",
+  "1-castrol-gtx": "1 Castrol GTX",
+  "select": "Select"
+}

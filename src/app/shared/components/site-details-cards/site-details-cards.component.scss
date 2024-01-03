@@ -1,3 +1,27 @@
-.text-style{
-    font-size: var(--font-small);
+@import '../../../../variables';
+
+.text-style {
+    font-size: $font-xs;
 }
+
+.tank_level_container{
+    height: 330px;
+    overflow-y: auto;
+
+
+}
+
+.alerts_table td,th{
+text-wrap: nowrap;
+padding:5px 5px;
+// border:1px solid grey;
+font-size: $font-xs;
+
+}
+
+
+.warning{
+    background-color:$orange-base;
+  
+}
+

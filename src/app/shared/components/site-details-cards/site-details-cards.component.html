@@ -1,26 +1,69 @@
-<div class="site_details_container" >
+<div class="site_details_container row h-100">
+  <div class="mt-1 mb-1 col-sm-12 d-flex justify-content-between">
+    <div class="fw-bold me-2">
+      <div
+        style="height: 10px; width: 10px; display: inline-block"
+        class="rounded bg-success"
+      ></div>
+      {{ card_title ? card_title : "Device Name. Location" }}
+    </div>
+    <div class="font-size-sm">11/22/23 12:36</div>
+    <button class="action-button-3 ms-auto">Refresh</button>
+  </div>
+  <div class="col-sm-12 col-xl-5 row">
+    <div class="mt-1 mb-1 col-sm-12">
+      <div class="row d-flex align-items-center">
+        <div class="col-auto">
+          <label for="">Show Site:</label>
+        </div>
+        <div class="col-sm-3">
+          <select class="form-select" name="" id="">
+            <option value="">All</option>
+          </select>
+        </div>
+        <div class="col-auto ms-auto">
+          <label for="">Show Fluid:</label>
+        </div>
+        <div class="col-sm-4">
+          <select class="form-select" name="" id="">
+            <option value="">All</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <app-chart [chartOptions]="chartOptions"></app-chart>
+    <div
+      class="col-sm-12 d-flex align-items-center"
+      style="align-self: baseline"
+    >
+      <button class="action-button-3">Download Data</button>
+    </div>
+  </div>
 
-    <div  class="row">
-        <div class="col-sm-6">
-           <app-navigation-dropdown></app-navigation-dropdown>
-        </div>
-        <div class="col-sm-6">
-            <app-navigation-dropdown></app-navigation-dropdown>
-        </div>
+  <div class="col-sm-12 col-xl-4 d-flex flex-column">
+    <div class="mt-1 mb-1 fw-bold col-sm-12">Device Alerts</div>
+    <div [style]="" class="row m-0" style="overflow-x: auto">
+      <app-common-table
+        [columns]="device_alerts_columns"
+        [data]="device_alerts_data"
+      ></app-common-table>
     </div>
-    <div>
-        <app-chart [chartOptions]="chartOptions" ></app-chart>
+    <div class="mt-auto">
+      <button class="action-button-3" [routerLink]="'/alerts'">
+        Show More
+      </button>
     </div>
-    <div class="row m-0 p-0 d-flex align-items-center" >
-        <div class="col-sm-9 m-0 p-0 text-style " [style]="chartOptions?.lang?.noData ?'color:red':''" >
-          {{chartOptions?.lang?.noData ? 'Off-line since last 7:28 HH:MM ':'Latest Data : 22 august at 12:36 CDT'   }} 
-        </div>
-        <div class="col-sm-3 m-0 p-0  " >
-            <button mat-button  class="float-end" >
-                <div class="d-flex align-items-center text-style" ><span>Site</span>
-                    <span class="material-symbols-outlined" style="font-size: 14px;" >open_in_new</span></div>
-            </button>
-        </div>
+  </div>
+  <div class="col-sm-12 col-xl-3">
+    <div class="mt-1 mb-1 fw-bold col-sm-12">Tank Levels</div>
+    <div class="" style="overflow-x: auto">
+      <app-common-table
+        [columns]="tank_level_columns"
+        [data]="tanks_level_data"
+      ></app-common-table>
     </div>
-
+  </div>
 </div>
+
+
+

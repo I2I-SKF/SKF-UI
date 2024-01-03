@@ -1,52 +1,38 @@
-/* You can add global styles to this file, and also import other style files */
+@use '@angular/material' as mat;
+
+@include mat.core();
+$skf-edge-primary: mat.define-palette(mat.$indigo-palette);
+$skf-edge-accent: mat.define-palette(mat.$pink-palette, A200, A100, A400);
+$skf-edge-warn: mat.define-palette(mat.$red-palette);
+$skf-edge-theme: mat.define-light-theme((
+  color: (
+    primary: $skf-edge-primary,
+    accent: $skf-edge-accent,
+    warn: $skf-edge-warn,
+  )
+));
+@include mat.all-component-themes($skf-edge-theme);
+
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+@import "bootstrap/scss/bootstrap";
+@import "variables";
 
 
-
-
-
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif;  }
-
-/* Importing Bootstrap SCSS file. */
-@import 'bootstrap/scss/bootstrap';
-
-*{
-    box-sizing: border-box;
+@font-face {
+  font-family: noto-light;
+  src: url(./assets/fonts/NotoSansDisplay-Light.ttf);
 }
-
-.snackbar{
-    background-color: lightblue;
-    border-bottom: yellow;
-    color: grey;
+@font-face {
+  font-family: noto-thin;
+  src: url(./assets/fonts/NotoSansDisplay-Thin.ttf);
 }
-p{
-   margin: 0;
-}
-/* Importing Bootstrap SCSS file. */
-@import 'bootstrap/scss/bootstrap';
-
-
-
-
-
-
-
-
-:root {
-    --primary-color:#3c68ae;
-    --font-small: 12px;
-    --font-medium: 16px;
-    --font-large: 24px;
-    --font-xl: 30px;
-    --nav-font-color:white;
-    --icon-size-md:20px;
+@font-face {
+  font-family: noto-regular;
+  src: url(./assets/fonts/NotoSansDisplay-Regular.ttf);
 }
 
 
 
-.content-wrapper .mat-form-field-underline {
-    display: none;
-  }
 
-
+@import './themes/alemite.scss';
 

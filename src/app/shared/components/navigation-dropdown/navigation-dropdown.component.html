@@ -1,6 +1,6 @@
 <div
   tabindex="0"
-  class="select"
+  class="custom_select"
   (blur)="focusOut()"
   [ngClass]="{
     dropdown_expanded: isDropdownExpanded ? isDropdownExpanded : false
@@ -14,12 +14,14 @@
     (click)="toggleDropdown()"
     class="text-inside d-flex align-items-center gap-2 w-100"
   >
-    <span *ngIf="!isDropdownExpanded" class="material-symbols-outlined"
-      >{{ icon }}
+    <span  
+      ><img class="icon-regular" [src]="icon" alt="">
     </span>
     {{ selected_item?.viewValue || placeholder }}
-    <div class="material-symbols-outlined cursor_selected ms-auto">
-      {{ isDropdownExpanded ? "expand_less" : "expand_more" }}
+    <div class=" cursor_selected ms-auto">
+      <!-- {{ isDropdownExpanded ? "expand_less" : "expand_more" }} -->
+      <img *ngIf="isDropdownExpanded"  style="filter: invert(1);" src="../../../../assets/imges/icons/angle-up.svg" alt="" srcset="">
+      <img *ngIf="!isDropdownExpanded" style="filter: invert(1);" src="../../../../assets/imges/icons/angle-down.svg" alt="" srcset="">
     </div>
   </div>
 

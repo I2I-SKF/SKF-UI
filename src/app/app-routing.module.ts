@@ -6,22 +6,46 @@ import { FeatureComponent } from './modules/feature/feature.component';
 
 const routes: Routes = [
   {
-    path: 'auth',
+    path: '',
     loadChildren: () =>
     import('./modules/auth/auth.module').then((m) => m.AuthModule),
     
       
   },
   {
-    path: '',
-    component:FeatureComponent,
-
+    path: 'VerifyToken',
+    
     loadChildren: () =>
-      import('./modules/feature/feature.module').then((m) => m.FeatureModule),
-    canActivateChild: [authGuard],
+      import('./modules/check-token/check-token.module').then((m) => m.CheckTokenModule),
+    
   
     
   },
+  {
+    path: 'set-password',
+   
+    loadChildren: () =>
+      import('./modules/create-password/create-password.module').then((m) => m.CreatePasswordModule),
+  
+
+  },
+  {
+    path: 'reset-password',
+   
+    loadChildren: () =>
+      import('./modules/create-password/create-password.module').then((m) => m.CreatePasswordModule),
+  
+
+  },
+  {
+    path: 'feature',
+    component:FeatureComponent,
+    loadChildren: () =>
+      import('./modules/feature/feature.module').then((m) => m.FeatureModule),
+    canActivateChild: [authGuard],
+    
+  },
+ 
  
   {
     path: '**',

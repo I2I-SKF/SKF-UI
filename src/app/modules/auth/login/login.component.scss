@@ -1,39 +1,57 @@
-.nav_background{
-background-color: var(--primary-color);
-color:white;
-padding: 10px 30px;
-}
+@import '../../../../variables';
 
-
-.login_container{
-min-width: 350px;
-border-radius: 10px;
-overflow: hidden;
-box-shadow: 0px 3px 5px #f2f2f2;
-border: none;
-
-}
-
-.wrapper-class{
+.center-container{
+    height: 100vh;
+    width: 100vw;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
-    width: 100vw;
+   
 }
 
-.login_header{
-color: var(--primary-color);
-padding: 10px 30px;
-
+.login-container{
+    width: 300px;
+    padding: 20px 30px;
 }
 
-.login_form{
-    padding: 10px 30px;
+.main-title{
+    font-size: $font-xxl;
+    color: $primary-600;
+    font-weight: 500;
 }
+
+.main-sub-title{
+   
+   
+}
+
+.page-title-color{
+    color: $primary-600;
+}
+
+
 
 .forgot_password{
-color: var(--primary-color);
-text-decoration: none;
-cursor: pointer;
+    font-size: $font-sm;
+}
+
+.mystyle{
+    @include action-btn-1;
+}
+
+
+.buildno{
+    color: $grey-300;
+}
+
+
+.toggle{
+    position: absolute;
+    font-size: 18px;
+    color:$grey-700;
+    right: 15px;
+    top: 4px;
+    bottom: 8px;
+    margin: auto;
+    user-select: none;
 }

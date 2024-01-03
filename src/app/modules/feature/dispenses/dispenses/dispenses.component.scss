@@ -1,0 +1,26 @@
+
+@import '../../../../../themes/variables_alemite';
+
+.search-box{
+    border-top: 1px solid #d2d2d2;
+    border-left: 1px solid #d2d2d2;
+    border-bottom: 1px solid #d2d2d2;
+}
+.search-button{
+    background-color: $white;
+    border-top: 1px solid #d2d2d2;
+    border-right: 1px solid #d2d2d2;
+    border-bottom: 1px solid #d2d2d2;
+}
+
+select{
+    font-size: $font-sm;
+}
+
+.intable_labels{
+    color: white;
+}
+
+.dispense_radio{
+    accent-color: $primary-color;
+}

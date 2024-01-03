@@ -1,0 +1,14 @@
+<button  [disabled]="isDisabled" class="" [ngClass]="{
+    'primary-style':button_config.variant == 1 && button_config.isSecondary == false,
+    'destructive-style':button_config.variant == 3 && button_config.isSecondary == false,
+    'success':button_config.variant == 2 && button_config.isSecondary == false,
+    'link':button_config.variant == 4 && button_config.isSecondary == false ,
+    'button_disabled':isDisabled,
+    'secondary-1':button_config.secondary_type == 1,
+    'secondary-2':button_config.secondary_type == 2,
+ 
+ }" > 
+<img class="font-size me-2" *ngIf="button_config.icon"  src="../../../../assets/imges/icons/attention.svg" alt="">
+
+    
+    <span>{{button_label}}</span></button>
