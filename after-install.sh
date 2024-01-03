@@ -9,7 +9,7 @@ rm -rf /var/www/html/index.html || { echo 'Failed to remove index.html'; exit 1;
 
 # Copying new files from the build directory
 echo "Copying new files to web root"
-cp -r /var/www/html/dist/dist/alemite-cloud/* /var/www/html/ || { echo 'Failed to copy files'; exit 1; }
+cp -r /var/www/html/dist/alemite-cloud/* /var/www/html/ || { echo 'Failed to copy files'; exit 1; }
 
 # Setting the correct permissions for the web server
 echo "Setting permissions for web root"
