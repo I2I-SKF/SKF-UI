@@ -18,9 +18,9 @@ phases:
       # Check installed versions and AWS region
       - node -v
       - npm -v
-      - echo "Node.js version: $NODEJS_VERSION"
-      - echo "Angular CLI version: $ANGULAR_VERSION"
-      - echo "AWS Region: $AWS_REGION"
+      # - echo "Node.js version: $NODEJS_VERSION"
+      # - echo "Angular CLI version: $ANGULAR_VERSION"
+      # - echo "AWS Region: $AWS_REGION"
       
       # Install dependencies and build your Angular app
       - npm install 
